@@ -1,16 +1,14 @@
+import Vue from "vue";
+import router from "./router/index";
+import ElementUI from "element-ui";
+import App from "./App";
 
-
-import Vue from 'vue';
-import router from './router/index';
-
-import App from './App';
-
-import 'lib-flexible'
-import './style';
-
+import "lib-flexible";
+import "./style";
+Vue.use(ElementUI);
 var app = new Vue({
-  el: '#app',
+  el: "#app",
   router,
-  template: '<App/>',
+  template: "<App/>",
   components: { App }
 });

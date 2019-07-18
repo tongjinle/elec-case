@@ -5,86 +5,85 @@
 </template>
 
 <script>
-import echarts from 'echarts';
+import echarts from "echarts";
 export default {
-  name: 'fanChart',
+  name: "fanChart",
   mounted() {
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('echartContainer'));
+    var myChart = echarts.init(document.getElementById("echartContainer"));
 
     var option = {
-      backgroundColor: '#ffffff',
+      backgroundColor: "#ffffff",
       title: {
-        text: '机器类别',
+        text: "机器类别",
         left: 10,
         top: 10,
         textStyle: {
-          color: '#000000'
+          color: "#000000"
         }
       },
-      series : [
+      series: [
         {
-          name: '机器类型',
-          type: 'pie',
-          radius: '55%',
-          data:[
+          name: "机器类型",
+          type: "pie",
+          radius: "55%",
+          data: [
             {
-              value:235, 
-              name:'BRADY',
+              value: 235,
+              name: "BRADY",
               itemStyle: {
                 normal: {
-                  color:'#20e7ae'
+                  color: "#20e7ae"
                 }
               }
             },
             {
-              value:274, 
-              name:'ICD',
+              value: 274,
+              name: "ICD",
               itemStyle: {
                 normal: {
-                  color:'#ff788c'
+                  color: "#ff788c"
                 }
               }
             },
             {
-              value:310, 
-              name:'CRTP',
+              value: 310,
+              name: "CRTP",
               itemStyle: {
                 normal: {
-                  color:'#fdcc31'
+                  color: "#fdcc31"
                 }
               }
             },
             {
-              value:335, 
-              name:'CRTD',
+              value: 335,
+              name: "CRTD",
               itemStyle: {
                 normal: {
-                  color:'#9053f5'
+                  color: "#9053f5"
                 }
-              } 
+              }
             }
           ],
-          roseType: 'angle'
+          roseType: "angle"
         }
       ]
     };
     // 绘制图表
     myChart.setOption(option);
-  },
-
-}
+  }
+};
 </script>
 
 <style lang="less">
-  @base: 75rem;
-  .fanChart {
-    float: left;
-    // width: 400/@base;
-    // height: 400/@base;
-    #echartContainer {
-      width: 400/@base;
-      height: 300/@base;
-    }
+@base: 75rem;
+.fanChart {
+  float: left;
+  // width: 400/@base;
+  // height: 400/@base;
+  #echartContainer {
+    width: 100%;
+    height: 100%;
   }
+}
 </style>

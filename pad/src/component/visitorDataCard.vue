@@ -10,42 +10,38 @@
 
 <script>
 export default {
-  name: 'visitorDataCard',
-
-}
+  name: "visitorDataCard"
+};
 </script>
 
 <style lang="less">
-  @base: 75rem;
-  .visitorDataCard {
-    float: left;
-    background-color: #fff;
-    box-sizing: border-box;
-    width: 400/@base;
-    margin: 0 0 0 20/@base;
-    padding: 20/@base 0 60/@base 20/@base; 
-    margin-bottom: 20/@base;
+@base: 75rem;
+.visitorDataCard {
+  float: left;
+  background-color: #fff;
+  box-sizing: border-box;
+  width: 400 / @base;
+  // margin: 0 0 0 20/@base;
+  padding: 20 / @base 0 60 / @base 20 / @base;
+  // margin-bottom: 20/@base;
 
-    &__data {
-      display: flex;
-      align-items: center;
-      &-icon {
-        width: 40/@base;
-        height: 35/@base;
-      }
-      &-num {
-        margin: 0 0 0 30/@base;
-        font-size: 48/@base;
-      }
+  &__data {
+    display: flex;
+    align-items: center;
+    &-icon {
+      width: 50 / @base;
+      height: 45 / @base;
     }
-
-    &__title {
-      margin: 10/@base 0 0 0;
-      padding: 0 0 0 70/@base;
+    &-num {
+      margin: 0 0 0 30 / @base;
+      font-size: 48 / @base;
     }
-
-
-    
-
   }
+
+  &__title {
+    margin: 30px 0 0 0;
+    padding: 0 0 0 70 / @base;
+    font-size: 48 / @base;
+  }
+}
 </style>
