@@ -36,12 +36,12 @@ export default {
 </script>
 
 <style lang="less">
+@base: 1rem;
 .visitor {
   margin-top: 40px;
   width: 100%;
-  font-size: 35px;
+  font-size: @base / 3;
   .card {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     // border: 1px solid rgb(244, 244, 244);
@@ -53,7 +53,7 @@ export default {
       .up {
         span {
           color: black;
-          font-size: 40px;
+          font-size: @base / 2;
         }
         margin-bottom: 20px;
       }
@@ -64,7 +64,7 @@ export default {
           margin-right: 50px;
           span {
             color: black;
-            font-size: 40px;
+            font-size: @base / 2;
           }
         }
       }
@@ -73,10 +73,10 @@ export default {
       display: flex;
       align-items: center;
       button {
-        font-size: 35px;
-        padding: 20px 50px;
+        font-size: @base / 3;
+        padding: 10px 30px;
         border: 1px solid rgb(18, 159, 259);
-        border-radius: 70px;
+        border-radius: @base / 2;
       }
       .btnBlue {
         background-color: rgb(18, 159, 259);

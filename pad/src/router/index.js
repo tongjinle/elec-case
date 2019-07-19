@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -7,43 +7,53 @@ const loadComponent = componentName => resolve => {
   import(`../page/${componentName}/index.vue`)
     .then(component => resolve(component))
     .catch(() => {});
-}
+};
 
-import App from '@/App';
+import App from "@/App";
 
 const router = new VueRouter({
   // mode: 'history',
   // base: __dirname,
   routes: [
-    { 
-      path: '/login', 
-      name: 'login',
-      component: loadComponent('login') 
-    },
-    { 
-      path: '/home', 
-      name: 'home',
-      component: loadComponent('home') 
+    {
+      path: "/login",
+      name: "login",
+      component: loadComponent("login")
     },
     {
-      path: '/index', 
-      name: 'index',
-      component: loadComponent('index') 
+      path: "/home",
+      name: "home",
+      component: loadComponent("home")
     },
     {
-      path: '/visitors', 
-      name: 'visitors',
-      component: loadComponent('visitors') 
+      path: "/index",
+      name: "index",
+      component: loadComponent("index")
     },
     {
-      path: '/visitorDetails', 
-      name: 'visitorDetails',
-      component: loadComponent('visitorDetails') 
+      path: "/visitors",
+      name: "visitors",
+      component: loadComponent("visitors")
     },
     {
-      path: '/', 
+      path: "/visitorDetails",
+      name: "visitorDetails",
+      component: loadComponent("visitorDetails")
+    },
+    {
+      path: "/newAdd",
+      name: "newAdd",
+      component: loadComponent("newAdd")
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: loadComponent("search")
+    },
+    {
+      path: "/",
       redirect: {
-        path: 'index'
+        path: "index"
       }
     }
   ]

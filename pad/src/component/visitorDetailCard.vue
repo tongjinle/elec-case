@@ -1,48 +1,75 @@
 <template>
-    <div class="visitorDetail">
-      <div class="detail__date">2019-01-01</div>
-      <div class="detail__more">
-        <div class="title">医生</div>
-        <div class="value">王萌萌</div>
-        <div class="title">电池</div>
-        <div class="value">OK</div>
-        <div class="title">机器型号</div>
-        <div class="value">XXXXXXXX</div>
-        <div class="title">事件概率</div>
-        <div class="value">心律</div>
-        <div class="value">起搏</div>
-        <div class="value">设置</div>
+  <div class="visitorDetail">
+    <div class="card">
+      <div class="cardUp">
+        <img src="../assets/image/time@2x.png" alt />2019-01-01
+      </div>
+      <div class="cardDown">
+        <div class="item">
+          医生
+          <span>华佗</span>
+        </div>
+        <div class="item">
+          电池
+          <span>OK</span>
+        </div>
+        <div class="item">
+          机器
+          <span>XXXXXX</span>
+        </div>
+        <div class="item">事件概况</div>
+        <button>心率</button>
+        <button>起搏</button>
+        <button>设置</button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'visitorDetailCard',
-
-}
+  name: "visitorDetailCard"
+};
 </script>
 
-<style lang="less"> 
-  @base: 75rem;
-  .visitorDetail {
-    margin-top: 20/@base;
-    width : 1220/@base;
-    height: 100/@base;
-    padding: 20/@base;
-    border: 1px solid #000;
-
-    
-    .detail__more {
+<style lang="less" scoped>
+@base: 1rem;
+.visitorDetail {
+  width: 100%;
+  margin-top: 40px;
+  .card {
+    box-shadow: 1px 1px 5px #888888;
+    border-radius: 10px;
+    padding: 20px 20px;
+    font-size: @base / 3;
+    .cardUp {
+      margin-bottom: 20px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      img {
+        margin-right: 20px;
+      }
     }
-    .title {
-      font-size: 16/@base;
-      margin: 0 10/@base 0 0;
-    }
-    .value {
-      font-size: 20/@base;
+    .cardDown {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .item {
+        margin-right: 50px;
+        span {
+          color: black;
+          font-size: @base / 2;
+        }
+      }
+      button {
+        padding: 10px 30px;
+        font-size: @base / 3;
+        border-radius: 70px;
+        border: 1px solid #888888;
+        background-color: white;
+        margin-right: 20px;
+      }
     }
   }
+}
 </style>

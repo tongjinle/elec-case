@@ -15,33 +15,35 @@ export default {
 </script>
 
 <style lang="less">
-@base: 75rem;
+@base: 1rem;
 .visitorDataCard {
   float: left;
   background-color: #fff;
   box-sizing: border-box;
-  width: 400 / @base;
+  width: @base*5.33;
+  // width: 400 / @base;
   // margin: 0 0 0 20/@base;
-  padding: 20 / @base 0 60 / @base 20 / @base;
+  padding: 20px 20px;
   // margin-bottom: 20/@base;
 
   &__data {
     display: flex;
     align-items: center;
     &-icon {
-      width: 50 / @base;
-      height: 45 / @base;
+      // width: 50 / @base;
+      // height: 45 / @base;
     }
     &-num {
-      margin: 0 0 0 30 / @base;
-      font-size: 48 / @base;
+      // margin: 0 0 0 30 / @base;
+      font-size: @base / 2;
+      margin-left: 20px;
     }
   }
 
   &__title {
-    margin: 30px 0 0 0;
-    padding: 0 0 0 70 / @base;
-    font-size: 48 / @base;
+    margin: 20px 0 0 0;
+    padding-left: 60px;
+    font-size: @base / 2;
   }
 }
 </style>

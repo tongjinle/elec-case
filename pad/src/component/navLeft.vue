@@ -33,6 +33,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@base: 1rem;
 .navLeftBox {
   width: 100%;
   height: 100vh;
@@ -46,10 +47,10 @@ export default {
       margin-top: 20px;
     }
     .homePage {
-      margin-top: -400px;
+      margin-top: -@base*5;
     }
     .my {
-      margin-top: -400px;
+      margin-top: -@base*6;
     }
     .logOut {
       margin-bottom: 20px;
