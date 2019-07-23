@@ -35,6 +35,7 @@ export default {
 <style lang="less" scoped>
 @base: 1rem;
 .navLeftBox {
+  font-size: @base / 3;
   width: 100%;
   height: 100vh;
   .slideNav {

@@ -51,6 +51,21 @@ const router = new VueRouter({
       component: loadComponent("search")
     },
     {
+      path: "/followUpMain",
+      name: "followUpMain",
+      component: loadComponent("followUpMain")
+    },
+    {
+      path: "/newPatient",
+      name: "newPatient",
+      component: loadComponent("newPatient")
+    },
+    {
+      path: "/patientMsg",
+      name: "patientMsg",
+      component: loadComponent("patientMsg")
+    },
+    {
       path: "/",
       redirect: {
         path: "index"

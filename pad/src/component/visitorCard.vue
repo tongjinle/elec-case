@@ -53,7 +53,7 @@ export default {
       .up {
         span {
           color: black;
-          font-size: @base / 2;
+          font-size: @base / 2.5;
         }
         margin-bottom: 20px;
       }
@@ -61,10 +61,10 @@ export default {
         display: flex;
         justify-content: flex-start;
         .item {
-          margin-right: 50px;
+          margin-right: @base / 2;
           span {
             color: black;
-            font-size: @base / 2;
+            font-size: @base / 2.5;
           }
         }
       }
@@ -76,12 +76,12 @@ export default {
         font-size: @base / 3;
         padding: 10px 30px;
         border: 1px solid rgb(18, 159, 259);
-        border-radius: @base / 2;
+        border-radius: @base / 2.5;
       }
       .btnBlue {
         background-color: rgb(18, 159, 259);
         color: white;
-        margin-right: 50px;
+        margin-right: @base / 2;
       }
       .btnWhite {
         background: white;

@@ -23,13 +23,13 @@ export default {
 <style lang="less">
 @base: 1rem;
 .dropDown {
-  font-size: @base / 2;
+  font-size: @base / 3;
   .box {
     input {
       padding: 10px 20px;
       border: 1px solid rgb(221, 221, 221);
       border-radius: 5px;
-      width: @base*3.5;
+      width: @base*3;
     }
     img {
       position: relative;

@@ -18,6 +18,15 @@
     <li>
       <router-link to="/search">搜索</router-link>
     </li>
+    <li>
+      <router-link to="/followUpMain">随访预览</router-link>
+    </li>
+    <li>
+      <router-link to="/newPatient">新增患者</router-link>
+    </li>
+    <li>
+      <router-link to="/patientMsg">患者信息</router-link>
+    </li>
   </ul>
 </template>
 

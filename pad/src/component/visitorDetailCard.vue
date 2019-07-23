@@ -55,14 +55,14 @@ export default {
       justify-content: flex-start;
       align-items: center;
       .item {
-        margin-right: 50px;
+        margin-right: @base / 2;
         span {
           color: black;
-          font-size: @base / 2;
+          font-size: @base / 2.5;
         }
       }
       button {
-        padding: 10px 30px;
+        padding: 10px @base / 2;
         font-size: @base / 3;
         border-radius: 70px;
         border: 1px solid #888888;

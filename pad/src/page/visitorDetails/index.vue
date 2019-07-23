@@ -1,7 +1,7 @@
 <template>
   <div class="visitorDetailsBox">
     <div class="head">
-      <div>
+      <div @click="getBack()">
         <img src="../../assets/image/back.png" alt />
       </div>
       <p>张飞</p>
@@ -25,40 +25,49 @@
 import VisitorDetailCard from "@/component/visitorDetailCard";
 export default {
   name: "visitorDetails",
-  components: { VisitorDetailCard }
+  components: { VisitorDetailCard },
+  data() {
+    return {};
+  },
+  methods: {
+    getBack() {
+      this.$router.back(-1);
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
+@base: 1rem;
 .visitorDetailsBox {
   .head {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 100px;
+    height: 50px;
     div {
       width: 10%;
       display: flex;
       justify-content: center;
       align-items: center;
       img {
-        width: 50px;
-        height: 50px;
+        width: 25px;
+        height: 25px;
       }
     }
     p {
       width: 80%;
-      font-size: 40px;
+      font-size: @base / 2;
       text-align: center;
       margin: 0;
-      line-height: 100px;
+      line-height: 50px;
     }
   }
   .nextTime {
-    font-size: 30px;
-    padding: 0 100px;
+    font-size: @base / 2.5;
+    padding: 0 @base;
     span {
-      font-size: 35px;
+      font-size: @base / 3;
       color: rgb(18, 159, 259);
     }
   }
@@ -67,7 +76,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 100px;
+    padding: 0 @base;
   }
 }
 </style>
