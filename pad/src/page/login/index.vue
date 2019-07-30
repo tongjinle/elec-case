@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { login } from "../../utils/business";
 export default {
   name: "login",
   data() {
@@ -22,6 +23,10 @@ export default {
     };
   },
   created() {
+    console.log("12312312312");
+    login("lijie", "123").then(data => {
+      console.log(data);
+    });
     // this.fetchData();
   },
   methods: {
