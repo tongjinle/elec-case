@@ -4,7 +4,7 @@
       <div @click="getBack()">
         <img src="../../assets/image/back.png" alt />
       </div>
-      <p>新增患者</p>
+      <p>随访列表</p>
       <div></div>
     </div>
     <div class="content">

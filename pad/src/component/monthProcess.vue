@@ -5,20 +5,20 @@
       <van-circle
         v-model="currentRate"
         layer-color="rgb(225,225,225)"
-        :rate="30"
+        :rate="actual/everybody*100"
         size="250px"
         :speed="100"
         :text="text"
       />
       <div class="all">
         <div>
-          <span>123</span>人
+          <span>{{everybody}}</span>人
         </div>
         <p>总共</p>
       </div>
       <div class="ready">
         <div>
-          <span>78</span>人
+          <span>{{actual}}</span>人
         </div>
         <p>已完成</p>
       </div>
@@ -29,6 +29,10 @@
 <script>
 export default {
   name: "monthProcess",
+  props: {
+    everybody: Number,
+    actual: Number
+  },
   data() {
     return {
       currentRate: 30

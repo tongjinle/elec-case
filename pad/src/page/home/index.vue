@@ -8,11 +8,19 @@
       <div class="content">
         <div class="top">
           <div class="left">
-            <MonthProcess class="MonthProcess" />
+            <MonthProcess :everybody="everybody" :actual="actual" class="MonthProcess" />
           </div>
           <div class="right">
-            <VisitorDataCard class="VisitorDataCard" />
-            <VisitorDataCard class="VisitorDataCard" />
+            <VisitorDataCard
+              :title="titleUp"
+              :peopleNumber="peopleNumberUp"
+              class="VisitorDataCard"
+            />
+            <VisitorDataCard
+              :title="titleDown"
+              :peopleNumber="peopleNumberDown"
+              class="VisitorDataCard"
+            />
           </div>
         </div>
         <div class="down">
@@ -30,12 +38,94 @@ import MonthProcess from "@/component/monthProcess";
 import VisitorDataCard from "@/component/visitorDataCard";
 import NavLeft from "@/component/navLeft";
 import echarts from "echarts";
-
+import { homeRequest } from "../../utils/business";
 export default {
   name: "home",
   components: { MonthProcess, VisitorDataCard, NavLeft },
   data() {
-    return {};
+    return {
+      everybody: 1,
+      actual: 1,
+      titleUp: "随访窗口人数（本周）",
+      titleDown: "随访窗外（超期两周）",
+      peopleNumberUp: 0,
+      peopleNumberDown: 0,
+      deviceCategories: [],
+      plantReasons: [],
+      visitEvents: [],
+      color: [
+        "#20e7ae",
+        "#ff788c",
+        "#8acff8",
+        "#fdcc31",
+        "#9053f5",
+        "#000000",
+        "#fd7f57",
+        "#6697ea",
+        "#3ccb3e",
+        "#9c1663"
+      ],
+      optionLeft: {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "机器类别",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "机器类型",
+            type: "pie",
+            radius: "55%",
+            data: [],
+            roseType: "angle"
+          }
+        ]
+      },
+      optionCenter: {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "植入原因",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "植入原因",
+            type: "pie",
+            radius: "55%",
+            data: [],
+            roseType: "angle"
+          }
+        ]
+      },
+      optionRight: {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "机器类别",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "机器类型",
+            type: "pie",
+            radius: "55%",
+            data: [],
+            roseType: "angle"
+          }
+        ]
+      }
+    };
   },
   mounted() {
     // 基于准备好的dom，初始化echarts实例
@@ -49,191 +139,66 @@ export default {
       document.getElementById("echartContainerRight")
     );
 
-    var optionLeft = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
-                }
-              }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
-                }
-              }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
-                }
-              }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
-    var optionCenter = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
-                }
-              }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
-                }
-              }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
-                }
-              }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
-    var optionRight = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
-                }
-              }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
-                }
-              }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
-                }
-              }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
     // 绘制图表
-    myChartLeft.setOption(optionLeft);
-    myChartCenter.setOption(optionCenter);
-    myChartRight.setOption(optionRight);
+    myChartLeft.setOption(this.optionLeft);
+    myChartCenter.setOption(this.optionCenter);
+    myChartRight.setOption(this.optionRight);
   },
   created() {
     // this.fetchData();
   },
-  methods: {
-    // async fetchData() {
-    //   const data = await getData();
-    //   this.msg = data;
-    // }
-  }
+  beforeMount() {
+    homeRequest().then(data => {
+      console.log(data);
+      this.everybody = data.data.curMonthVisitNum;
+      if (this.everybody == null) {
+        this.everybody = 200;
+      }
+      this.actual = data.data.curMonthVisitedNum;
+      this.peopleNumberUp = data.data.weekVisitNum;
+      this.peopleNumberDown = data.data.weekVisitMissNum;
+      for (var i = 0; i < Object.keys(data.data.deviceCategories).length; i++) {
+        let a = Object.keys(data.data.deviceCategories)[i];
+        let list = {};
+        list.itemStyle = { normal: { color: "" } };
+        list.name = a;
+        list.value = data.data.deviceCategories[a];
+        list.itemStyle.normal.color = this.color[i];
+        this.optionLeft.series[0].data.push(list);
+      }
+      var myChartLeft = echarts.init(
+        document.getElementById("echartContainerLeft")
+      );
+      myChartLeft.setOption(this.optionLeft);
+      for (var i = 0; i < Object.keys(data.data.plantReasons).length; i++) {
+        let a = Object.keys(data.data.plantReasons)[i];
+        let list = {};
+        list.itemStyle = { normal: { color: "" } };
+        list.name = a;
+        list.value = data.data.plantReasons[a];
+        list.itemStyle.normal.color = this.color[i];
+        this.optionCenter.series[0].data.push(list);
+      }
+      var myChartCenter = echarts.init(
+        document.getElementById("echartContainerCenter")
+      );
+      myChartCenter.setOption(this.optionCenter);
+      for (var i = 0; i < Object.keys(data.data.visitEvents).length; i++) {
+        let a = Object.keys(data.data.visitEvents)[i];
+        let list = {};
+        list.itemStyle = { normal: { color: "" } };
+        list.name = a;
+        list.value = data.data.visitEvents[a];
+        list.itemStyle.normal.color = this.color[i];
+        this.optionRight.series[0].data.push(list);
+      }
+      var myChartRight = echarts.init(
+        document.getElementById("echartContainerRight")
+      );
+      myChartRight.setOption(this.optionRight);
+    });
+  },
+  methods: {}
 };
 </script>
 

@@ -1,16 +1,28 @@
 <template>
-  <div class="visitorDataCard">
+  <div class="visitorDataCard" @click="gotoList">
     <div class="visitorDataCard__data">
       <img class="visitorDataCard__data-icon" src="../assets/image/icon-data.png" />
-      <div class="visitorDataCard__data-num">25</div>
+      <div class="visitorDataCard__data-num">{{peopleNumber}}</div>
     </div>
-    <div class="visitorDataCard__title">随访窗口人数（本周）</div>
+    <div class="visitorDataCard__title">{{title}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "visitorDataCard"
+  name: "visitorDataCard",
+  props: {
+    title: String,
+    peopleNumber: Number
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    gotoList() {
+      this.$router.push({ path: "/visitors" });
+    }
+  }
 };
 </script>
 

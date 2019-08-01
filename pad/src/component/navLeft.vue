@@ -4,15 +4,15 @@
       <div class="logo">
         <img class="icon-logo" src="../assets/image/icon-logo.png" />
       </div>
-      <div class="homePage">
+      <div class="homePage" @click="gotoHome()">
         <img class="icon-home" src="../assets/image/icon-home.png" />
         <div>首页</div>
       </div>
-      <div class="my">
+      <div class="my" @click="gotoSearch()">
         <img class="icon-my" src="../assets/image/icon-my.png" />
         <div>我的</div>
       </div>
-      <div class="logOut">
+      <div class="logOut" @click="signout()">
         <img class="icon-logOut" src="../assets/image/icon-logOut.png" />
         <div>退出</div>
       </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { signoutRequest } from "../utils/business";
 export default {
   name: "home",
   components: {},
@@ -28,7 +29,19 @@ export default {
     return {};
   },
   created() {},
-  methods: {}
+  methods: {
+    gotoHome() {
+      this.$router.push({ path: "/home" });
+    },
+    gotoSearch() {
+      this.$router.push({ path: "/search" });
+    },
+    signout() {
+      signoutRequest().then(data => {
+        console.log(data);
+      });
+    }
+  }
 };
 </script>
 

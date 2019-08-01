@@ -6,7 +6,7 @@
     <div class="box">
       <div class="input">
         <img class="searchImg" src="../../assets/image/search@2x.png" alt />
-        <input type="text" placeholder="请输入患者姓名" />
+        <input type="text" @keydown="search" v-model="name" placeholder="请输入患者姓名" />
         <img class="photoImg" src="../../assets/image/phot@2x.png" alt />
       </div>
       <div class="list" v-if="list.length!=0">
@@ -22,7 +22,7 @@
           <div>没有数据哦~</div>
         </div>
         <div class="foot">
-          <button>新增患者</button>
+          <button @click="gotoAdd">新增患者</button>
         </div>
       </div>
     </div>
@@ -38,11 +38,25 @@ export default {
   data() {
     return {
       value: "10",
-      list: [""]
+      list: [],
+      name: ""
     };
   },
   mounted() {},
-  methods: {}
+  methods: {
+    search(e) {
+      if (e.keyCode == 13) {
+        if (this.name == "关羽") {
+          this.list = [""];
+        } else {
+          this.list = [];
+        }
+      }
+    },
+    gotoAdd() {
+      this.$router.push({ path: "/newPatient" });
+    }
+  }
 };
 </script>
 

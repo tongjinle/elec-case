@@ -1,6 +1,6 @@
 <template>
   <div class="visitor">
-    <div class="card">
+    <div class="card" @click="gotoPatientDetails">
       <div class="cardLeft">
         <div class="up">
           姓名
@@ -22,8 +22,8 @@
         </div>
       </div>
       <div class="cardRight">
-        <button class="btnBlue">添加随访</button>
-        <button class="btnWhite">随访详情</button>
+        <button class="btnBlue" @click="gotoAdd">添加随访</button>
+        <button class="btnWhite" @click="gotoDetails">随访详情</button>
       </div>
     </div>
   </div>
@@ -31,7 +31,21 @@
 
 <script>
 export default {
-  name: "visitorCard"
+  name: "visitorCard",
+  data() {
+    return {};
+  },
+  methods: {
+    gotoAdd() {
+      this.$router.push({ path: "/newAdd" });
+    },
+    gotoDetails() {
+      this.$router.push({ path: "/visitorDetails" });
+    },
+    gotoPatientDetails() {
+      this.$router.push({ path: "/patientMsg" });
+    }
+  }
 };
 </script>
 

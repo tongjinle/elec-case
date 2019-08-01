@@ -1,9 +1,10 @@
 <template>
   <div class="dropDown">
-    <div class="box">
+    <div class="box" @click="showitem">
       <input type="text" v-model="value" />
       <img src="../assets/image/s@2x.png" alt />
     </div>
+    <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
   </div>
 </template>
 
@@ -12,11 +13,28 @@ export default {
   name: "dropDown",
   data() {
     return {
-      value: "10"
+      value: "5",
+      show: false,
+      actions: [
+        { name: "1" },
+        { name: "2" },
+        { name: "3" },
+        { name: "4" },
+        { name: "5" }
+      ]
     };
   },
   mounted() {},
-  methods: {}
+  methods: {
+    onSelect(item) {
+      // 点击选项时默认不会关闭菜单，可以手动关闭
+      this.show = false;
+      this.value = item.name;
+    },
+    showitem() {
+      this.show = true;
+    }
+  }
 };
 </script>
 

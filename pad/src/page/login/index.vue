@@ -4,36 +4,35 @@
       <img class="login__banner-img" src="../../assets/image/banner-login.png" />
     </div>
     <div class="login__form">
-      <input class="form__item form__user" type="text" placeholder="用户名" />
+      <input class="form__item form__user" type="text" placeholder="用户名" v-model="userName" />
       <img src="../../assets/image/icon-user.png" alt />
-      <input class="form__item form__password" type="password" placeholder="密码" />
+      <input class="form__item form__password" type="password" placeholder="密码" v-model="password" />
       <img src="../../assets/image/icon-password.png" alt />
-      <button class="form__item form__login">登录</button>
+      <button class="form__item form__login" @click="login()">登录</button>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from "../../utils/business";
+import { loginRequest } from "../../utils/business";
 export default {
   name: "login",
   data() {
     return {
-      msg: "Welcome to Your Vue.js"
+      userName: "",
+      password: ""
     };
   },
-  created() {
-    console.log("12312312312");
-    login("lijie", "123").then(data => {
-      console.log(data);
-    });
-    // this.fetchData();
-  },
+  created() {},
   methods: {
-    // async fetchData() {
-    //   const data = await getData();
-    //   this.msg = data;
-    // }
+    login() {
+      loginRequest(this.userName, this.password).then(data => {
+        if (data.status == 200) {
+          localStorage.setItem("token", data.data);
+          this.$router.push({ path: "/home" });
+        }
+      });
+    }
   }
 };
 </script>

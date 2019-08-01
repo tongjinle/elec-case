@@ -5,7 +5,7 @@
         <img src="../../assets/image/back.png" alt />
       </div>
       <p>新增患者</p>
-      <div class="right">
+      <div class="right" @click="gotoDetails">
         <img src="../../assets/image/download@2x.png" alt />
       </div>
     </div>
@@ -137,6 +137,9 @@ export default {
   methods: {
     getBack() {
       this.$router.back(-1);
+    },
+    gotoDetails() {
+      this.$router.push({ path: "/patientMsg" });
     }
   }
 };

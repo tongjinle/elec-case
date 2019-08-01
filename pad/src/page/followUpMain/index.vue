@@ -10,8 +10,7 @@
         <div @click="showCardLeft()">提交</div>
       </div>
     </div>
-    <div class="leftCard" v-if="showCard">
-      <div class="black" @click="closeCard()"></div>
+    <div class="leftCard" v-if="showCard" @click="closeCard()">
       <div class="cardMain">
         <div class="title">随访结论：</div>
         <div class="cardItem">
@@ -37,6 +36,9 @@
         <div class="choseItem">
           <div>下次时间：</div>
           <DataTime />
+        </div>
+        <div class="foot">
+          <button @click="gotoDetails">提交</button>
         </div>
       </div>
     </div>
@@ -186,6 +188,9 @@ export default {
     },
     getBack() {
       this.$router.back(-1);
+    },
+    gotoDetails() {
+      this.$router.push({ path: "/visitorDetails" });
     }
   }
 };
@@ -259,6 +264,19 @@ export default {
         margin-top: 20px;
         div {
           margin-bottom: 20px;
+        }
+      }
+      .foot {
+        margin-top: @base*5;
+        display: flex;
+        justify-content: center;
+        button {
+          width: 80%;
+          background-color: rgb(18, 159, 259);
+          padding: 5px 0;
+          border: none;
+          border-radius: 10px;
+          color: white;
         }
       }
     }

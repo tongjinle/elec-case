@@ -1,6 +1,6 @@
 <template>
   <div class="visitorDetail">
-    <div class="card">
+    <div class="card" @click="gotoDetails">
       <div class="cardUp">
         <img src="../assets/image/time@2x.png" alt />2019-01-01
       </div>
@@ -28,7 +28,15 @@
 
 <script>
 export default {
-  name: "visitorDetailCard"
+  name: "visitorDetailCard",
+  data() {
+    return {};
+  },
+  methods: {
+    gotoDetails() {
+      this.$router.push({ path: "/followUpMain" });
+    }
+  }
 };
 </script>
 

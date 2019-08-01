@@ -4,8 +4,8 @@
       <div @click="getBack()">
         <img src="../../assets/image/back.png" alt />
       </div>
-      <p>张飞</p>
-      <div>
+      <p>关羽</p>
+      <div @click="gotoAdd">
         <img src="../../assets/image/zengjia@2x.png" alt />
       </div>
     </div>
@@ -32,6 +32,9 @@ export default {
   methods: {
     getBack() {
       this.$router.back(-1);
+    },
+    gotoAdd() {
+      this.$router.push({ path: "/newAdd" });
     }
   }
 };
