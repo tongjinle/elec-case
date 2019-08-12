@@ -4,26 +4,26 @@
       <div class="cardLeft">
         <div class="up">
           姓名
-          <span>关羽</span>
+          <span>{{patientName}}</span>
         </div>
         <div class="down">
-          <div class="item">
+          <div class="item name">
             医生
-            <span>华佗</span>
+            <span>{{doctorName}}</span>
           </div>
           <div class="item">
             上次随访
-            <span>2019-1-1</span>
+            <span>{{visitTime}}</span>
           </div>
           <div class="item">
             机器型号
-            <span>XXXXXX</span>
+            <span>{{deviceId}}</span>
           </div>
         </div>
       </div>
       <div class="cardRight">
-        <button class="btnBlue">添加随访</button>
-        <button class="btnWhite">随访详情</button>
+        <button class="btnBlue" @click="onAddVisit">添加随访</button>
+        <button class="btnWhite" @click="onViewVisit">随访详情</button>
       </div>
     </div>
   </div>
@@ -31,7 +31,23 @@
 
 <script>
 export default {
-  name: "visitorCard"
+  name: "visitorCard",
+  props: {
+    doctorName: String,
+    patientName: String,
+    visitTime: String,
+    deviceId: String,
+    addVisitHandle: Function,
+    viewVisitHandle: Function
+  },
+  methods: {
+    onAddVisit() {
+      this.addVisitHandle && this.addVisitHandle();
+    },
+    onViewVisit() {
+      this.viewVisitHandle && this.viewVisitHandle();
+    }
+  }
 };
 </script>
 
@@ -65,6 +81,9 @@ export default {
           span {
             color: black;
             font-size: @base / 2.5;
+          }
+          &.name {
+            width: 2 * @base;
           }
         }
       }
