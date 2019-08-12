@@ -2,15 +2,19 @@
   <div class="visitorDataCard">
     <div class="visitorDataCard__data">
       <img class="visitorDataCard__data-icon" src="../assets/image/icon-data.png" />
-      <div class="visitorDataCard__data-num">25</div>
+      <div class="visitorDataCard__data-num">{{total}}</div>
     </div>
-    <div class="visitorDataCard__title">随访窗口人数（本周）</div>
+    <div class="visitorDataCard__title">{{title}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "visitorDataCard"
+  name: "visitorDataCard",
+  props: {
+    total: Number,
+    title: String
+  }
 };
 </script>
 
@@ -35,7 +39,7 @@ export default {
     }
     &-num {
       // margin: 0 0 0 30 / @base;
-      font-size: @base / 2;
+      font-size: @base;
       margin-left: 20px;
     }
   }

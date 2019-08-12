@@ -26,3 +26,8 @@ function createRequest(token) {
 export function visitsSchedule(id) {
   return createRequest().get("/elecase/visits/schedule/" + id);
 }
+
+// 首页统计
+export function stat() {
+  return createRequest().get("/elecase/homes");
+}

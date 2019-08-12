@@ -8,11 +8,23 @@
       <div class="content">
         <div class="top">
           <div class="left">
-            <MonthProcess class="MonthProcess" />
+            <MonthProcess
+              class="MonthProcess"
+              :total="fullStat.curMonthVisitNum"
+              :current="fullStat.curMonthVisitedNum"
+            />
           </div>
           <div class="right">
-            <VisitorDataCard class="VisitorDataCard" />
-            <VisitorDataCard class="VisitorDataCard" />
+            <VisitorDataCard
+              :total="fullStat.weekVisitNum"
+              title="随访窗口人数 (本周)"
+              class="VisitorDataCard"
+            />
+            <VisitorDataCard
+              :total="fullStat.weekVisitMissNum"
+              title="随访窗外 (超期两周)"
+              class="VisitorDataCard"
+            />
           </div>
         </div>
         <div class="down">
@@ -30,204 +42,242 @@ import MonthProcess from "@/component/monthProcess";
 import VisitorDataCard from "@/component/visitorDataCard";
 import NavLeft from "@/component/navLeft";
 import echarts from "echarts";
+import * as bll from "../../utils/business";
 
 export default {
   name: "home",
   components: { MonthProcess, VisitorDataCard, NavLeft },
   data() {
-    return {};
+    return { stat: undefined };
   },
-  mounted() {
-    // 基于准备好的dom，初始化echarts实例
-    var myChartLeft = echarts.init(
-      document.getElementById("echartContainerLeft")
-    );
-    var myChartCenter = echarts.init(
-      document.getElementById("echartContainerCenter")
-    );
-    var myChartRight = echarts.init(
-      document.getElementById("echartContainerRight")
-    );
+  computed: {
+    fullStat() {
+      if (this.stat === undefined) {
+        return {};
+      }
+      return {
+        curMonthVisitNum: this.stat.curMonthVisitNum,
+        curMonthVisitedNum: this.stat.curMonthVisitedNum,
+        weekVisitNum: this.stat.weekVisitNum,
+        weekVisitMissNum: this.stat.weekVisitMissNum
+      };
+    }
+  },
+  async mounted() {
+    try {
+      let { data } = await bll.stat();
+      console.log(data);
+      this.stat = data;
 
-    var optionLeft = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
+      let { deviceCategories, plantReasons, visitEvents } = this.stat;
+
+      // 基于准备好的dom，初始化echarts实例
+      var myChartLeft = echarts.init(
+        document.getElementById("echartContainerLeft")
+      );
+      var myChartCenter = echarts.init(
+        document.getElementById("echartContainerCenter")
+      );
+      var myChartRight = echarts.init(
+        document.getElementById("echartContainerRight")
+      );
+
+      var optionLeft = {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "机器类别",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "机器类型",
+            type: "pie",
+            radius: "55%",
+            data: [
+              {
+                value: deviceCategories.BRADY,
+                name: "BRADY",
+                itemStyle: {
+                  normal: {
+                    color: "#20e7ae"
+                  }
+                }
+              },
+              {
+                value: deviceCategories.ICD,
+                name: "ICD",
+                itemStyle: {
+                  normal: {
+                    color: "#ff788c"
+                  }
+                }
+              },
+              {
+                value: deviceCategories.CRTP,
+                name: "CRTP",
+                itemStyle: {
+                  normal: {
+                    color: "#fdcc31"
+                  }
+                }
+              },
+              {
+                value: deviceCategories.CRTD,
+                name: "CRTD",
+                itemStyle: {
+                  normal: {
+                    color: "#9053f5"
+                  }
                 }
               }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
+            ],
+            roseType: "angle"
+          }
+        ]
+      };
+      var optionCenter = {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "植入原因",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "植入原因",
+            type: "pie",
+            radius: "55%",
+            data: [
+              {
+                value: plantReasons["心衰"],
+                name: "心衰",
+                itemStyle: {
+                  normal: {
+                    color: "#f9467e"
+                  }
+                }
+              },
+              {
+                value: plantReasons["房颤伴长RR间期"],
+                name: "房颤伴长RR间期",
+                itemStyle: {
+                  normal: {
+                    color: "#fdcc31"
+                  }
+                }
+              },
+              {
+                value: plantReasons["房室传导阻滞"],
+                name: "房室传导阻滞",
+                itemStyle: {
+                  normal: {
+                    color: "#20e7ae"
+                  }
+                }
+              },
+              {
+                value: plantReasons["病窦"],
+                name: "病窦",
+                itemStyle: {
+                  normal: {
+                    color: "#9053f5"
+                  }
+                }
+              },
+              {
+                value: plantReasons["晕厥"],
+                name: "晕厥",
+                itemStyle: {
+                  normal: {
+                    color: "#129ff9"
+                  }
+                }
+              },
+              {
+                value: plantReasons["心肌病"],
+                name: "心肌病",
+                itemStyle: {
+                  normal: {
+                    color: "#5ac93c"
+                  }
                 }
               }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
+            ],
+            roseType: "angle"
+          }
+        ]
+      };
+      var optionRight = {
+        backgroundColor: "#ffffff",
+        title: {
+          text: "机器类别",
+          left: 10,
+          top: 10,
+          textStyle: {
+            color: "#000000"
+          }
+        },
+        series: [
+          {
+            name: "机器类型",
+            type: "pie",
+            radius: "55%",
+            data: [
+              {
+                value: visitEvents["起搏参数异常"],
+                name: "起搏参数异常",
+                itemStyle: {
+                  normal: {
+                    color: "#20e7ae"
+                  }
+                }
+              },
+              {
+                value: visitEvents["是否修改设置"],
+                name: "是否修改设置",
+                itemStyle: {
+                  normal: {
+                    color: "#5ac93c"
+                  }
+                }
+              },
+              {
+                value: visitEvents["电池状态异常"],
+                name: "电池状态异常",
+                itemStyle: {
+                  normal: {
+                    color: "#fdcc31"
+                  }
+                }
+              },
+              {
+                value: visitEvents["发现心律异常 AT/AF"],
+                name: "发现心律异常 AT/AF",
+                itemStyle: {
+                  normal: {
+                    color: "#9053f5"
+                  }
                 }
               }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
-    var optionCenter = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
-                }
-              }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
-                }
-              }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
-                }
-              }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
-    var optionRight = {
-      backgroundColor: "#ffffff",
-      title: {
-        text: "机器类别",
-        left: 10,
-        top: 10,
-        textStyle: {
-          color: "#000000"
-        }
-      },
-      series: [
-        {
-          name: "机器类型",
-          type: "pie",
-          radius: "55%",
-          data: [
-            {
-              value: 235,
-              name: "BRADY",
-              itemStyle: {
-                normal: {
-                  color: "#20e7ae"
-                }
-              }
-            },
-            {
-              value: 274,
-              name: "ICD",
-              itemStyle: {
-                normal: {
-                  color: "#ff788c"
-                }
-              }
-            },
-            {
-              value: 310,
-              name: "CRTP",
-              itemStyle: {
-                normal: {
-                  color: "#fdcc31"
-                }
-              }
-            },
-            {
-              value: 335,
-              name: "CRTD",
-              itemStyle: {
-                normal: {
-                  color: "#9053f5"
-                }
-              }
-            }
-          ],
-          roseType: "angle"
-        }
-      ]
-    };
-    // 绘制图表
-    myChartLeft.setOption(optionLeft);
-    myChartCenter.setOption(optionCenter);
-    myChartRight.setOption(optionRight);
+            ],
+            roseType: "angle"
+          }
+        ]
+      };
+      // 绘制图表
+      myChartLeft.setOption(optionLeft);
+      myChartCenter.setOption(optionCenter);
+      myChartRight.setOption(optionRight);
+    } catch (e) {}
   },
-  created() {
-    // this.fetchData();
-  },
+
   methods: {
     // async fetchData() {
     //   const data = await getData();
