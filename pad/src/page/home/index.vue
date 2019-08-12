@@ -96,7 +96,6 @@ export default {
           {
             name: "机器类型",
             type: "pie",
-            radius: "55%",
             data: [
               {
                 value: deviceCategories.BRADY,
@@ -135,7 +134,8 @@ export default {
                 }
               }
             ],
-            roseType: "angle"
+            roseType: "radius",
+            radius: [20, 110]
           }
         ]
       };
@@ -153,7 +153,6 @@ export default {
           {
             name: "植入原因",
             type: "pie",
-            radius: "55%",
             data: [
               {
                 value: plantReasons["心衰"],
@@ -210,7 +209,8 @@ export default {
                 }
               }
             ],
-            roseType: "angle"
+            roseType: "radius",
+            radius: [20, 110]
           }
         ]
       };
@@ -228,7 +228,6 @@ export default {
           {
             name: "机器类型",
             type: "pie",
-            radius: "55%",
             data: [
               {
                 value: visitEvents["起搏参数异常"],
@@ -267,7 +266,8 @@ export default {
                 }
               }
             ],
-            roseType: "angle"
+            roseType: "radius",
+            radius: [20, 110]
           }
         ]
       };
