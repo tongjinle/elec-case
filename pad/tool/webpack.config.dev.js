@@ -27,14 +27,14 @@ module.exports = webpackMerge(baseConfig, {
   devServer: {
     contentBase: path.resolve(__dirname, "../dist"),
     port: 9000,
-    hot: true,
-    proxy: {
-      "/": {
-        target: "http://39.105.78.216:8081",
-        // pathRewrite: { "^/elecace": "/adf" },
-        changeOrigin: true,
-        secure: false // 接受 运行在 https 上的服务
-      }
-    }
+    hot: true
+    // proxy: {
+    //   "/elecase": {
+    //     target: "http://39.105.78.216:8081",
+    //     // pathRewrite: { "^/elecace": "/adf" },
+    //     changeOrigin: true,
+    //     secure: false // 接受 运行在 https 上的服务
+    //   }
+    // }
   }
 });

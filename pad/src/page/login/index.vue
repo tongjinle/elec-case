@@ -15,6 +15,9 @@
 
 <script>
 import * as bll from "../../utils/business";
+import { Toast } from "vant";
+// console.log(Dialog);
+// console.log("vant", Vant + "");
 export default {
   name: "login",
   data() {
@@ -23,24 +26,25 @@ export default {
       password: ""
     };
   },
+  components: {
+    Toast
+  },
   computed: {},
   methods: {
-    delay(ms) {
-      return new Promise(resolve => {
-        setTimeout(resolve, ms);
-      });
-    },
     async login() {
-      await this.delay(300);
       console.log(Date.now(), this.username, this.password);
-      let data = await bll.login(this.username, this.password);
-      console.log({ data });
+      try {
+        let { data } = await bll.login(this.username, this.password);
+        console.log({ data });
+        bll.setToken(data);
+        this.$router.push({ path: "/home" });
+        console.log("123");
+      } catch (e) {
+        console.log(e);
+        Toast.fail("登录失败...");
+        this.password = "";
+      }
     }
-  },
-
-  async created() {
-    let data = await bll.login("lilei", "123");
-    console.log({ data });
   }
 };
 </script>
