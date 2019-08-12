@@ -4,36 +4,43 @@
       <img class="login__banner-img" src="../../assets/image/banner-login.png" />
     </div>
     <div class="login__form">
-      <input class="form__item form__user" type="text" placeholder="用户名" />
+      <input v-model="username" class="form__item form__user" type="text" placeholder="用户名" />
       <img src="../../assets/image/icon-user.png" alt />
-      <input class="form__item form__password" type="password" placeholder="密码" />
+      <input v-model="password" class="form__item form__password" type="password" placeholder="密码" />
       <img src="../../assets/image/icon-password.png" alt />
-      <button class="form__item form__login">登录</button>
+      <button class="form__item form__login" @click="login">登录</button>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from "../../utils/business";
+import * as bll from "../../utils/business";
 export default {
   name: "login",
   data() {
     return {
-      msg: "Welcome to Your Vue.js"
+      username: "",
+      password: ""
     };
   },
-  created() {
-    console.log("12312312312");
-    login("lijie", "123").then(data => {
-      console.log(data);
-    });
-    // this.fetchData();
-  },
+  computed: {},
   methods: {
-    // async fetchData() {
-    //   const data = await getData();
-    //   this.msg = data;
-    // }
+    delay(ms) {
+      return new Promise(resolve => {
+        setTimeout(resolve, ms);
+      });
+    },
+    async login() {
+      await this.delay(300);
+      console.log(Date.now(), this.username, this.password);
+      let data = await bll.login(this.username, this.password);
+      console.log({ data });
+    }
+  },
+
+  async created() {
+    let data = await bll.login("lilei", "123");
+    console.log({ data });
   }
 };
 </script>
