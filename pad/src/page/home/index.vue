@@ -82,195 +82,42 @@ export default {
         document.getElementById("echartContainerRight")
       );
 
-      var optionLeft = {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "机器类别",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "机器类型",
-            type: "pie",
-            data: [
-              {
-                value: deviceCategories.BRADY,
-                name: "BRADY",
-                itemStyle: {
-                  normal: {
-                    color: "#20e7ae"
-                  }
-                }
-              },
-              {
-                value: deviceCategories.ICD,
-                name: "ICD",
-                itemStyle: {
-                  normal: {
-                    color: "#ff788c"
-                  }
-                }
-              },
-              {
-                value: deviceCategories.CRTP,
-                name: "CRTP",
-                itemStyle: {
-                  normal: {
-                    color: "#fdcc31"
-                  }
-                }
-              },
-              {
-                value: deviceCategories.CRTD,
-                name: "CRTD",
-                itemStyle: {
-                  normal: {
-                    color: "#9053f5"
-                  }
-                }
-              }
-            ],
-            roseType: "radius",
-            radius: [20, 110]
-          }
-        ]
+      let toData = dict => {
+        let rst = [];
+        for (let key in dict) {
+          console.log(key, dict[key]);
+          rst.push({ value: dict[key], name: key });
+        }
+        return rst;
       };
-      var optionCenter = {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "植入原因",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "植入原因",
-            type: "pie",
-            data: [
-              {
-                value: plantReasons["心衰"],
-                name: "心衰",
-                itemStyle: {
-                  normal: {
-                    color: "#f9467e"
-                  }
-                }
-              },
-              {
-                value: plantReasons["房颤伴长RR间期"],
-                name: "房颤伴长RR间期",
-                itemStyle: {
-                  normal: {
-                    color: "#fdcc31"
-                  }
-                }
-              },
-              {
-                value: plantReasons["房室传导阻滞"],
-                name: "房室传导阻滞",
-                itemStyle: {
-                  normal: {
-                    color: "#20e7ae"
-                  }
-                }
-              },
-              {
-                value: plantReasons["病窦"],
-                name: "病窦",
-                itemStyle: {
-                  normal: {
-                    color: "#9053f5"
-                  }
-                }
-              },
-              {
-                value: plantReasons["晕厥"],
-                name: "晕厥",
-                itemStyle: {
-                  normal: {
-                    color: "#129ff9"
-                  }
-                }
-              },
-              {
-                value: plantReasons["心肌病"],
-                name: "心肌病",
-                itemStyle: {
-                  normal: {
-                    color: "#5ac93c"
-                  }
-                }
-              }
-            ],
-            roseType: "radius",
-            radius: [20, 110]
-          }
-        ]
+
+      let toOption = (title, dict) => {
+        return {
+          backgroundColor: "#ffffff",
+          title: {
+            text: title,
+            left: 10,
+            top: 10,
+            textStyle: {
+              color: "#000000"
+            }
+          },
+          series: [
+            {
+              name: title,
+              type: "pie",
+              data: toData(dict),
+              roseType: "angle",
+              radius: [20, 110]
+            }
+          ]
+        };
       };
-      var optionRight = {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "机器类别",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "机器类型",
-            type: "pie",
-            data: [
-              {
-                value: visitEvents["起搏参数异常"],
-                name: "起搏参数异常",
-                itemStyle: {
-                  normal: {
-                    color: "#20e7ae"
-                  }
-                }
-              },
-              {
-                value: visitEvents["是否修改设置"],
-                name: "是否修改设置",
-                itemStyle: {
-                  normal: {
-                    color: "#5ac93c"
-                  }
-                }
-              },
-              {
-                value: visitEvents["电池状态异常"],
-                name: "电池状态异常",
-                itemStyle: {
-                  normal: {
-                    color: "#fdcc31"
-                  }
-                }
-              },
-              {
-                value: visitEvents["发现心律异常 AT/AF"],
-                name: "发现心律异常 AT/AF",
-                itemStyle: {
-                  normal: {
-                    color: "#9053f5"
-                  }
-                }
-              }
-            ],
-            roseType: "radius",
-            radius: [20, 110]
-          }
-        ]
-      };
+
+      var optionLeft = toOption("机器类别", deviceCategories);
+      var optionCenter = toOption("植入原因", plantReasons);
+      var optionRight = toOption("随访事件", visitEvents);
+
       // 绘制图表
       myChartLeft.setOption(optionLeft);
       myChartCenter.setOption(optionCenter);
