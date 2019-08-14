@@ -4,15 +4,15 @@
       <div class="logo">
         <img class="icon-logo" src="../assets/image/icon-logo.png" />
       </div>
-      <div class="homePage">
+      <div class="homePage" @click="toHomePage">
         <img class="icon-home" src="../assets/image/icon-home.png" />
         <div>首页</div>
       </div>
-      <div class="my">
+      <div class="my" @click="toVisitorsPage">
         <img class="icon-my" src="../assets/image/icon-my.png" />
         <div>我的</div>
       </div>
-      <div class="logOut">
+      <div class="logOut" @click="logout">
         <img class="icon-logOut" src="../assets/image/icon-logOut.png" />
         <div>退出</div>
       </div>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import * as bll from "../utils/business";
+
 export default {
   name: "home",
   components: {},
@@ -28,7 +30,18 @@ export default {
     return {};
   },
   created() {},
-  methods: {}
+  methods: {
+    toHomePage() {
+      this.$router.push("/home");
+    },
+    toVisitorsPage() {
+      this.$router.push("/visitors");
+    },
+    async logout() {
+      await bll.logout();
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 

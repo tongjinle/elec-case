@@ -15,6 +15,10 @@ export function login(name, password) {
   return axios.post(prefix + "/elecase/sessions/", { name, password });
 }
 
+export function logout() {
+  return createRequest().delete("/elecase/sessions/");
+}
+
 function createRequest(token) {
   return axios.create({
     baseURL: prefix,
