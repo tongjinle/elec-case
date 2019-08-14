@@ -6,23 +6,29 @@
     <div class="box">
       <div class="input">
         <img class="searchImg" src="../../assets/image/search@2x.png" alt />
-        <input type="text" placeholder="请输入患者姓名" />
-        <img class="photoImg" src="../../assets/image/phot@2x.png" alt />
+        <input type="text" v-model="keyword" placeholder="请输入患者姓名" @keyup.enter="search" />
+        <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
       </div>
       <div class="list" v-if="list.length!=0">
         <div class="title">患者</div>
         <div class="item">
-          <VisitorCard />
-          <VisitorCard />
+          <VisitorCard
+            v-for="(item,index) in fullList"
+            :key="index"
+            :doctorName="item.doctorName"
+            :patientName="item.patientName"
+            :visitTime="item.visitTime"
+            :deviceId="item.deviceId"
+          />
         </div>
       </div>
-      <div class="card" v-if="list.length==0">
+      <div class="card" v-if="list.length===0 && !isFirst">
         <div class="mainer">
           <img src="../../assets/image/kong@2x.png" alt />
           <div>没有数据哦~</div>
         </div>
         <div class="foot">
-          <button>新增患者</button>
+          <button @click="addPatient">新增患者</button>
         </div>
       </div>
     </div>
@@ -32,17 +38,47 @@
 <script>
 import NavLeft from "@/component/navLeft";
 import VisitorCard from "@/component/visitorCard";
+import * as bll from "../../utils/business";
+
 export default {
   name: "dropDown",
   components: { NavLeft, VisitorCard },
   data() {
     return {
-      value: "10",
-      list: [""]
+      isFirst: true,
+      keyword: "",
+      list: []
     };
   },
+  computed: {
+    fullList() {
+      return this.list.map(n => {
+        console.log(n);
+        return {
+          doctorName: n.doctorName,
+          patientName: n.name,
+          visitTime: n.nextDate,
+          deviceId: n.deviceCate
+          // todo
+          // 两个handle
+        };
+      });
+    }
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    async search() {
+      let encodeKeyword = encodeURIComponent(this.keyword);
+      let { data } = await bll.search(encodeKeyword);
+      console.log(data);
+      this.list = data;
+      this.isFirst = false;
+    },
+    scan() {},
+    addPatient() {
+      this.$router.push("/newPatient");
+    }
+  }
 };
 </script>
 

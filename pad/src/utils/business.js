@@ -35,3 +35,8 @@ export function visitsSchedule(id) {
 export function stat() {
   return createRequest().get("/elecase/homes");
 }
+
+// 搜索患者
+export function search(keyword) {
+  return createRequest().get("elecase/patients/name/" + keyword);
+}

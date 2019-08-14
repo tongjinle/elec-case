@@ -35,7 +35,7 @@ export default {
       this.$router.push("/home");
     },
     toVisitorsPage() {
-      this.$router.push("/visitors");
+      this.$router.push("/search");
     },
     async logout() {
       await bll.logout();
