@@ -5,7 +5,7 @@
         <img src="../../assets/image/back.png" alt />
       </div>
       <p>新增随访</p>
-      <div>提交</div>
+      <div @click="gotoDetails">提交</div>
     </div>
     <div class="content">
       <div class="item">
@@ -184,6 +184,9 @@ export default {
   methods: {
     getBack() {
       this.$router.back(-1);
+    },
+    gotoDetails() {
+      this.$router.push({ path: "/followUpMain" });
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="visitor">
-    <div class="card">
+    <div class="card" @click="gotoPatientDetails">
       <div class="cardLeft">
         <div class="up">
           姓名
@@ -32,6 +32,7 @@
 <script>
 export default {
   name: "visitorCard",
+
   props: {
     doctorName: String,
     patientName: String,

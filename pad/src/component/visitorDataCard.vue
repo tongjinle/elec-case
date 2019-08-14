@@ -1,7 +1,8 @@
 <template>
-  <div class="visitorDataCard">
+  <div class="visitorDataCard" @click="gotoList">
     <div class="visitorDataCard__data">
       <img class="visitorDataCard__data-icon" src="../assets/image/icon-data.png" />
+
       <div class="visitorDataCard__data-num">{{total}}</div>
     </div>
     <div class="visitorDataCard__title">{{title}}</div>

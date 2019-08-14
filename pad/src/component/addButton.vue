@@ -3,10 +3,10 @@
     <div class="addButtonbox">
       <input type="text" v-model="value" />
       <div class="addbtn">
-        <div>
+        <div @click="add">
           <img class="upBtn" src="../assets/image/up.png" alt />
         </div>
-        <div>
+        <div @click="reduce">
           <img class="downBtn" src="../assets/image/down2.png" alt />
         </div>
       </div>
@@ -19,11 +19,18 @@ export default {
   name: "addButton",
   data() {
     return {
-      value: "5"
+      value: 5
     };
   },
   mounted() {},
-  methods: {}
+  methods: {
+    add() {
+      this.value += 1;
+    },
+    reduce() {
+      this.value -= 1;
+    }
+  }
 };
 </script>
 
