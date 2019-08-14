@@ -37,14 +37,17 @@ export default {
         let { data } = await bll.login(this.username, this.password);
         console.log({ data });
         bll.setToken(data);
+        localStorage.setItem("username", this.username);
         this.$router.push({ path: "/home" });
-        console.log("123");
       } catch (e) {
         console.log(e);
         Toast.fail("登录失败...");
         this.password = "";
       }
     }
+  },
+  beforeMount() {
+    this.username = localStorage.getItem("username") || "";
   }
 };
 </script>
