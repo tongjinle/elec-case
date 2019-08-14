@@ -107,11 +107,11 @@
 
 <script>
 import DropDown from "@/component/dropDown";
-import DataTime from "@/component/dataTime";
+import ChooseDateTime from "@/component/chooseDateTime";
 import AddButton from "@/component/addButton";
 export default {
   name: "newPatient",
-  components: { DataTime, DropDown, AddButton },
+  components: { ChooseDateTime, DropDown, AddButton },
   data() {
     return {
       radio: "1",

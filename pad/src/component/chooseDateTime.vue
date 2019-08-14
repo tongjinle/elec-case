@@ -1,6 +1,6 @@
 <template>
-  <div class="dataTime">
-    <div class="dataTimeBox" @click="showitem">
+  <div class="dateTime">
+    <div class="dateTimeBox" @click="showitem">
       <span>{{time}}</span>
       <img src="../assets/image/calendar.png" alt />
     </div>
@@ -19,13 +19,15 @@
 
 <script>
 export default {
-  name: "addButton",
+  name: "dateTime",
+  props: {
+    chooseTimeHandle: Function
+  },
   data() {
     return {
       showtime: false,
       minDate: new Date(),
-      currentDate: new Date(),
-      time: "2019/1/1"
+      currentDate: new Date()
     };
   },
   mounted() {},
@@ -40,42 +42,30 @@ export default {
       console.log(this.currentDate);
     },
     choose() {
-      console.log(this.currentDate.getTime(), "1");
-      this.time = this.currentDate.getTime();
-      this.time = this.timeFormat(this.time);
-      console.log(this.time);
+      let time = this.timeFormat(this.currentDate.getTime());
+      this.chooseTimeHandle && this.chooseTimeHandle(timeStr);
     },
-    timeFormat(nS) {
-      let date = new Date(parseInt(nS)); // 时间戳为10位需乘1000，为13位则不用
-
-      let Y = date.getFullYear(); // 年
-      let M =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1; // 月
-      let D =
-        date.getDate() < 10 ? "0" + date.getDate() + "" : date.getDate() + ""; // 日
-
-      let h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(); // 时
-      let m =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(); // 分
-      let s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds(); // 秒
-      return Y + "-" + M + "-" + D; // yyyy-mm-dd
+    timeFormat(ms) {
+      let date = new Date(parseInt(ms));
+      return [
+        date.getFullYear(),
+        (100 + (date.getMonth() + 1) + "").slice(1),
+        date.getDate()
+      ].join("-");
     }
   }
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @base: 1rem;
-.dataTime {
+.dateTime {
   width: @base*4;
   background-color: rgb(247, 247, 247);
   font-size: @base / 3;
   padding: 10px 20px;
   border-radius: 5px;
-  .dataTimeBox {
+  .dateTimeBox {
     display: flex;
     justify-content: flex-start;
     span {

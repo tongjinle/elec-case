@@ -15,18 +15,18 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <input type="text" placeholder="李颖" />
+            <input v-model="name" type="text" placeholder="李颖" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
-            <van-radio-group class="radio" v-model="radio">
+            <van-radio-group class="radio" v-model="sex">
               <van-radio class="radioItem" name="1">男</van-radio>
               <van-radio class="radioItem" name="2">女</van-radio>
             </van-radio-group>
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <DataTime />
+            <ChooseDateTime />
           </div>
         </div>
         <div class="itemContentBox">
@@ -45,7 +45,7 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <DataTime />
+            <ChooseDateTime />
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
@@ -122,11 +122,11 @@
 
 <script>
 import DropDown from "@/component/dropDown";
-import DataTime from "@/component/dataTime";
+import ChooseDateTime from "@/component/chooseDateTime";
 import AddButton from "@/component/addButton";
 export default {
   name: "newPatient",
-  components: { DataTime, DropDown, AddButton },
+  components: { ChooseDateTime, DropDown, AddButton },
   data() {
     return {
       radio: "1",

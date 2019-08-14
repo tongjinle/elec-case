@@ -6,7 +6,7 @@
       </div>
       <p>随访详情</p>
       <div class="right">
-        <DataTime v-if="showRight" />
+        <DateTime v-if="showRight" />
         <div @click="showCardLeft()">提交</div>
       </div>
     </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="choseItem">
           <div>下次时间：</div>
-          <DataTime />
+          <ChooseDateTime />
         </div>
         <div class="foot">
           <button @click="gotoDetails">提交</button>
@@ -166,10 +166,10 @@
 
 <script>
 import DropDown from "@/component/dropDown";
-import DataTime from "@/component/dataTime";
+import ChooseDateTime from "@/component/chooseDateTime";
 export default {
   name: "followUpMain",
-  components: { DataTime, DropDown },
+  components: { DateTime, DropDown },
   data() {
     return {
       currentDate: new Date(),
