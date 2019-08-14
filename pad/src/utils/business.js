@@ -3,14 +3,31 @@ const host = "39.105.78.216";
 const port = "8081";
 const prefix = `//${host}:${port}`;
 
-export function loginRequest(name, password) {
+export function getToken() {
+  return localStorage.getItem("token");
+}
+
+export function setToken(token) {
+  localStorage.setItem("token", token);
+}
+
+export function login(name, password) {
   return axios.post(prefix + "/elecase/sessions/", { name, password });
 }
 
-export function signoutRequest() {
-  return axios.delete(prefix + "/elecase/sessions/");
+function createRequest(token) {
+  return axios.create({
+    baseURL: prefix,
+    headers: { token: getToken() }
+  });
 }
 
-export function homeRequest() {
-  return axios.get(prefix + "/elecase/homes/");
+// 首页-随访列表
+export function visitsSchedule(id) {
+  return createRequest().get("/elecase/visits/schedule/" + id);
+}
+
+// 首页统计
+export function stat() {
+  return createRequest().get("/elecase/homes");
 }

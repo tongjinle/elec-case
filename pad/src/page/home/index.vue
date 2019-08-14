@@ -8,17 +8,21 @@
       <div class="content">
         <div class="top">
           <div class="left">
-            <MonthProcess :everybody="everybody" :actual="actual" class="MonthProcess" />
+            <MonthProcess
+              class="MonthProcess"
+              :total="fullStat.curMonthVisitNum"
+              :current="fullStat.curMonthVisitedNum"
+            />
           </div>
           <div class="right">
             <VisitorDataCard
-              :title="titleUp"
-              :peopleNumber="peopleNumberUp"
+              :total="fullStat.weekVisitNum"
+              title="随访窗口人数 (本周)"
               class="VisitorDataCard"
             />
             <VisitorDataCard
-              :title="titleDown"
-              :peopleNumber="peopleNumberDown"
+              :total="fullStat.weekVisitMissNum"
+              title="随访窗外 (超期两周)"
               class="VisitorDataCard"
             />
           </div>
@@ -38,167 +42,96 @@ import MonthProcess from "@/component/monthProcess";
 import VisitorDataCard from "@/component/visitorDataCard";
 import NavLeft from "@/component/navLeft";
 import echarts from "echarts";
-import { homeRequest } from "../../utils/business";
+
+import * as bll from "../../utils/business";
+
 export default {
   name: "home",
   components: { MonthProcess, VisitorDataCard, NavLeft },
   data() {
-    return {
-      everybody: 1,
-      actual: 1,
-      titleUp: "随访窗口人数（本周）",
-      titleDown: "随访窗外（超期两周）",
-      peopleNumberUp: 0,
-      peopleNumberDown: 0,
-      deviceCategories: [],
-      plantReasons: [],
-      visitEvents: [],
-      color: [
-        "#20e7ae",
-        "#ff788c",
-        "#8acff8",
-        "#fdcc31",
-        "#9053f5",
-        "#000000",
-        "#fd7f57",
-        "#6697ea",
-        "#3ccb3e",
-        "#9c1663"
-      ],
-      optionLeft: {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "机器类别",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "机器类型",
-            type: "pie",
-            radius: "55%",
-            data: [],
-            roseType: "angle"
-          }
-        ]
-      },
-      optionCenter: {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "植入原因",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "植入原因",
-            type: "pie",
-            radius: "55%",
-            data: [],
-            roseType: "angle"
-          }
-        ]
-      },
-      optionRight: {
-        backgroundColor: "#ffffff",
-        title: {
-          text: "机器类别",
-          left: 10,
-          top: 10,
-          textStyle: {
-            color: "#000000"
-          }
-        },
-        series: [
-          {
-            name: "机器类型",
-            type: "pie",
-            radius: "55%",
-            data: [],
-            roseType: "angle"
-          }
-        ]
+    return { stat: undefined };
+  },
+  computed: {
+    fullStat() {
+      if (this.stat === undefined) {
+        return {};
       }
-    };
+      return {
+        curMonthVisitNum: this.stat.curMonthVisitNum,
+        curMonthVisitedNum: this.stat.curMonthVisitedNum,
+        weekVisitNum: this.stat.weekVisitNum,
+        weekVisitMissNum: this.stat.weekVisitMissNum
+      };
+    }
   },
-  mounted() {
-    // 基于准备好的dom，初始化echarts实例
-    var myChartLeft = echarts.init(
-      document.getElementById("echartContainerLeft")
-    );
-    var myChartCenter = echarts.init(
-      document.getElementById("echartContainerCenter")
-    );
-    var myChartRight = echarts.init(
-      document.getElementById("echartContainerRight")
-    );
-
-    // 绘制图表
-    myChartLeft.setOption(this.optionLeft);
-    myChartCenter.setOption(this.optionCenter);
-    myChartRight.setOption(this.optionRight);
-  },
-  created() {
-    // this.fetchData();
-  },
-  beforeMount() {
-    homeRequest().then(data => {
+  async mounted() {
+    try {
+      let { data } = await bll.stat();
       console.log(data);
-      this.everybody = data.data.curMonthVisitNum;
-      if (this.everybody == null) {
-        this.everybody = 200;
-      }
-      this.actual = data.data.curMonthVisitedNum;
-      this.peopleNumberUp = data.data.weekVisitNum;
-      this.peopleNumberDown = data.data.weekVisitMissNum;
-      for (var i = 0; i < Object.keys(data.data.deviceCategories).length; i++) {
-        let a = Object.keys(data.data.deviceCategories)[i];
-        let list = {};
-        list.itemStyle = { normal: { color: "" } };
-        list.name = a;
-        list.value = data.data.deviceCategories[a];
-        list.itemStyle.normal.color = this.color[i];
-        this.optionLeft.series[0].data.push(list);
-      }
+      this.stat = data;
+
+      let { deviceCategories, plantReasons, visitEvents } = this.stat;
+
+      // 基于准备好的dom，初始化echarts实例
       var myChartLeft = echarts.init(
         document.getElementById("echartContainerLeft")
       );
-      myChartLeft.setOption(this.optionLeft);
-      for (var i = 0; i < Object.keys(data.data.plantReasons).length; i++) {
-        let a = Object.keys(data.data.plantReasons)[i];
-        let list = {};
-        list.itemStyle = { normal: { color: "" } };
-        list.name = a;
-        list.value = data.data.plantReasons[a];
-        list.itemStyle.normal.color = this.color[i];
-        this.optionCenter.series[0].data.push(list);
-      }
       var myChartCenter = echarts.init(
         document.getElementById("echartContainerCenter")
       );
-      myChartCenter.setOption(this.optionCenter);
-      for (var i = 0; i < Object.keys(data.data.visitEvents).length; i++) {
-        let a = Object.keys(data.data.visitEvents)[i];
-        let list = {};
-        list.itemStyle = { normal: { color: "" } };
-        list.name = a;
-        list.value = data.data.visitEvents[a];
-        list.itemStyle.normal.color = this.color[i];
-        this.optionRight.series[0].data.push(list);
-      }
       var myChartRight = echarts.init(
         document.getElementById("echartContainerRight")
       );
-      myChartRight.setOption(this.optionRight);
-    });
+
+      let toData = dict => {
+        let rst = [];
+        for (let key in dict) {
+          console.log(key, dict[key]);
+          rst.push({ value: dict[key], name: key });
+        }
+        return rst;
+      };
+
+      let toOption = (title, dict) => {
+        return {
+          backgroundColor: "#ffffff",
+          title: {
+            text: title,
+            left: 10,
+            top: 10,
+            textStyle: {
+              color: "#000000"
+            }
+          },
+          series: [
+            {
+              name: title,
+              type: "pie",
+              data: toData(dict),
+              roseType: "angle",
+              radius: [20, 110]
+            }
+          ]
+        };
+      };
+
+      var optionLeft = toOption("机器类别", deviceCategories);
+      var optionCenter = toOption("植入原因", plantReasons);
+      var optionRight = toOption("随访事件", visitEvents);
+
+      // 绘制图表
+      myChartLeft.setOption(optionLeft);
+      myChartCenter.setOption(optionCenter);
+      myChartRight.setOption(optionRight);
+    } catch (e) {}
   },
-  methods: {}
+
+  methods: {
+    // async fetchData() {
+    //   const data = await getData();
+    //   this.msg = data;
+    // }
+  }
 };
 </script>
 

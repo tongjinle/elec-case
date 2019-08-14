@@ -2,7 +2,8 @@
   <div class="visitorDataCard" @click="gotoList">
     <div class="visitorDataCard__data">
       <img class="visitorDataCard__data-icon" src="../assets/image/icon-data.png" />
-      <div class="visitorDataCard__data-num">{{peopleNumber}}</div>
+
+      <div class="visitorDataCard__data-num">{{total}}</div>
     </div>
     <div class="visitorDataCard__title">{{title}}</div>
   </div>
@@ -12,16 +13,8 @@
 export default {
   name: "visitorDataCard",
   props: {
-    title: String,
-    peopleNumber: Number
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    gotoList() {
-      this.$router.push({ path: "/visitors" });
-    }
+    total: Number,
+    title: String
   }
 };
 </script>
@@ -47,7 +40,7 @@ export default {
     }
     &-num {
       // margin: 0 0 0 30 / @base;
-      font-size: @base / 2;
+      font-size: @base;
       margin-left: 20px;
     }
   }

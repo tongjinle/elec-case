@@ -4,26 +4,31 @@
       <div class="cardLeft">
         <div class="up">
           姓名
-          <span>关羽</span>
+          <span>{{patientName}}</span>
         </div>
         <div class="down">
-          <div class="item">
+          <div class="item name">
             医生
-            <span>华佗</span>
+            <span>{{doctorName}}</span>
           </div>
           <div class="item">
             上次随访
-            <span>2019-1-1</span>
+            <span>{{visitTime}}</span>
           </div>
           <div class="item">
             机器型号
-            <span>XXXXXX</span>
+            <span>{{deviceId}}</span>
           </div>
         </div>
       </div>
       <div class="cardRight">
+        <<<<<<< HEAD
         <button class="btnBlue" @click="gotoAdd">添加随访</button>
         <button class="btnWhite" @click="gotoDetails">随访详情</button>
+        =======
+        <button class="btnBlue" @click="onAddVisit">添加随访</button>
+        <button class="btnWhite" @click="onViewVisit">随访详情</button>
+        >>>>>>> 4987ea700a6fa3001d8034b7065d2243a98578fe
       </div>
     </div>
   </div>
@@ -32,18 +37,21 @@
 <script>
 export default {
   name: "visitorCard",
-  data() {
-    return {};
+
+  props: {
+    doctorName: String,
+    patientName: String,
+    visitTime: String,
+    deviceId: String,
+    addVisitHandle: Function,
+    viewVisitHandle: Function
   },
   methods: {
-    gotoAdd() {
-      this.$router.push({ path: "/newAdd" });
+    onAddVisit() {
+      this.addVisitHandle && this.addVisitHandle();
     },
-    gotoDetails() {
-      this.$router.push({ path: "/visitorDetails" });
-    },
-    gotoPatientDetails() {
-      this.$router.push({ path: "/patientMsg" });
+    onViewVisit() {
+      this.viewVisitHandle && this.viewVisitHandle();
     }
   }
 };
@@ -79,6 +87,9 @@ export default {
           span {
             color: black;
             font-size: @base / 2.5;
+          }
+          &.name {
+            width: 2 * @base;
           }
         }
       }

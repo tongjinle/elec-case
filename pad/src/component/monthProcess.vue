@@ -3,22 +3,22 @@
     <div class="monthProcess__title">本月随访进度</div>
     <div class="main">
       <van-circle
-        v-model="currentRate"
+        v-model="rate"
         layer-color="rgb(225,225,225)"
-        :rate="actual/everybody*100"
+        :rate="rate"
         size="250px"
         :speed="100"
         :text="text"
       />
       <div class="all">
         <div>
-          <span>{{everybody}}</span>人
+          <span>{{total}}</span>人
         </div>
         <p>总共</p>
       </div>
       <div class="ready">
         <div>
-          <span>{{actual}}</span>人
+          <span>{{current}}</span>人
         </div>
         <p>已完成</p>
       </div>
@@ -30,17 +30,29 @@
 export default {
   name: "monthProcess",
   props: {
-    everybody: Number,
-    actual: Number
+    total: Number,
+    current: Number
   },
   data() {
     return {
-      currentRate: 30
+      rate: 0
     };
   },
   computed: {
+    currentRate() {
+      let total = this.total;
+      let current = this.current;
+      let rate;
+      if (total === undefined || current === undefined) {
+        rate = 0;
+      } else {
+        rate = Math.floor((current / total) * 100);
+      }
+      this.rate = rate;
+      return rate;
+    },
     text() {
-      return this.currentRate.toFixed(0) + "%";
+      return this.currentRate + "%";
     }
   }
 };

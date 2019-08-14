@@ -8,27 +8,55 @@
       <div></div>
     </div>
     <div class="content">
-      <VisitorCard />
-      <VisitorCard />
-      <VisitorCard />
-      <VisitorCard />
-      <VisitorCard />
+      <VisitorCard
+        v-for="(item,index) in fullList"
+        :key="index"
+        :doctorName="item.doctorName"
+        :patientName="item.patientName"
+        :visitTime="item.visitTime"
+        :deviceId="item.deviceId"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import VisitorCard from "@/component/visitorCard";
+import * as bll from "../../utils/business";
+
 export default {
   name: "visitors",
   components: { VisitorCard },
   data() {
-    return {};
+    return {
+      list: []
+    };
+  },
+  computed: {
+    fullList() {
+      return this.list.map(n => {
+        console.log(n);
+        return {
+          doctorName: n.doctorName,
+          patientName: n.patientName,
+          visitTime: n.nextDate,
+          deviceId: n.deviceCate
+          // todo
+          // 两个handle
+        };
+      });
+    }
   },
   methods: {
     getBack() {
       this.$router.back(-1);
     }
+  },
+  async mounted() {
+    try {
+      let { data } = await bll.visitsSchedule(1);
+      this.list = data;
+    } catch (e) {}
   }
 };
 </script>

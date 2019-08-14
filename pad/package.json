@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config tool/webpack.config.dev.js",
     "build": "webpack --config tool/webpack.config.prod.js"
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.4.5",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
@@ -37,6 +39,8 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
+    "axios": "^0.19.0",
     "echarts": "^4.2.1",
     "element-ui": "^2.10.1",
     "vant": "^2.0.8",
