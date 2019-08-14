@@ -30,6 +30,11 @@ export default {
       currentDate: new Date()
     };
   },
+  computed: {
+    time() {
+      return this.timeFormat(this.currentDate.getTime());
+    }
+  },
   mounted() {},
   methods: {
     showitem() {
@@ -42,8 +47,7 @@ export default {
       console.log(this.currentDate);
     },
     choose() {
-      let time = this.timeFormat(this.currentDate.getTime());
-      this.chooseTimeHandle && this.chooseTimeHandle(timeStr);
+      this.chooseTimeHandle && this.chooseTimeHandle(this.time);
     },
     timeFormat(ms) {
       let date = new Date(parseInt(ms));

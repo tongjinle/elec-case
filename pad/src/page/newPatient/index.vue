@@ -15,28 +15,28 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <input v-model="name" type="text" placeholder="李颖" />
+            <input v-model="name" type="text" placeholder="患者姓名" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
             <van-radio-group class="radio" v-model="sex">
-              <van-radio class="radioItem" name="1">男</van-radio>
-              <van-radio class="radioItem" name="2">女</van-radio>
+              <van-radio class="radioItem" name="0">男</van-radio>
+              <van-radio class="radioItem" name="1">女</van-radio>
             </van-radio-group>
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <ChooseDateTime />
+            <ChooseDateTime :time="birth" @chooseTimeHandle="chooseBirth" />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <input type="text" placeholder="1234567890" />
+            <input v-model="phone" type="text" placeholder="手机号" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <input type="text" placeholder="1234567890" />
+            <input v-model="emergPhone" type="text" placeholder="紧急联系人号码" />
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <ChooseDateTime />
+            <ChooseDateTime @chooseTimeHandle="choosePlantTime" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
@@ -129,12 +129,54 @@ export default {
   components: { ChooseDateTime, DropDown, AddButton },
   data() {
     return {
-      radio: "1",
-      fileList: []
+      // 患者名字
+      name: "",
+      // 患者性别
+      sex: "0",
+      // 患者生日 (格式:1990-01-01)
+      birth: "",
+      // 手机号码
+      phone: "",
+      // 紧急联系人
+      emergContact: "",
+      // 紧急联系人手机号码
+      emergPhone: "",
+      doctorId: "",
+      fileList: [],
+      // 植入原因
+      plantReason: 33,
+      // ef
+      plantBaseEf: 12,
+      // ef img
+      plantBaseEfImg: "fiurhf99.jpg",
+      // qrs
+      plantBaseQrs: 13,
+      // qrs img
+      plantBaseQrsImg: "fiurhf99.jpg",
+      // 设备厂家
+      factoryId: 1,
+      // 设备类别
+      deviceCate: 1,
+      // 设备型号
+      deviceModel: "GT343",
+      // 设备序列号
+      deviceNo: "T4343"
     };
+  },
+  beforeMount() {
+    let date = new Date();
+    this.birth = [
+      date.getFullYear(),
+      (100 + (date.getMonth() + 1) + "").slice(1),
+      date.getDate()
+    ].join("-");
   },
   mounted() {},
   methods: {
+    chooseBirth(time) {
+      this.birth = time;
+    },
+    choosePlantTime(time) {},
     getBack() {
       this.$router.back(-1);
     },
