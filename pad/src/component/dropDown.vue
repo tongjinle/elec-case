@@ -11,25 +11,33 @@
 <script>
 export default {
   name: "dropDown",
+  props: {
+    actions: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
-      value: "5",
-      show: false,
-      actions: [
-        { name: "1" },
-        { name: "2" },
-        { name: "3" },
-        { name: "4" },
-        { name: "5" }
-      ]
+      value: "",
+      show: false
     };
   },
   mounted() {},
+  updated() {
+    console.log("updated");
+    if (!this.value && this.actions.length) {
+      this.onSelect(this.actions[0]);
+    }
+  },
   methods: {
     onSelect(item) {
       // 点击选项时默认不会关闭菜单，可以手动关闭
       this.show = false;
       this.value = item.name;
+      this.$emit("on-change", item.value);
     },
     showitem() {
       this.show = true;

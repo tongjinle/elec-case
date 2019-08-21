@@ -10,8 +10,7 @@
         v-model="currentDate"
         type="date"
         :min-date="minDate"
-        @confirm="choose()"
-        @change="showValue()"
+        @change="choose"
       />
     </div>
   </div>
@@ -42,9 +41,6 @@ export default {
     },
     closeitem() {
       this.showtime = false;
-    },
-    showValue() {
-      console.log(this.currentDate);
     },
     choose() {
       this.chooseTimeHandle && this.chooseTimeHandle(this.time);

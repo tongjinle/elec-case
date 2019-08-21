@@ -40,3 +40,72 @@ export function stat() {
 export function search(keyword) {
   return createRequest().get("elecase/patients/name/" + keyword);
 }
+
+// 获取厂家
+export function factories() {
+  return createRequest().get("elecase/factories");
+}
+
+// 获取医生
+export function doctors() {
+  return createRequest().get("elecase/doctors");
+}
+
+// 新增患者
+
+export function addPatient(
+  name,
+  sex,
+  birth,
+  phone,
+  emergContact,
+  emergPhone,
+  addr,
+  doctorId,
+  plantReason,
+  plantBaseEf,
+  plantBaseEfImg,
+  plantBaseQrs,
+  plantBaseQrsImg,
+  factoryId,
+  deviceCate,
+  deviceNo,
+  deviceModel
+) {
+  let data = {
+    name,
+    sex,
+    birth,
+    phone,
+    emergContact,
+    emergPhone,
+    addr,
+    treat: {
+      doctorId
+    },
+    psmk: {
+      plantReason,
+      plantBaseEf,
+      plantBaseEfImg,
+      plantBaseQrs,
+      plantBaseQrsImg,
+      factoryId,
+      deviceCate,
+      deviceNo,
+      deviceModel,
+      doctorId
+    }
+  };
+  return createRequest().post("elecase/patients", data);
+}
+
+// 上传图片
+export function uploadImage(file) {
+  console.log("upload image");
+  let fd = new FormData();
+  fd.append("image", file);
+  let headers = { "Content-Type": "multipart/form-data" };
+  return createRequest().post("elecase/res/image", fd, { headers });
+}
+
+// 获取图片

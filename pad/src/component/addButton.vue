@@ -1,7 +1,7 @@
 <template>
   <div class="addButton">
     <div class="addButtonbox">
-      <input type="text" v-model="value" />
+      <input type="text" v-model="val" @change="change" @click="selectAll" />
       <div class="addbtn">
         <div @click="add">
           <img class="upBtn" src="../assets/image/up.png" alt />
@@ -17,18 +17,31 @@
 <script>
 export default {
   name: "addButton",
+  props: {
+    value: { type: Number, default: 0 }
+  },
   data() {
     return {
-      value: 5
+      val: 0
     };
   },
   mounted() {},
   methods: {
+    // 点击就选择文本
+    selectAll(e) {
+      e.target.select();
+    },
+    change() {
+      if (!/^[1-9]?\d$/.test(this.val)) {
+        this.val = 0;
+      }
+      console.log("add button : change : ", this.val);
+    },
     add() {
-      this.value += 1;
+      this.val += 1;
     },
     reduce() {
-      this.value -= 1;
+      this.val -= 1;
     }
   }
 };
