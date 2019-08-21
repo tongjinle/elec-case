@@ -15,6 +15,8 @@
         :patientName="item.patientName"
         :visitTime="item.visitTime"
         :deviceId="item.deviceId"
+        :addVisitHandle="item.addVisit"
+        :viewVisitHandle="item.viewVisit"
       />
     </div>
   </div>
@@ -40,9 +42,13 @@ export default {
           doctorName: n.doctorName,
           patientName: n.patientName,
           visitTime: n.nextDate,
-          deviceId: n.deviceCate
-          // todo
-          // 两个handle
+          deviceCate: n.deviceCate,
+          addVisit: () => {
+            this.addVisit(n);
+          },
+          viewVisit: () => {
+            this.viewVisit(n);
+          }
         };
       });
     }
@@ -50,6 +56,12 @@ export default {
   methods: {
     getBack() {
       this.$router.back(-1);
+    },
+    addVisit(item) {
+      console.log(item);
+    },
+    viewVisit(item) {
+      console.log(item);
     }
   },
   async mounted() {

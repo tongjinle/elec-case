@@ -126,6 +126,7 @@ import ChooseDateTime from "@/component/chooseDateTime";
 import AddButton from "@/component/addButton";
 import * as bll from "../../utils/business";
 import * as tool from "../../utils/tool";
+import * as config from "../../utils/config";
 
 export default {
   name: "newPatient",
@@ -192,26 +193,14 @@ export default {
       this.doctors = doctors.map(n => ({ name: n.name, value: n.id }));
     }
 
-    this.plantReasons = [
-      { name: "病窦", value: 1 },
-      { name: "房室传导阻滞", value: 2 },
-      { name: "房颤伴长RR间期", value: 3 },
-      { name: "心衰", value: 4 },
-      { name: "晕厥", value: 5 },
-      { name: "心肌病", value: 6 }
-    ];
+    this.plantReasons = config.PLANT_REASONS;
 
     {
       let { data: factories } = await bll.factories();
       this.factories = factories.map(n => ({ name: n.name, value: n.id }));
     }
 
-    this.categories = [
-      { name: "BRADY", value: 1 },
-      { name: "ICD", value: 2 },
-      { name: "CRTP", value: 3 },
-      { name: "CRTD", value: 4 }
-    ];
+    this.categories = config.DEVICE_CATEGORIES;
   },
   mounted() {},
   methods: {

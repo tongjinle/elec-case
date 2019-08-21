@@ -1,6 +1,6 @@
 <template>
   <div class="visitor">
-    <div class="card" @click="gotoPatientDetails">
+    <div class="card">
       <div class="cardLeft">
         <div class="up">
           姓名
@@ -17,7 +17,7 @@
           </div>
           <div class="item">
             机器型号
-            <span>{{deviceId}}</span>
+            <span>{{deviceCate}}</span>
           </div>
         </div>
       </div>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import * as config from "../utils/config";
+
 export default {
   name: "visitorCard",
 
@@ -37,12 +39,23 @@ export default {
     doctorName: String,
     patientName: String,
     visitTime: String,
-    deviceId: String,
+    deviceCate: String,
     addVisitHandle: Function,
     viewVisitHandle: Function
   },
+  data() {
+    return {};
+  },
+  computed: {
+    deviceCateText() {
+      let value = this.deviceCate;
+      let item = config.DEVICE_CATEGORIES.find(n => n.value === value);
+      return item ? item.name : "";
+    }
+  },
   methods: {
     onAddVisit() {
+      console.log("onAddVisit:", this.addVisitHandle);
       this.addVisitHandle && this.addVisitHandle();
     },
     onViewVisit() {
