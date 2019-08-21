@@ -99,6 +99,11 @@ export function addPatient(
   return createRequest().post("elecase/patients", data);
 }
 
+// 查找患者
+export function patient(id) {
+  return createRequest().get("elecase/patients/" + id);
+}
+
 // 上传图片
 export function uploadImage(file) {
   console.log("upload image");

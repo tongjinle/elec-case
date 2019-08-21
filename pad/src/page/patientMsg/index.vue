@@ -13,25 +13,25 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <div class="contentMsg">李颖</div>
+            <div class="contentMsg">{{name}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
-            <div class="contentMsg">男</div>
+            <div class="contentMsg">{{sex}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <div class="contentMsg">2000-01-01</div>
+            <div class="contentMsg">{{birth}}</div>
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <div class="contentMsg">1234567890</div>
+            <div class="contentMsg">{{phone}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <div class="contentMsg">12345676899</div>
+            <div class="contentMsg">{{emergPhone}}</div>
           </div>
         </div>
       </div>
@@ -40,33 +40,33 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <div class="contentMsg">2000-01-01</div>
+            <div class="contentMsg">{{plantTime}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
-            <div class="contentMsg">华佗</div>
+            <div class="contentMsg">{{doctor}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">植入原因</div>
-            <div class="contentMsg">心脏衰竭</div>
+            <div class="contentMsg">{{plantReason}}</div>
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">厂家</div>
-            <div class="contentMsg">蓝翔</div>
+            <div class="contentMsg">{{factoryId}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">类别</div>
-            <div class="contentMsg">ACFUN</div>
+            <div class="contentMsg">{{deviceCate}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">型号</div>
-            <div class="contentMsg">XXXXXXXX</div>
+            <div class="contentMsg">{{deviceModel}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">序列号</div>
-            <div class="contentMsg">AKGBHJKLFG</div>
+            <div class="contentMsg">{{deviceNo}}</div>
           </div>
         </div>
       </div>
@@ -80,23 +80,23 @@
             <div class="footItemLeft">
               <div>EF(0~99)</div>
               <div class="footDown">
-                <div class="contentMsg">45</div>
+                <div class="contentMsg">{{plantBaseEf}}</div>
                 <span>%</span>
               </div>
             </div>
             <div class="footItemRight">
-              <img src="../../assets/image/1.jpg" alt />
+              <img :src="plantBaseEfImg" alt />
             </div>
           </div>
           <div class="footItem" style="margin-left:1rem">
             <div class="footItemLeft">
               <div>QRS(0~99)</div>
               <div class="footDown">
-                <div class="contentMsg">45</div>
+                <div class="contentMsg">{{plantBaseQrs}}</div>
               </div>
             </div>
             <div class="footItemRight">
-              <img src="../../assets/image/1.jpg" alt />
+              <img :src="plantBaseQrsImg" alt />
             </div>
           </div>
         </div>
@@ -109,17 +109,58 @@
 import DropDown from "@/component/dropDown";
 import ChooseDateTime from "@/component/chooseDateTime";
 import AddButton from "@/component/addButton";
+
+import * as bll from "../../utils/business";
+
 export default {
   name: "newPatient",
   components: { ChooseDateTime, DropDown, AddButton },
   data() {
     return {
+      // 患者名字
+      name: "",
+      // 患者性别
+      sex: "0",
+      // 患者生日 (格式:1990-01-01)
+      birth: "",
+      // 手机号码
+      phone: "",
+      // 紧急联系人
+      emergContact: "",
+      // 紧急联系人手机号码
+      emergPhone: "",
+      doctorId: "",
+      fileList: [],
+      // 植入原因
+      plantReason: -1,
+      // 植入时间
+      plantTime: "",
+      // ef
+      plantBaseEf: -1,
+      // ef img
+      plantBaseEfImg: "",
+      // qrs
+      plantBaseQrs: -1,
+      // qrs img
+      plantBaseQrsImg: "",
+      // 设备厂家
+      factoryId: 1,
+      // 设备类别
+      deviceCate: 1,
+      // 设备型号
+      deviceModel: "",
+      // 设备序列号
+      deviceNo: "",
+
       radio: "1",
       fileList: []
     };
   },
   mounted() {},
   methods: {
+    async queryPatient(patientId) {
+      let { data } = await bll.patient(patientId);
+    },
     getBack() {
       this.$router.back(-1);
     }
