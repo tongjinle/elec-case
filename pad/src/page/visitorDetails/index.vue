@@ -4,30 +4,50 @@
       <div @click="getBack()">
         <img src="../../assets/image/back.png" alt />
       </div>
-      <p>关羽</p>
+      <p>{{name}}</p>
       <div @click="gotoAdd">
         <img src="../../assets/image/zengjia@2x.png" alt />
       </div>
     </div>
     <div class="nextTime">
       下次随访：
-      <span>2020-01-01</span>
+      <span>{{nextDate}}</span>
     </div>
     <div class="content">
-      <VisitorDetailCard />
-      <VisitorDetailCard />
-      <VisitorDetailCard />
+      <VisitorDetailCard
+        v-for="item in list"
+        :key="item"
+        :doctorName="item.doctor.name"
+        :batteryStatus="item.visit.batteryStatus"
+        :event="item.visit.event"
+        :deviceNo="item.visit.deviceNo"
+        :date="item.visit.date"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import * as bll from "../../utils/business";
 import VisitorDetailCard from "@/component/visitorDetailCard";
+
 export default {
   name: "visitorDetails",
   components: { VisitorDetailCard },
   data() {
-    return {};
+    return {
+      // 患者名字
+      name: "",
+      // 下次随访时间
+      nextDate: "",
+      // 随访列表
+      list: []
+    };
+  },
+  watch: {
+    $route: function() {
+      this.query();
+    }
   },
   methods: {
     getBack() {
@@ -35,7 +55,26 @@ export default {
     },
     gotoAdd() {
       this.$router.push({ path: "/newAdd" });
+    },
+    async query() {
+      let query = this.$route.query;
+      if (!query || !query.name || query.id === undefined) {
+        return;
+      }
+      this.name = query.name;
+
+      let patientId = query.id;
+      let { data } = await bll.patientVisitsSchedule(patientId);
+      console.log(data);
+      this.nextDate = data.nextDate;
+      this.list = data.visits;
     }
+  },
+  beforeUpdate() {
+    console.log("666");
+  },
+  async mounted() {
+    this.query();
   }
 };
 </script>

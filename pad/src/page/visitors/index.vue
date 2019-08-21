@@ -61,7 +61,11 @@ export default {
       console.log(item);
     },
     viewVisit(item) {
-      console.log(item);
+      console.log("444", item, item.patientId);
+      this.$router.push({
+        name: "visitorDetails",
+        query: { id: item.patientId, name: item.patientName }
+      });
     }
   },
   async mounted() {

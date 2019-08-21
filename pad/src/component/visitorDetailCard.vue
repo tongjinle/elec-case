@@ -5,32 +5,53 @@
         <img src="../assets/image/time@2x.png" alt />2019-01-01
       </div>
       <div class="cardDown">
-        <div class="item">
-          医生
-          <span>华佗</span>
+        <div class="doctor item">
+          <span class="title">医生</span>
+          <span>{{doctorName}}</span>
         </div>
-        <div class="item">
-          电池
-          <span>OK</span>
+        <div class="battery item">
+          <span class="title">电池</span>
+          <span>{{batteryStatusText}}</span>
         </div>
-        <div class="item">
-          机器
-          <span>XXXXXX</span>
+        <div class="device item">
+          <span class="title">机器</span>
+          <span>{{deviceNo}}</span>
         </div>
         <div class="item">事件概况</div>
-        <button>心率</button>
-        <button>起搏</button>
-        <button>设置</button>
+        <button class="xinlv" :class="{'active':event===1||1}">心率</button>
+        <button class="qibo" :class="{'active':event===2}">起搏</button>
+        <button class="shezhi" :class="{'active':event===8}">设置</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import * as config from "../utils/config";
 export default {
   name: "visitorDetailCard",
+  props: {
+    // 医生名字
+    doctorName: String,
+    // 电池状态
+    batteryStatus: Number,
+    // 事件
+    event: Number,
+    // 随访日期
+    date: String,
+    // 设备编号
+    deviceNo: String
+  },
   data() {
     return {};
+  },
+  computed: {
+    batteryStatusText() {
+      let item = config.BATTERY_STATUS.find(
+        n => n.value === this.batteryStatus
+      );
+      return item ? item.name : "OK";
+    }
   },
   methods: {
     gotoDetails() {
@@ -64,19 +85,59 @@ export default {
       align-items: center;
       .item {
         margin-right: @base / 2;
+        display: flex;
+        align-items: center;
         span {
           color: black;
           font-size: @base / 2.5;
+          &.title {
+            font-size: @base / 3;
+            margin-right: 5px;
+          }
+        }
+        &.doctor {
+          width: @base * 2;
+        }
+        &.battery {
+          width: @base * 2;
+        }
+        &.device {
+          width: @base * 2.5;
         }
       }
-      button {
-        padding: 10px @base / 2;
-        font-size: @base / 3;
-        border-radius: 70px;
-        border: 1px solid #888888;
-        background-color: white;
-        margin-right: 20px;
-      }
+    }
+  }
+
+  //
+  .xinlv,
+  .qibo,
+  .shezhi {
+    padding: 10px @base / 2;
+    font-size: @base / 2.5;
+    border-radius: 70px;
+    border: 1px solid #888888;
+    margin-right: 20px;
+    color: #000;
+    background-color: white;
+    letter-spacing: 2px;
+    &.active {
+      border: none;
+      color: #fff;
+    }
+  }
+  .xinlv {
+    &.active {
+      background-color: rgb(253, 204, 49);
+    }
+  }
+  .qibo {
+    &.active {
+      background-color: rgb(32, 231, 174);
+    }
+  }
+  .shezhi {
+    &.active {
+      background-color: rgb(90, 201, 60);
     }
   }
 }

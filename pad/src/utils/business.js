@@ -31,6 +31,11 @@ export function visitsSchedule(id) {
   return createRequest().get("/elecase/visits/schedule/" + id);
 }
 
+// 患者-随访列表
+export function patientVisitsSchedule(id) {
+  return createRequest().get("/elecase/visits/patient/" + id);
+}
+
 // 首页统计
 export function stat() {
   return createRequest().get("/elecase/homes");
