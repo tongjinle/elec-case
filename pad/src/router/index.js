@@ -6,7 +6,9 @@ Vue.use(VueRouter);
 const loadComponent = componentName => resolve => {
   import(`../page/${componentName}/index.vue`)
     .then(component => resolve(component))
-    .catch(() => {});
+    .catch(e => {
+      console.log(e);
+    });
 };
 
 import App from "@/App";

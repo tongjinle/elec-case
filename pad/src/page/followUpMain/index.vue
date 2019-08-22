@@ -6,7 +6,7 @@
       </div>
       <p>随访详情</p>
       <div class="right">
-        <DateTime v-if="showRight" />
+        <ChooseDateTime v-if="showRight" />
         <div @click="showCardLeft()">提交</div>
       </div>
     </div>
@@ -167,9 +167,10 @@
 <script>
 import DropDown from "@/component/dropDown";
 import ChooseDateTime from "@/component/chooseDateTime";
+import * as bll from "../../utils/business";
 export default {
   name: "followUpMain",
-  components: { DateTime, DropDown },
+  components: { ChooseDateTime, DropDown },
   data() {
     return {
       currentDate: new Date(),
@@ -191,6 +192,20 @@ export default {
     },
     gotoDetails() {
       this.$router.push({ path: "/visitorDetails" });
+    },
+    async query() {
+      let query = this.$route.query;
+      let id = query.id;
+      let { data } = await bll.visitDetail(id);
+      console.log(data);
+    }
+  },
+  mounted() {
+    this.query();
+  },
+  watch: {
+    $route() {
+      this.query();
     }
   }
 };
