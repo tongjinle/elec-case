@@ -19,6 +19,8 @@
             :patientName="item.patientName"
             :visitTime="item.visitTime"
             :deviceId="item.deviceId"
+            :addVisitHandle="item.addVisit"
+            :viewVisitHandle="item.viewVisit"
           />
         </div>
       </div>
@@ -58,9 +60,11 @@ export default {
           doctorName: n.doctorName,
           patientName: n.name,
           visitTime: n.nextDate,
-          deviceId: n.deviceCate
-          // todo
+          deviceId: n.deviceCate,
           // 两个handle
+          addVisit: () => {
+            this.addVisit(n);
+          }
         };
       });
     }
@@ -75,8 +79,20 @@ export default {
       this.isFirst = false;
     },
     scan() {},
-    addPatient() {
-      this.$router.push("/newPatient");
+
+    addVisit(item) {
+      console.log("新增随访", item);
+      this.$router.push({
+        name: "newAdd",
+        query: { id: item.id, name: item.name }
+      });
+    },
+    viewVisit(item) {
+      console.log("随访详情", item);
+      this.$router.push({
+        name: "visitorDetails",
+        query: { id: item.id, name: item.name }
+      });
     }
   }
 };

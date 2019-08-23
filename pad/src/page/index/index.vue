@@ -16,7 +16,7 @@
       <router-link to="/newAdd">新增随访(done)</router-link>
     </li>
     <li>
-      <router-link to="/search">搜索</router-link>
+      <router-link to="/search">搜索(done)</router-link>
     </li>
     <li>
       <router-link to="/followUpMain">随访预览</router-link>
