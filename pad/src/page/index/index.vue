@@ -1,19 +1,19 @@
 <template>
   <ul>
     <li>
-      <router-link to="/login">登陆页</router-link>
+      <router-link to="/login">登陆页(done)</router-link>
     </li>
     <li>
-      <router-link to="/home">首页</router-link>
+      <router-link to="/home">首页(done)</router-link>
     </li>
     <li>
-      <router-link to="/visitors">随访列表</router-link>
+      <router-link to="/visitors">随访列表(done)</router-link>
     </li>
     <li>
-      <router-link to="/visitorDetails">患者随访详情</router-link>
+      <router-link to="/visitorDetails?id=1&name=百里">患者随访详情(done)</router-link>
     </li>
     <li>
-      <router-link to="/newAdd">新增随访</router-link>
+      <router-link to="/newAdd">新增随访(done)</router-link>
     </li>
     <li>
       <router-link to="/search">搜索</router-link>

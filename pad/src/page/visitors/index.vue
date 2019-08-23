@@ -58,10 +58,14 @@ export default {
       this.$router.back(-1);
     },
     addVisit(item) {
-      console.log(item);
+      console.log("新增随访", item);
+      this.$router.push({
+        name: "newAdd",
+        query: { id: item.patientId, name: item.patientName }
+      });
     },
     viewVisit(item) {
-      console.log("444", item, item.patientId);
+      console.log("随访详情", item);
       this.$router.push({
         name: "visitorDetails",
         query: { id: item.patientId, name: item.patientName }

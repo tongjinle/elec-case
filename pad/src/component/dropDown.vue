@@ -27,7 +27,7 @@ export default {
   },
   mounted() {},
   updated() {
-    console.log("updated");
+    // console.log("updated", this.actions);
     if (!this.value && this.actions.length) {
       this.onSelect(this.actions[0]);
     }

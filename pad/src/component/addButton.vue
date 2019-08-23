@@ -32,16 +32,20 @@ export default {
       e.target.select();
     },
     change() {
-      if (!/^[1-9]?\d$/.test(this.val)) {
+      if (!/^[1-9]?\d*$/.test(this.val)) {
         this.val = 0;
       }
+      this.val = this.val - 0;
       console.log("add button : change : ", this.val);
+      this.$emit("on-change", this.val);
     },
     add() {
       this.val += 1;
+      this.$emit("on-change", this.val);
     },
     reduce() {
       this.val -= 1;
+      this.$emit("on-change", this.val);
     }
   }
 };
