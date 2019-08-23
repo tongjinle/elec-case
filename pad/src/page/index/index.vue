@@ -19,7 +19,7 @@
       <router-link to="/search">搜索(done)</router-link>
     </li>
     <li>
-      <router-link to="/followUpMain">随访预览</router-link>
+      <router-link to="/followUpMain?id=20">随访预览</router-link>
     </li>
     <li>
       <router-link to="/newPatient">新增患者</router-link>

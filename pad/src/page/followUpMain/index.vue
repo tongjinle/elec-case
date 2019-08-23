@@ -46,15 +46,15 @@
       <div class="item">
         <div class="mainer">
           <div class="title">随访日期：</div>
-          <div class="msg">2019-06-24</div>
+          <div class="msg">{{nextDate}}</div>
         </div>
         <div class="mainer">
           <div class="title">随访医师：</div>
-          <div class="msg">李颖</div>
+          <div class="msg">{{doctorName}}</div>
         </div>
         <div class="mainer">
           <div class="title">随访种类：</div>
-          <div class="msg">常规</div>
+          <div class="msg">{{visitType}}</div>
         </div>
       </div>
       <div class="itemContent">
@@ -63,11 +63,11 @@
           <div class="msgBox">
             <div class="mainer">
               <div class="contentBoxTitle">1.电池状态：</div>
-              <div class="msg">ERI</div>
+              <div class="msg">{{batteryStatus}}</div>
             </div>
             <div class="mainer">
               <div class="contentBoxTitle">预估平均使用寿命：</div>
-              <div class="msg">2</div>
+              <div class="msg">{{duration}}</div>
             </div>
           </div>
           <div class="tableBox">
@@ -168,11 +168,17 @@
 import DropDown from "@/component/dropDown";
 import ChooseDateTime from "@/component/chooseDateTime";
 import * as bll from "../../utils/business";
+import * as config from "../../utils/config";
+
 export default {
   name: "followUpMain",
   components: { ChooseDateTime, DropDown },
   data() {
     return {
+      nextDate: "",
+      doctorName: "",
+      visitType: "",
+      //
       currentDate: new Date(),
       minDate: new Date(),
       showRight: false,
@@ -198,6 +204,26 @@ export default {
       let id = query.id;
       let { data } = await bll.visitDetail(id);
       console.log(data);
+
+      let paperVO = data.paperVO;
+      this.nextDate = paperVO.date;
+      this.doctorName = paperVO.doctor.name;
+      {
+        let item = config.VISIT_TYPES.find(n => n.value === paperVO.category);
+        this.visitType = item ? item.name : "";
+      }
+
+      {
+        let item = config.BATTERY_STATUS.find(
+          n => n.value === paperVO.batteryStatus
+        );
+        this.batteryStatus = item ? item.name : "未知电池状态";
+      }
+
+      {
+        let item = config.DURATIONS.find(n => n.value === paperVO.duration);
+        this.duration = item ? item.name : "未知寿命";
+      }
     }
   },
   mounted() {
