@@ -221,8 +221,9 @@ export default {
       }
 
       {
-        let item = config.DURATIONS.find(n => n.value === paperVO.duration);
-        this.duration = item ? item.name : "未知寿命";
+        // let item = config.DURATIONS.find(n => n.value === paperVO.duration);
+        // this.duration = item ? item.name : "未知寿命";
+        this.duration = "未知寿命";
       }
     }
   },
