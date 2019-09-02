@@ -19,7 +19,7 @@
         :key="item"
         :doctorName="item.doctor.name"
         :batteryStatus="item.visit.batteryStatus"
-        :event="item.visit.event"
+        :events="item.visit.events"
         :deviceNo="item.visit.deviceNo"
         :date="item.visit.date"
       />

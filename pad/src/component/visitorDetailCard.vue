@@ -18,9 +18,9 @@
           <span>{{deviceNo}}</span>
         </div>
         <div class="item">事件概况</div>
-        <button class="xinlv" :class="{'active':event===1||1}">心率</button>
-        <button class="qibo" :class="{'active':event===2}">起搏</button>
-        <button class="shezhi" :class="{'active':event===8}">设置</button>
+        <button class="xinlv" :class="{'active':isXinlv}">心率</button>
+        <button class="qibo" :class="{'active':isQibo}">起搏</button>
+        <button class="shezhi" :class="{'active':isShezhi}">设置</button>
       </div>
     </div>
   </div>
@@ -36,7 +36,10 @@ export default {
     // 电池状态
     batteryStatus: Number,
     // 事件
-    event: Number,
+    events: {
+      type: Number,
+      default: 0
+    },
     // 随访日期
     date: String,
     // 设备编号
@@ -51,6 +54,20 @@ export default {
         n => n.value === this.batteryStatus
       );
       return item ? item.name : "OK";
+    },
+    // 心率事件
+    // value:1
+    isXinlv() {
+      return (this.events & 1) === 1;
+    },
+    // 起搏事件
+    // value:2 或则 4
+    isQibo() {
+      return (this.events & 2) === 2 || (this.events & 4) === 4;
+    },
+    // 设置事件
+    isShezhi() {
+      return (this.events & 8) === 8;
     }
   },
   methods: {
