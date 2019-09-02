@@ -127,59 +127,15 @@ export function uploadImage(file) {
 export function getImage(id) {}
 
 // 新增随访
-export function addVisit({
-  nextDate,
-  doctorId,
-  category,
-  batteryStatus,
-  duration,
-  advise,
-  mode,
-  up,
-  down,
-  threshold,
-  pulseWidth,
-  perception,
-  impendance,
-  outputVoltage,
-  outputPulseWidth,
-  outputPerception,
-  apRatio,
-  vpRatio,
-  ataf,
-  atafImg,
-  efRatio,
-  efImg,
-  qrsRatio,
-  qrsImg,
-  events
-}) {
-  let data = {
-    nextDate,
-    doctorId,
-    category,
-    batteryStatus,
-    duration,
-    advise,
-    mode,
-    up,
-    down,
-    threshold,
-    pulseWidth,
-    perception,
-    impendance,
-    outputVoltage,
-    outputPulseWidth,
-    outputPerception,
-    apRatio,
-    vpRatio,
-    ataf,
-    atafImg,
-    efRatio,
-    efImg,
-    qrsRatio,
-    qrsImg,
-    events
-  };
+export function addVisit(data) {
   return createRequest().post("elecase/visits/patient/1", data);
+}
+
+export function setVisitData(data) {
+  localStorage.setItem("visitData", JSON.stringify(data));
+}
+
+export function getVisitData() {
+  let str = localStorage.getItem("visitData");
+  return str ? JSON.parse(str) : {};
 }
