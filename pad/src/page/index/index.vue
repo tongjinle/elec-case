@@ -1,31 +1,31 @@
 <template>
   <ul>
     <li>
-      <router-link to="/login">登陆页(done)</router-link>
+      <a target="_blank" href="./#/login">登陆页(done)</a>
     </li>
     <li>
-      <router-link to="/home">首页(done)</router-link>
+      <a target="_blank" href="./#/home">首页(done)</a>
     </li>
     <li>
-      <router-link to="/visitors">随访列表(done)</router-link>
+      <a target="_blank" href="./#/visitors">随访列表(done)</a>
     </li>
     <li>
-      <router-link to="/visitorDetails?id=1&name=百里">患者随访详情(done)</router-link>
+      <a target="_blank" href="./#/visitorDetails?id=1&name=百里">患者随访详情(done)</a>
     </li>
     <li>
-      <router-link to="/newAdd">新增随访(done)</router-link>
+      <a target="_blank" href="./#/newAdd">新增随访(done)</a>
     </li>
     <li>
-      <router-link to="/search">搜索(done)</router-link>
+      <a target="_blank" href="./#/search">搜索(done)</a>
     </li>
     <li>
-      <router-link to="/followUpMain?id=20">随访预览</router-link>
+      <a target="_blank" href="./#/followUpMain?id=20">随访预览</a>
     </li>
     <li>
-      <router-link to="/newPatient">新增患者</router-link>
+      <a target="_blank" href="./#/newPatient">新增患者</a>
     </li>
     <li>
-      <router-link to="/patientMsg">患者信息</router-link>
+      <a target="_blank" href="./#/patientMsg">患者信息</a>
     </li>
   </ul>
 </template>

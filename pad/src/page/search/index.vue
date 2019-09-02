@@ -4,10 +4,13 @@
       <NavLeft />
     </div>
     <div class="box">
-      <div class="input">
-        <img class="searchImg" src="../../assets/image/search@2x.png" alt />
-        <input type="text" v-model="keyword" placeholder="请输入患者姓名" @keyup.enter="search" />
-        <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
+      <div class="up">
+        <div class="input">
+          <img class="searchImg" src="../../assets/image/search@2x.png" alt />
+          <input type="text" v-model="keyword" placeholder="请输入患者姓名" @keyup.enter="search" />
+          <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
+        </div>
+        <div class="add" @click="onAdd">新增</div>
       </div>
       <div class="list" v-if="list.length!=0">
         <div class="title">患者</div>
@@ -93,6 +96,12 @@ export default {
         name: "visitorDetails",
         query: { id: item.id, name: item.name }
       });
+    },
+    onAdd() {
+      this.$router.push({
+        name: "newPatient"
+      });
+      // todo
     }
   }
 };
@@ -111,29 +120,37 @@ export default {
     padding: 100px 50px 0;
     width: 100%;
     box-shadow: 1px 1px 5px #888888;
-    .input {
+    .up {
       display: flex;
       justify-content: center;
-      input {
-        width: @base*10;
-        padding: 20px 100px;
-        border: 0;
-        box-shadow: 1px 1px 5px #888888;
-        border-radius: @base*2;
+      align-items: center;
+      .input {
+        display: flex;
+        justify-content: center;
+        input {
+          width: @base*10;
+          padding: 20px 100px;
+          border: 0;
+          box-shadow: 1px 1px 5px #888888;
+          border-radius: @base*2;
+        }
+        img {
+          width: @base / 1.5;
+          height: @base / 1.5;
+        }
+        .searchImg {
+          position: relative;
+          left: @base*1.3;
+          top: @base*0.4;
+        }
+        .photoImg {
+          position: relative;
+          left: -@base*1.3;
+          top: @base*0.4;
+        }
       }
-      img {
-        width: @base / 1.5;
-        height: @base / 1.5;
-      }
-      .searchImg {
-        position: relative;
-        left: @base*1.3;
-        top: @base*0.4;
-      }
-      .photoImg {
-        position: relative;
-        left: -@base*1.3;
-        top: @base*0.4;
+      .add {
+        color: rgb(18, 159, 259);
       }
     }
     .list {
