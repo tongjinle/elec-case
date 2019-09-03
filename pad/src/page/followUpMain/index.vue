@@ -251,8 +251,10 @@ export default {
     }
   },
   methods: {
-    changeTime(nextDate) {
-      this.nextDate = nextDate;
+    async changeTime(value) {
+      let { data } = await bll.date(4, value);
+      console.log(data);
+      // this.nextDate = nextDate;
     },
     changeDoctor(doctor) {
       this.doctor = doctor;
@@ -303,33 +305,13 @@ export default {
       this.doctors = doctors;
     }
     {
-      let time = new Date();
-      let [year, month, date] = [
-        time.getFullYear(),
-        time.getMonth(),
-        time.getDate()
-      ];
-      let toStr = time => {
-        return [
-          time.getFullYear(),
-          time.getMonth() - 0 + 1,
-          time.getDate()
-        ].join("-");
-      };
       let timeSteps = [
-        { value: 1, text: "一个月后" },
-        { value: 2, text: "两个月后" },
-        { value: 3, text: "三个月后" },
-        { value: 6, text: "半年后" },
-        { value: 12, text: "一年后" }
-      ].map(n => {
-        let value = n.value;
-        let nextDate =
-          value === 12
-            ? toStr(new Date(year + 1, month, date))
-            : toStr(new Date(year, month + value, date));
-        return { value: nextDate, name: n.text };
-      });
+        { value: 1, name: "一个月后" },
+        { value: 2, name: "两个月后" },
+        { value: 3, name: "三个月后" },
+        { value: 6, name: "半年后" },
+        { value: 12, name: "一年后" }
+      ];
       this.timeSteps = timeSteps;
     }
   }

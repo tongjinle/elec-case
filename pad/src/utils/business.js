@@ -140,3 +140,20 @@ export function getVisitData() {
   let str = localStorage.getItem("visitData");
   return str ? JSON.parse(str) : {};
 }
+
+// 预约日期的计算
+export function date(weekday, months) {
+  let timestr = timeToString(new Date());
+  return createRequest().get(
+    `elecase/patients/date/${timestr}/${weekday}/${months}`
+  );
+}
+
+export function timeToString(time) {
+  let padding = num => (100 + num + "").slice(1) - 0;
+  return [
+    time.getFullYear(),
+    padding(time.getMonth() + 1),
+    padding(time.getDate())
+  ].join("-");
+}
