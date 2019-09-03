@@ -205,6 +205,8 @@ export default {
   components: { DropDown, AddButton },
   data() {
     return {
+      // 病人编号
+      patientId: "",
       // 随访类型
       visitType: 1,
       // 电池状态
@@ -236,7 +238,6 @@ export default {
       apRatio: ["0", "0", "0"],
       // VP%
       vpRatio: ["0", "0", "0"],
-
       // AT/AF
       ataf: false,
       // AT/AF 留图
@@ -285,6 +286,7 @@ export default {
     },
     async submit() {
       let data = {
+        patientId: this.patientId,
         visitType: this.visitType,
         batteryStatus: this.batteryStatus,
         duration: this.duration,
@@ -313,6 +315,9 @@ export default {
     }
   },
   mounted() {
+    // 病人编号
+    this.patientId = this.$route.query.id;
+
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
@@ -320,6 +325,7 @@ export default {
     // mock
     // 正式环境下要删除
     {
+      this.patientId = "1";
       this.visitType = "1";
       this.batteryStatus = "1";
       this.duration = "4";

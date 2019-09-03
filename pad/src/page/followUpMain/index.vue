@@ -1,5 +1,5 @@
 <template>
-  <div class="followUpMainBox">
+  <div class="followUpMainBox" @click="closeCard">
     <div class="head">
       <div class="left" @click="getBack()">
         <img src="../../assets/image/back.png" alt />
@@ -7,11 +7,11 @@
       <p>随访详情</p>
       <div class="right">
         <ChooseDateTime v-if="showRight" />
-        <div @click="showCardLeft()">提交</div>
+        <div @click.stop="showCard()">提交</div>
       </div>
     </div>
-    <div class="leftCard" v-if="showCard">
-      <div class="cardMain">
+    <div class="leftCard" v-if="isShowCard">
+      <div class="cardMain" @click.stop="clickLeftCard">
         <div class="title">随访结论：</div>
         <div class="cardItem">
           <div>电池状态异常：</div>
@@ -38,7 +38,7 @@
           <DropDown :actions="timeSteps" @on-change="changeTime" />
         </div>
         <div class="foot">
-          <button @click="gotoDetails">提交</button>
+          <button @click="submit">提交</button>
         </div>
       </div>
     </div>
@@ -156,7 +156,7 @@
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
-            <div class="msgContent">{{advice}}</div>
+            <div class="msgContent">{{advise}}</div>
           </div>
         </div>
       </div>
@@ -200,8 +200,7 @@ export default {
       outputPerception: { a: "", rv: "", lv: "" },
       // ataf
       ataf: "",
-      // 医生建议
-      advice: "",
+
       // 等待选择的医生们
       doctors: [],
       // 事件选择
@@ -214,10 +213,11 @@ export default {
       // 设置事件
       isShezhi: false,
       // 时间步长
+      timeStep: 0,
       timeSteps: [],
 
       showRight: false,
-      showCard: false,
+      isShowCard: false,
       msg: ""
     };
   },
@@ -246,18 +246,51 @@ export default {
       }
       let item = this.doctors.find(n => n.value === this.doctor);
       return item ? item.name : "";
+    },
+    // 医生建议
+    advise() {
+      let arr = [];
+      let item = this.timeSteps.find(n => n.value === this.timeStep);
+      arr.push(item ? "1." + item.name + "随访" : "");
+
+      if (this.isXinlv) {
+        arr.push("2.建议心内科门诊随访");
+      }
+      return arr.join("\r\n");
+    },
+    events() {
+      let rst = 0;
+      let a = [this.isBattery, this.isXinlv, this.isQibo, this.isShezhi];
+      let b = [4, 1, 2, 8];
+      a.forEach((n, i) => {
+        if (n) {
+          rst += b[i];
+        }
+      });
+      return rst;
     }
   },
   methods: {
     async submit() {
-      let events;
-      {
-        events;
-      }
-      let data = {};
-      await bll.addVisit(data);
+      let prevData = bll.getVisitData();
+      let data = {
+        ...prevData,
+        nextDate: this.nextDate,
+        doctorId: this.doctor,
+        advise: this.advise,
+        events: this.events,
+        ataf: prevData.ataf ? prevData.ataf[0] : "",
+        efImg: prevData.efImg ? prevData.efImg[0] : "",
+        qrsImg: prevData.qrsImg ? prevData.qrsImg[0] : "",
+        apRatio: prevData.apRatio.join(""),
+        vpRatio: prevData.vpRatio.join("")
+      };
+      console.log("submit data:", data);
+      let res = await bll.addVisit(this.patientId, data);
+      console.log("after submit add visit:", res);
     },
     async changeTime(value) {
+      this.timeStep = value;
       let { data } = await bll.date(4, value);
       console.log(data);
       this.nextDate = data;
@@ -265,12 +298,13 @@ export default {
     changeDoctor(doctor) {
       this.doctor = doctor;
     },
-    showCardLeft() {
-      this.showCard = true;
+    showCard() {
+      this.isShowCard = true;
     },
     closeCard() {
-      this.showCard = false;
+      this.isShowCard = false;
     },
+    clickLeftCard() {},
     getBack() {
       this.$router.back(-1);
     },
@@ -280,6 +314,7 @@ export default {
     async getVisitData() {
       let data = bll.getVisitData();
       console.log(data);
+      this.patientId = data.patientId;
       this.nextDate = data.nextDate;
       this.visitType = data.visitType;
       this.batteryStatus = data.batteryStatus;

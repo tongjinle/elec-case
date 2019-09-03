@@ -13,7 +13,7 @@
       <a target="_blank" href="./#/visitorDetails?id=1&name=百里">患者随访详情(done)</a>
     </li>
     <li>
-      <a target="_blank" href="./#/newAdd">新增随访(done)</a>
+      <a target="_blank" href="./#/newAdd?id=19">新增随访(done)</a>
     </li>
     <li>
       <a target="_blank" href="./#/search">搜索(done)</a>

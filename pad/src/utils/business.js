@@ -127,8 +127,8 @@ export function uploadImage(file) {
 export function getImage(id) {}
 
 // 新增随访
-export function addVisit(data) {
-  return createRequest().post("elecase/visits/patient/1", data);
+export function addVisit(patientId, data) {
+  return createRequest().post("elecase/visits/patient/" + patientId, data);
 }
 
 export function setVisitData(data) {
