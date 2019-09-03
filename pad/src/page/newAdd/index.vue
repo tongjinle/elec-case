@@ -205,7 +205,6 @@ export default {
   components: { DropDown, AddButton },
   data() {
     return {
-      fileList: [],
       // 随访类型
       visitType: 1,
       // 电池状态
@@ -286,7 +285,7 @@ export default {
     },
     async submit() {
       let data = {
-        category: this.category,
+        visitType: this.visitType,
         batteryStatus: this.batteryStatus,
         duration: this.duration,
         mode: this.mode,
@@ -295,7 +294,7 @@ export default {
         threshold: this.threshold,
         pulseWidth: this.pulseWidth,
         perception: this.perception,
-        impendance: this.impendance,
+        impedance: this.impedance,
         outputVoltage: this.outputVoltage,
         outputPulseWidth: this.outputPulseWidth,
         outputPerception: this.outputPerception,
@@ -317,6 +316,38 @@ export default {
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
+
+    // mock
+    // 正式环境下要删除
+    {
+      this.visitType = "1";
+      this.batteryStatus = "1";
+      this.duration = "4";
+      this.mode = "7";
+      this.up = "100";
+      this.down = "200";
+      this.threshold = { a: "1", rv: "2", lv: "3" };
+      this.pulseWidth = { a: "11", rv: "21", lv: "31" };
+      this.perception = { a: "12", rv: "22", lv: "32" };
+      this.impedance = { a: "13", rv: "23", lv: "33" };
+      this.outputVoltage = { a: "101", rv: "102", lv: "103" };
+      this.outputPulseWidth = { a: "1011", rv: "1021", lv: "1031" };
+      this.outputPerception = { a: "1021", rv: "1022", lv: "1032" };
+      this.apRatio = ["0", "1", "2"];
+      this.vpRatio = ["0", "1", "6"];
+      this.ataf = "1";
+      this.atafImg = [
+        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/3.jpg"
+      ];
+      this.efRatio = "89";
+      this.efImg = [
+        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
+      ];
+      this.qrsRatio = "78";
+      this.qrsImg = [
+        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/5.jpg"
+      ];
+    }
   }
 };
 </script>

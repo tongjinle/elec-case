@@ -132,6 +132,7 @@ export function addVisit(data) {
 }
 
 export function setVisitData(data) {
+  console.log(data);
   localStorage.setItem("visitData", JSON.stringify(data));
 }
 

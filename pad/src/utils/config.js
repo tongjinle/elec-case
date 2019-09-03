@@ -18,8 +18,8 @@ export const PLANT_REASONS = [
 
 // 电池
 export const BATTERY_STATUS = [
-  { name: "OK", value: 1 },
-  { name: "ERI", value: 2 }
+  { name: "OK", value: "1" },
+  { name: "ERI", value: "2" }
 ];
 
 // 随访事件(原因)
@@ -32,9 +32,9 @@ export const VISIT_EVENTS = [
 
 // 随访类型
 export const VISIT_TYPES = [
-  { value: 1, name: "常规" },
-  { value: 2, name: "不适随访" },
-  { value: 3, name: "HIS随访" }
+  { value: "1", name: "常规" },
+  { value: "2", name: "不适随访" },
+  { value: "3", name: "HIS随访" }
 ];
 
 // 起搏模式

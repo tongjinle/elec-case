@@ -10,28 +10,28 @@
         <div @click="showCardLeft()">提交</div>
       </div>
     </div>
-    <div class="leftCard" v-if="showCard" @click="closeCard()">
+    <div class="leftCard" v-if="showCard">
       <div class="cardMain">
         <div class="title">随访结论：</div>
         <div class="cardItem">
           <div>电池状态异常：</div>
-          <van-checkbox v-model="msg"></van-checkbox>
+          <van-checkbox v-model="isBattery"></van-checkbox>
         </div>
         <div class="cardItem">
           <div>发现心率异常AT/AF：</div>
-          <van-checkbox v-model="msg"></van-checkbox>
+          <van-checkbox v-model="isXinlv"></van-checkbox>
         </div>
         <div class="cardItem">
           <div>起搏参数异常：</div>
-          <van-checkbox v-model="msg"></van-checkbox>
+          <van-checkbox v-model="isQibo"></van-checkbox>
         </div>
         <div class="cardItem">
           <div>是否修改设置：</div>
-          <van-checkbox v-model="msg"></van-checkbox>
+          <van-checkbox v-model="isShezhi"></van-checkbox>
         </div>
         <div class="choseItem">
           <div>随访医师：</div>
-          <DropDown />
+          <DropDown :actions="doctors" />
         </div>
         <div class="choseItem">
           <div>下次时间：</div>
@@ -54,7 +54,7 @@
         </div>
         <div class="mainer">
           <div class="title">随访种类：</div>
-          <div class="msg">{{visitType}}</div>
+          <div class="msg">{{fullVisitType}}</div>
         </div>
       </div>
       <div class="itemContent">
@@ -63,11 +63,11 @@
           <div class="msgBox">
             <div class="mainer">
               <div class="contentBoxTitle">1.电池状态：</div>
-              <div class="msg">{{batteryStatus}}</div>
+              <div class="msg">{{fullBatteryStatus}}</div>
             </div>
             <div class="mainer">
               <div class="contentBoxTitle">预估平均使用寿命：</div>
-              <div class="msg">{{duration}}</div>
+              <div class="msg">{{fullDuration}}</div>
             </div>
           </div>
           <div class="tableBox">
@@ -81,27 +81,27 @@
               </div>
               <div class="tr">
                 <div class="td">阈值（V）</div>
-                <div>1.25</div>
-                <div>1.25</div>
-                <div></div>
+                <div>{{threshold.a}}</div>
+                <div>{{threshold.rv}}</div>
+                <div>{{threshold.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">脉宽（ms）</div>
-                <div>0.4</div>
-                <div>0.6</div>
-                <div></div>
+                <div>{{pulseWidth.a}}</div>
+                <div>{{pulseWidth.rv}}</div>
+                <div>{{pulseWidth.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">P/P波（mv）</div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div>{{perception.a}}</div>
+                <div>{{perception.rv}}</div>
+                <div>{{perception.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">起搏阻抗（Ω）</div>
-                <div>82.6%</div>
-                <div>0%</div>
-                <div></div>
+                <div>{{impedance.a}}%</div>
+                <div>{{impedance.rv}}%</div>
+                <div>{{impedance.lv}}%</div>
               </div>
             </div>
           </div>
@@ -110,13 +110,13 @@
             <div class="table">
               <div class="tr firstTr">
                 <div class="td">起搏模式</div>
-                <div>底限频率</div>
+                <div>低限频率</div>
                 <div>上限跟踪频率</div>
               </div>
               <div class="tr">
-                <div class="td">AAI+</div>
-                <div>60次/分钟</div>
-                <div>60次/分钟</div>
+                <div class="td">{{fullMode}}</div>
+                <div>{{down}}次/分钟</div>
+                <div>{{up}}次/分钟</div>
               </div>
               <div class="tr">
                 <div class="td">右房电极</div>
@@ -125,8 +125,8 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div>60</div>
-                <div>60mv</div>
+                <div>{{outputVoltage.a}}/{{outputPulseWidth.a}}</div>
+                <div>{{outputPerception.a}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">右室电极</div>
@@ -135,8 +135,8 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div>60</div>
-                <div>60mv</div>
+                <div>{{outputVoltage.rv}}/{{outputPulseWidth.rv}}</div>
+                <div>{{outputPerception.rv}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">左室电极</div>
@@ -145,18 +145,18 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div></div>
-                <div></div>
+                <div>{{outputVoltage.lv}}/{{outputPulseWidth.lv}}</div>
+                <div>{{outputPerception.lv}}mv</div>
               </div>
             </div>
           </div>
           <div class="massageBox">
             <div class="title">4.诊断信息</div>
-            <div class="msgContent">AT/AF：</div>
+            <div class="msgContent">AT/AF：{{ataf}}</div>
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
-            <div class="msgContent">多喝热水！多喝热水！</div>
+            <div class="msgContent">{{advice}}</div>
           </div>
         </div>
       </div>
@@ -179,12 +179,65 @@ export default {
       doctorName: "",
       visitType: "",
       //
+      batteryStatus: "",
+      duration: "",
+      // 电极阈值
+      threshold: { a: "", rv: "", lv: "" },
+      // 电极脉宽
+      pulseWidth: { a: "", rv: "", lv: "" },
+      // 电极感知
+      perception: { a: "", rv: "", lv: "" },
+      // 电极阻抗
+      impedance: { a: "", rv: "", lv: "" },
+      up: "",
+      down: "",
+      // 输出电压
+      outputVoltage: { a: "", rv: "", lv: "" },
+      // 输出脉宽
+      outputPulseWidth: { a: "", rv: "", lv: "" },
+      // 输出感知
+      outputPerception: { a: "", rv: "", lv: "" },
+      // ataf
+      ataf: "",
+      // 医生建议
+      advice: "",
+      // 等待选择的医生们
+      doctors: [],
+      // 事件选择
+      // 电池事件
+      isBattery: false,
+      // 心率事件
+      isXinlv: false,
+      // 起搏事件
+      isQibo: false,
+      // 设置事件
+      isShezhi: false,
       currentDate: new Date(),
       minDate: new Date(),
       showRight: false,
       showCard: false,
       msg: ""
     };
+  },
+  computed: {
+    fullVisitType() {
+      let visitType = this.visitType;
+      let item = config.VISIT_TYPES.find(n => n.value === visitType);
+      return item ? item.name : "";
+    },
+    fullBatteryStatus() {
+      let item = config.BATTERY_STATUS.find(
+        n => n.value === this.batteryStatus
+      );
+      return item ? item.name : "";
+    },
+    fullDuration() {
+      return this.duration ? ">" + this.duration : "未知寿命";
+    },
+    fullMode() {
+      let item = config.MODES.find(n => n.value === this.mode);
+      return item ? item.name : "";
+    }
   },
   methods: {
     showCardLeft() {
@@ -199,40 +252,41 @@ export default {
     gotoDetails() {
       this.$router.push({ path: "/visitorDetails" });
     },
-    async query() {
-      let query = this.$route.query;
-      let id = query.id;
-      let { data } = await bll.visitDetail(id);
+    async getVisitData() {
+      let data = bll.getVisitData();
       console.log(data);
-
-      let paperVO = data.paperVO;
-      this.nextDate = paperVO.date;
-      this.doctorName = paperVO.doctor.name;
-      {
-        let item = config.VISIT_TYPES.find(n => n.value === paperVO.category);
-        this.visitType = item ? item.name : "";
-      }
-
-      {
-        let item = config.BATTERY_STATUS.find(
-          n => n.value === paperVO.batteryStatus
-        );
-        this.batteryStatus = item ? item.name : "未知电池状态";
-      }
-
-      {
-        // let item = config.DURATIONS.find(n => n.value === paperVO.duration);
-        // this.duration = item ? item.name : "未知寿命";
-        this.duration = "未知寿命";
-      }
+      this.nextDate = data.nextDate;
+      this.doctorName = data.doctorName;
+      this.visitType = data.visitType;
+      this.batteryStatus = data.batteryStatus;
+      this.duration = data.duration;
+      this.threshold = data.threshold;
+      this.pulseWidth = data.pulseWidth;
+      this.perception = data.perception;
+      this.impedance = data.impedance;
+      this.mode = data.mode;
+      this.up = data.up;
+      this.down = data.down;
+      this.outputVoltage = data.outputVoltage;
+      this.outputPulseWidth = data.outputPulseWidth;
+      this.outputPerception = data.outputPerception;
+      this.ataf = data.ataf;
     }
   },
-  mounted() {
-    this.query();
-  },
-  watch: {
-    $route() {
-      this.query();
+  async mounted() {
+    this.getVisitData();
+    {
+      let { data } = await bll.doctors();
+      console.log(data);
+      this.doctors.length = 0;
+      this.doctors.push(
+        ...data.map(n => {
+          return {
+            value: n.id,
+            name: n.name
+          };
+        })
+      );
     }
   }
 };
