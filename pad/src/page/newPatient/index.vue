@@ -26,7 +26,7 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <ChooseDateTime :time="birth" :chooseTimeHandle="chooseBirth" />
+            <ChooseDateTime :value="birth" :chooseTimeHandle="chooseBirth" />
           </div>
         </div>
         <div class="itemContentBox">
@@ -183,7 +183,7 @@ export default {
   },
   async beforeMount() {
     let date = new Date();
-    this.birth = tool.timeText(date);
+    this.birth = date;
 
     this.plantTime = tool.timeText(date);
 
@@ -202,7 +202,14 @@ export default {
 
     this.categories = config.DEVICE_CATEGORIES;
   },
-  mounted() {},
+  mounted() {
+    // mock
+    {
+      this.name = "童扑满";
+      this.sex = "1";
+      this.birth = new Date(1984, 0, 18);
+    }
+  },
   methods: {
     checkParams() {},
     async addPatient() {

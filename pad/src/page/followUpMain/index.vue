@@ -216,8 +216,6 @@ export default {
       // 时间步长
       timeSteps: [],
 
-      currentDate: new Date(),
-      minDate: new Date(),
       showRight: false,
       showCard: false,
       msg: ""
@@ -251,6 +249,14 @@ export default {
     }
   },
   methods: {
+    async submit() {
+      let events;
+      {
+        events;
+      }
+      let data = {};
+      await bll.addVisit(data);
+    },
     async changeTime(value) {
       let { data } = await bll.date(4, value);
       console.log(data);

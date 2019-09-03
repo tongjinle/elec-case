@@ -5,27 +5,22 @@
       <img src="../assets/image/calendar.png" alt />
     </div>
     <div class="time" v-if="showtime" @click="closeitem">
-      <van-datetime-picker
-        class="choseeTime"
-        v-model="currentDate"
-        type="date"
-        :min-date="minDate"
-        @change="choose"
-      />
+      <van-datetime-picker class="choseeTime" v-model="currentDate" type="date" @change="choose" />
     </div>
   </div>
 </template>
 
 <script>
+import * as bll from "../utils/business";
 export default {
   name: "dateTime",
   props: {
-    chooseTimeHandle: Function
+    chooseTimeHandle: Function,
+    value: Date
   },
   data() {
     return {
       showtime: false,
-      minDate: new Date(),
       currentDate: new Date()
     };
   },
@@ -34,7 +29,13 @@ export default {
       return this.timeFormat(this.currentDate.getTime());
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.value)
+    this.currentDate = this.value ? this.value : new Date();
+  },
+  updated() {
+    this.currentDate = this.value ? this.value : new Date();
+  },
   methods: {
     showitem() {
       this.showtime = true;
@@ -43,15 +44,12 @@ export default {
       this.showtime = false;
     },
     choose() {
+      console.log("new time:", this.time);
       this.chooseTimeHandle && this.chooseTimeHandle(this.time);
     },
     timeFormat(ms) {
       let date = new Date(parseInt(ms));
-      return [
-        date.getFullYear(),
-        (100 + (date.getMonth() + 1) + "").slice(1),
-        date.getDate()
-      ].join("-");
+      return bll.timeToString(date);
     }
   }
 };

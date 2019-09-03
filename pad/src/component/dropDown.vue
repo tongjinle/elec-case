@@ -32,9 +32,9 @@ export default {
   },
   updated() {
     // console.log("updated", this.actions);
-    // if (!this.value && this.actions.length) {
-    //   this.onSelect(this.actions[0]);
-    // }
+    if (!this.value && this.actions.length) {
+      this.onSelect(this.actions[0]);
+    }
   },
   methods: {
     onSelect(item) {
