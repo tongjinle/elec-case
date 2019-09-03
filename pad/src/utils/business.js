@@ -150,7 +150,7 @@ export function date(weekday, months) {
 }
 
 export function timeToString(time) {
-  let padding = num => (100 + num + "").slice(1) - 0;
+  let padding = num => (100 + num + "").slice(1);
   return [
     time.getFullYear(),
     padding(time.getMonth() + 1),

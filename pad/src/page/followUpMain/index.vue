@@ -254,7 +254,7 @@ export default {
     async changeTime(value) {
       let { data } = await bll.date(4, value);
       console.log(data);
-      // this.nextDate = nextDate;
+      this.nextDate = data;
     },
     changeDoctor(doctor) {
       this.doctor = doctor;
