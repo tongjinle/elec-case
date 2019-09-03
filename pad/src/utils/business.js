@@ -81,7 +81,13 @@ export function uploadImage(file) {
 }
 
 // 获取图片
-export function getImage(id) {}
+export function getImage(id) {
+  // todo
+  // return prefix + "/elecase/res/image/" + id;
+  // 下面这局仅仅是为了展示
+  // 生产环境用上面的
+  return prefix + "/elecase/res/image/abc1567540360443_429";
+}
 
 // 新增随访
 export function addVisit(patientId, data) {

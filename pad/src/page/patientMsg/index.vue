@@ -17,7 +17,7 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
-            <div class="contentMsg">{{sex}}</div>
+            <div class="contentMsg">{{fullSex}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
@@ -40,21 +40,21 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <div class="contentMsg">{{plantTime}}</div>
+            <div class="contentMsg">{{fullPlantTime}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
-            <div class="contentMsg">{{doctor}}</div>
+            <div class="contentMsg">{{fullDoctorName}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">植入原因</div>
-            <div class="contentMsg">{{plantReason}}</div>
+            <div class="contentMsg">{{fullPlantReason}}</div>
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">厂家</div>
-            <div class="contentMsg">{{factoryId}}</div>
+            <div class="contentMsg">{{fullFactory}}</div>
           </div>
           <div class="itemContent">
             <div class="contentTitle">类别</div>
@@ -85,7 +85,7 @@
               </div>
             </div>
             <div class="footItemRight">
-              <img :src="plantBaseEfImg" alt />
+              <img :src="fullPlantBaseEfImg" alt />
             </div>
           </div>
           <div class="footItem" style="margin-left:1rem">
@@ -96,7 +96,7 @@
               </div>
             </div>
             <div class="footItemRight">
-              <img :src="plantBaseQrsImg" alt />
+              <img :src="fullPlantBaseQrsImg" alt />
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
 import DropDown from "@/component/dropDown";
 import ChooseDateTime from "@/component/chooseDateTime";
 import AddButton from "@/component/addButton";
-
+import * as config from "../../utils/config";
 import * as bll from "../../utils/business";
 
 export default {
@@ -120,7 +120,7 @@ export default {
       // 患者名字
       name: "",
       // 患者性别
-      sex: "0",
+      sex: -1,
       // 患者生日 (格式:1990-01-01)
       birth: "",
       // 手机号码
@@ -129,12 +129,12 @@ export default {
       emergContact: "",
       // 紧急联系人手机号码
       emergPhone: "",
-      doctorId: "",
+      doctorId: -1,
       fileList: [],
       // 植入原因
       plantReason: -1,
       // 植入时间
-      plantTime: "",
+      plantTime: -1,
       // ef
       plantBaseEf: -1,
       // ef img
@@ -144,22 +144,109 @@ export default {
       // qrs img
       plantBaseQrsImg: "",
       // 设备厂家
-      factoryId: 1,
+      factoryId: -1,
       // 设备类别
-      deviceCate: 1,
+      deviceCate: -1,
       // 设备型号
       deviceModel: "",
       // 设备序列号
       deviceNo: "",
 
       radio: "1",
-      fileList: []
+      fileList: [],
+      // 医生们
+      doctors: [],
+      // 厂商们
+      factories: []
     };
   },
-  mounted() {},
+  computed: {
+    fullSex() {
+      if (this.sex === -1) {
+        return "未知";
+      }
+      return ["男", "女"][this.sex];
+    },
+    fullPlantTime() {
+      return this.plantTime === -1
+        ? "未知时间"
+        : bll.timeToString(new Date(this.plantTime));
+    },
+    fullDoctorName() {
+      if (this.doctorId === -1) {
+        return "未知医生";
+      }
+      let item = this.doctors.find(n => n.id === this.doctorId);
+      return item ? item.name : "未知医生";
+    },
+    fullPlantReason() {
+      if (this.plantReason === -1) {
+        return "未知植入原因";
+      }
+      let item = config.PLANT_REASONS.find(n => n.value === this.plantReason);
+      return item ? item.name : "未知植入原因";
+    },
+    fullFactory() {
+      if (this.factoryId === -1) {
+        return "未知厂商";
+      }
+      let item = this.factories.find(n => n.id === this.factoryId);
+      return item ? item.name : "未知厂商";
+    },
+    fullDeviceCate() {
+      if (this.deviceCate === -1) {
+        return "未知类型";
+      }
+      let item = config.DEVICE_CATEGORIES.find(
+        n => n.value === this.deviceCate
+      );
+      return item ? item.name : "未知类型";
+    },
+    fullPlantBaseQrsImg() {
+      return bll.getImage(this.plantBaseQrsImg);
+    },
+    fullPlantBaseEfImg() {
+      return bll.getImage(this.plantBaseEfImg);
+    }
+  },
+  async mounted() {
+    // mock
+    let id = 19;
+    await this.queryDoctors();
+    await this.queryFactories();
+    this.queryPatient(id);
+  },
   methods: {
     async queryPatient(patientId) {
       let { data } = await bll.patient(patientId);
+      let psmk = data.psmk;
+      console.log(data);
+      this.name = data.name;
+      this.sex = data.sex;
+      this.birth = data.birth;
+      this.phone = data.phone;
+      this.emergPhone = data.emergPhone;
+      this.plantTime = psmk.plantTime;
+      this.doctorId = psmk.doctorId;
+      this.plantReason = psmk.plantReason;
+      this.factoryId = psmk.factoryId;
+      this.deviceCate = psmk.deviceCate;
+      this.deviceModel = psmk.deviceModel;
+      this.deviceNo = psmk.deviceNo;
+      this.plantBaseEf = psmk.plantBaseEf;
+      this.plantBaseEfImg = psmk.plantBaseEfImg;
+      this.plantBaseQrs = psmk.plantBaseQrs;
+      this.plantBaseQrsImg = psmk.plantBaseQrsImg;
+    },
+    async queryDoctors() {
+      let { data } = await bll.doctors();
+      console.log(data);
+      this.doctors = data;
+    },
+    async queryFactories() {
+      let { data } = await bll.factories();
+      console.log(data);
+      this.factories = data;
     },
     getBack() {
       this.$router.back(-1);
