@@ -19,7 +19,7 @@
       <a target="_blank" href="./#/search">搜索(done)</a>
     </li>
     <li>
-      <a target="_blank" href="./#/followUpMain?id=20">随访预览</a>
+      <a target="_blank" href="./#/followUpMain?id=20">随访预览(done)</a>
     </li>
     <li>
       <a target="_blank" href="./#/newPatient">新增患者</a>

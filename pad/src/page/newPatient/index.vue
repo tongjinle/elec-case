@@ -85,7 +85,7 @@
             <div class="footItemLeft">
               <div>EF(0~99)</div>
               <div class="footDown">
-                <AddButton />
+                <input class="inputbox" type="text" v-model="plantBaseEf" />
                 <span>%</span>
               </div>
             </div>
@@ -95,6 +95,7 @@
                 preview-size="3rem"
                 :max-count="1"
                 :after-read="afterReadOfEfImage"
+                v-model="efImg"
               />
             </div>
           </div>
@@ -102,7 +103,7 @@
             <div class="footItemLeft">
               <div>QRS(0~99)</div>
               <div class="footDown">
-                <AddButton />
+                <input class="inputbox" type="text" v-model="plantBaseQrs" />
               </div>
             </div>
             <div class="footItemRight">
@@ -111,6 +112,7 @@
                 preview-size="3rem"
                 :max-count="1"
                 :after-read="afterReadOfQrsImage"
+                v-model="qrsImg"
               />
             </div>
           </div>
@@ -152,12 +154,14 @@ export default {
       // 植入时间
       plantTime: "",
       // ef
-      plantBaseEf: -1,
+      plantBaseEf: "",
       // ef img
+      efImg: [],
       plantBaseEfImg: "",
       // qrs
-      plantBaseQrs: -1,
+      plantBaseQrs: "",
       // qrs img
+      qrsImg: [],
       plantBaseQrsImg: "",
       // 设备厂家
       factoryId: 1,
@@ -214,25 +218,31 @@ export default {
     checkParams() {},
     async addPatient() {
       console.log("add patient");
-      await bll.addPatient(
-        this.name,
-        this.sex,
-        this.birth,
-        this.phone,
-        this.emergContact,
-        this.emergPhone,
-        this.addr,
-        this.doctorId,
-        this.plantReason,
-        this.plantBaseEf,
-        this.plantBaseEfImg,
-        this.plantBaseQrs,
-        this.plantBaseQrsImg,
-        this.factoryId,
-        this.deviceCate,
-        this.deviceNo,
-        this.deviceModel
-      );
+      let data = {
+        name: this.name,
+        sex: this.sex,
+        birth: this.birth,
+        phone: this.phone,
+        emergContact: this.emergContact,
+        emergPhone: this.emergPhone,
+        addr: this.addr,
+        treat: {
+          doctorId: this.doctor
+        },
+        psmk: {
+          plantReason: this.plantReason,
+          plantBaseEf: this.plantBaseEf,
+          plantBaseEfImg: this.plantBaseEfImg,
+          plantBaseQrs: this.plantBaseQrs,
+          plantBaseQrsImg: this.plantBaseQrsImg,
+          factoryId: this.factoryId,
+          deviceCate: this.deviceCate,
+          deviceNo: this.deviceNo,
+          deviceModel: this.deviceModel,
+          doctorId: this.doctorId
+        }
+      };
+      await bll.addPatient(data);
       this.gotoDetails();
     },
     async afterRead(res) {
@@ -320,6 +330,12 @@ export default {
     padding: 0 @base;
     .item {
       margin-bottom: 20px;
+      .inputbox {
+        padding: 10px 20px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        width: 3rem;
+      }
       .title {
         padding-left: 20px;
         border-left: 5px solid rgb(18, 159, 259);

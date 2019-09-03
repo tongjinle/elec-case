@@ -62,50 +62,7 @@ export function doctors() {
 }
 
 // 新增患者
-
-export function addPatient(
-  name,
-  sex,
-  birth,
-  phone,
-  emergContact,
-  emergPhone,
-  addr,
-  doctorId,
-  plantReason,
-  plantBaseEf,
-  plantBaseEfImg,
-  plantBaseQrs,
-  plantBaseQrsImg,
-  factoryId,
-  deviceCate,
-  deviceNo,
-  deviceModel
-) {
-  let data = {
-    name,
-    sex,
-    birth,
-    phone,
-    emergContact,
-    emergPhone,
-    addr,
-    treat: {
-      doctorId
-    },
-    psmk: {
-      plantReason,
-      plantBaseEf,
-      plantBaseEfImg,
-      plantBaseQrs,
-      plantBaseQrsImg,
-      factoryId,
-      deviceCate,
-      deviceNo,
-      deviceModel,
-      doctorId
-    }
-  };
+export function addPatient(data) {
   return createRequest().post("elecase/patients", data);
 }
 

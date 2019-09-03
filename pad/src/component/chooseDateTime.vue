@@ -30,11 +30,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.value)
+    console.log(this.value);
     this.currentDate = this.value ? this.value : new Date();
   },
   updated() {
-    this.currentDate = this.value ? this.value : new Date();
+    // this.currentDate = this.value ? this.value : new Date();
   },
   methods: {
     showitem() {
