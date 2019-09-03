@@ -31,11 +31,11 @@
         </div>
         <div class="choseItem">
           <div>随访医师：</div>
-          <DropDown :actions="doctors" />
+          <DropDown :actions="doctors" @on-change="changeDoctor" />
         </div>
         <div class="choseItem">
           <div>下次时间：</div>
-          <ChooseDateTime />
+          <DropDown :actions="timeSteps" @on-change="changeTime" />
         </div>
         <div class="foot">
           <button @click="gotoDetails">提交</button>
@@ -176,7 +176,8 @@ export default {
   data() {
     return {
       nextDate: "",
-      doctorName: "",
+      // 医生编号
+      doctor: "",
       visitType: "",
       //
       batteryStatus: "",
@@ -212,6 +213,9 @@ export default {
       isQibo: false,
       // 设置事件
       isShezhi: false,
+      // 时间步长
+      timeSteps: [],
+
       currentDate: new Date(),
       minDate: new Date(),
       showRight: false,
@@ -237,9 +241,22 @@ export default {
     fullMode() {
       let item = config.MODES.find(n => n.value === this.mode);
       return item ? item.name : "";
+    },
+    doctorName() {
+      if (!this.doctor || !this.doctors.length) {
+        return "";
+      }
+      let item = this.doctors.find(n => n.value === this.doctor);
+      return item ? item.name : "";
     }
   },
   methods: {
+    changeTime(nextDate) {
+      this.nextDate = nextDate;
+    },
+    changeDoctor(doctor) {
+      this.doctor = doctor;
+    },
     showCardLeft() {
       this.showCard = true;
     },
@@ -256,7 +273,6 @@ export default {
       let data = bll.getVisitData();
       console.log(data);
       this.nextDate = data.nextDate;
-      this.doctorName = data.doctorName;
       this.visitType = data.visitType;
       this.batteryStatus = data.batteryStatus;
       this.duration = data.duration;
@@ -278,15 +294,43 @@ export default {
     {
       let { data } = await bll.doctors();
       console.log(data);
-      this.doctors.length = 0;
-      this.doctors.push(
-        ...data.map(n => {
-          return {
-            value: n.id,
-            name: n.name
-          };
-        })
-      );
+      let doctors = data.map(n => {
+        return {
+          value: n.id,
+          name: n.name
+        };
+      });
+      this.doctors = doctors;
+    }
+    {
+      let time = new Date();
+      let [year, month, date] = [
+        time.getFullYear(),
+        time.getMonth(),
+        time.getDate()
+      ];
+      let toStr = time => {
+        return [
+          time.getFullYear(),
+          time.getMonth() - 0 + 1,
+          time.getDate()
+        ].join("-");
+      };
+      let timeSteps = [
+        { value: 1, text: "一个月后" },
+        { value: 2, text: "两个月后" },
+        { value: 3, text: "三个月后" },
+        { value: 6, text: "半年后" },
+        { value: 12, text: "一年后" }
+      ].map(n => {
+        let value = n.value;
+        let nextDate =
+          value === 12
+            ? toStr(new Date(year + 1, month, date))
+            : toStr(new Date(year, month + value, date));
+        return { value: nextDate, name: n.text };
+      });
+      this.timeSteps = timeSteps;
     }
   }
 };

@@ -25,12 +25,16 @@ export default {
       show: false
     };
   },
-  mounted() {},
-  updated() {
-    // console.log("updated", this.actions);
+  mounted() {
     if (!this.value && this.actions.length) {
       this.onSelect(this.actions[0]);
     }
+  },
+  updated() {
+    // console.log("updated", this.actions);
+    // if (!this.value && this.actions.length) {
+    //   this.onSelect(this.actions[0]);
+    // }
   },
   methods: {
     onSelect(item) {
