@@ -45,7 +45,7 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <ChooseDateTime :chooseTimeHandle="choosePlantTime" />
+            <ChooseDateTime :value="plantTime" :chooseTimeHandle="choosePlantTime" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
@@ -140,7 +140,7 @@ export default {
       // 患者性别
       sex: "0",
       // 患者生日 (格式:Date)
-      birth: undefined,
+      birth: new Date(),
       // 手机号码
       phone: "",
       // 紧急联系人
@@ -152,7 +152,7 @@ export default {
       // 植入原因
       plantReason: -1,
       // 植入时间
-      plantTime: "",
+      plantTime: new Date(),
       // ef
       plantBaseEf: "",
       // ef img
@@ -186,10 +186,9 @@ export default {
     };
   },
   async beforeMount() {
-    let date = new Date();
-    this.birth = date;
+    this.birth = new Date();
 
-    this.plantTime = tool.timeText(date);
+    this.plantTime = new Date();
 
     {
       let { data: doctors } = await bll.doctors();
@@ -208,21 +207,28 @@ export default {
   },
   mounted() {
     // mock
-    {
+    this._mock();
+  },
+  methods: {
+    _mock() {
       this.name = "童扑满";
       this.sex = "1";
       this.birth = new Date(1984, 0, 18);
-    }
-    console.log("birth", this.birth);
-  },
-  methods: {
+      this.phone = "18701816746";
+      this.emergPhone = "22201816747";
+      this.plantTime = new Date(2010, 0, 18);
+      this.deviceModel = "奥特曼";
+      this.deviceNo = "taro";
+      this.plantBaseEf = "99";
+      this.plantBaseQrs = "88";
+    },
     checkParams() {},
     async addPatient() {
       console.log("add patient");
       let data = {
         name: this.name,
         sex: this.sex,
-        birth: this.birth,
+        birth: bll.timeToString(this.birth),
         phone: this.phone,
         emergContact: this.emergContact,
         emergPhone: this.emergPhone,
@@ -231,6 +237,7 @@ export default {
           doctorId: this.doctor
         },
         psmk: {
+          plantTime: bll.timeToString(this.plantTime),
           plantReason: this.plantReason,
           plantBaseEf: this.plantBaseEf,
           plantBaseEfImg: this.plantBaseEfImg,

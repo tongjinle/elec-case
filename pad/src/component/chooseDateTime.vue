@@ -30,12 +30,15 @@ export default {
     }
   },
   mounted() {
-    console.log("chooseDateTime mounted:", this.value);
+    // console.log("chooseDateTime mounted:", this.value);
     this.currentDate = this.value ? this.value : new Date();
   },
-  updated() {
-    // this.currentDate = this.value ? this.value : new Date();
+  watch: {
+    value() {
+      this.currentDate = this.value ? this.value : new Date();
+    }
   },
+
   methods: {
     showitem() {
       this.showtime = true;
