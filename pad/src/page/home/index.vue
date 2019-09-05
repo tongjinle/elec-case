@@ -14,7 +14,7 @@
               :current="fullStat.curMonthVisitedNum"
             />
           </div>
-          <div class="right">
+          <div class="right" @click="gotoVisitors">
             <VisitorDataCard
               :total="fullStat.weekVisitNum"
               title="随访窗口人数 (本周)"
@@ -127,10 +127,11 @@ export default {
   },
 
   methods: {
-    // async fetchData() {
-    //   const data = await getData();
-    //   this.msg = data;
-    // }
+    gotoVisitors() {
+      this.$router.push({
+        name: "visitors"
+      });
+    }
   }
 };
 </script>
