@@ -139,8 +139,8 @@ export default {
       name: "",
       // 患者性别
       sex: "0",
-      // 患者生日 (格式:1990-01-01)
-      birth: "",
+      // 患者生日 (格式:Date)
+      birth: undefined,
       // 手机号码
       phone: "",
       // 紧急联系人
@@ -213,6 +213,7 @@ export default {
       this.sex = "1";
       this.birth = new Date(1984, 0, 18);
     }
+    console.log("birth", this.birth);
   },
   methods: {
     checkParams() {},
@@ -276,7 +277,9 @@ export default {
       console.log(value);
     },
     chooseBirth(time) {
-      this.birth = time;
+      console.log({ time });
+      let [year, month, date] = time.split("-");
+      this.birth = new Date(year, month - 1, date);
     },
     choosePlantTime(time) {
       this.plantTime = time;

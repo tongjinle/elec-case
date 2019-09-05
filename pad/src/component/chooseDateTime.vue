@@ -5,7 +5,7 @@
       <img src="../assets/image/calendar.png" alt />
     </div>
     <div class="time" v-if="showtime" @click="closeitem">
-      <van-datetime-picker class="choseeTime" v-model="currentDate" type="date" @change="choose" />
+      <van-datetime-picker class="chooseTime" v-model="currentDate" type="date" @change="choose" />
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.value);
+    console.log("chooseDateTime mounted:", this.value);
     this.currentDate = this.value ? this.value : new Date();
   },
   updated() {
@@ -82,7 +82,7 @@ export default {
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
-    .choseeTime {
+    .chooseTime {
       position: absolute;
       bottom: 0;
       left: 0;
