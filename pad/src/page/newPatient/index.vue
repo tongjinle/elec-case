@@ -250,8 +250,9 @@ export default {
           doctorId: this.doctorId
         }
       };
-      await bll.addPatient(data);
-      this.gotoDetails();
+      let res = await bll.addPatient(data);
+      console.log(res);
+      // this.gotoDetails();
     },
     async afterRead(res) {
       let file = res.file;

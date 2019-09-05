@@ -81,7 +81,10 @@ export default {
     color: rgb(102, 102, 102);
     .cardLeft {
       .up {
+        display: flex;
+        justify-content: flex-start;
         span {
+          margin-left: @base / 2;
           color: black;
           font-size: @base / 2.5;
         }

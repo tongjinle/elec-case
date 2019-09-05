@@ -33,7 +33,7 @@ export function visitsSchedule(id) {
 
 // 患者-随访列表
 export function patientVisitsSchedule(id) {
-  return createRequest().get("/elecase/visits/patient/" + id);
+  return createRequest().get("/elecase/visits/patients/" + id);
 }
 
 // 随访详情

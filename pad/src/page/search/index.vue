@@ -67,6 +67,9 @@ export default {
           // 两个handle
           addVisit: () => {
             this.addVisit(n);
+          },
+          viewVisit: () => {
+            this.viewVisit(n);
           }
         };
       });
