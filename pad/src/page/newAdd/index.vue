@@ -260,6 +260,38 @@ export default {
     };
   },
   methods: {
+    _mock() {
+      if (config.env) {
+        this.patientId = "1";
+        this.visitType = "1";
+        this.batteryStatus = "1";
+        this.duration = "4";
+        this.mode = "7";
+        this.up = "100";
+        this.down = "200";
+        this.threshold = { a: "1", rv: "2", lv: "3" };
+        this.pulseWidth = { a: "11", rv: "21", lv: "31" };
+        this.perception = { a: "12", rv: "22", lv: "32" };
+        this.impedance = { a: "13", rv: "23", lv: "33" };
+        this.outputVoltage = { a: "101", rv: "102", lv: "103" };
+        this.outputPulseWidth = { a: "1011", rv: "1021", lv: "1031" };
+        this.outputPerception = { a: "1021", rv: "1022", lv: "1032" };
+        this.apRatio = ["0", "1", "2"];
+        this.vpRatio = ["0", "1", "6"];
+        this.ataf = "1";
+        this.atafImg = [
+          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/3.jpg"
+        ];
+        this.efRatio = "89";
+        this.efImg = [
+          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
+        ];
+        this.qrsRatio = "78";
+        this.qrsImg = [
+          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/5.jpg"
+        ];
+      }
+    },
     getBack() {
       this.$router.back(-1);
     },
@@ -274,6 +306,8 @@ export default {
     },
     async afterReadEf(res) {
       this.efImgFile = await this.afterRead(res);
+      console.log(this.efImg);
+      // this.efImgFile = { url: await this.afterRead(res), isImage: true };
     },
     async afterReadQrs(res) {
       this.qrsImgFile = await this.afterRead(res);
@@ -285,9 +319,11 @@ export default {
       return data;
     },
     async submit() {
+      let getImgUrl = (obj, imgId) =>
+        obj ? obj.url || bll.getImage(imgId) : "";
       let data = {
         patientId: this.patientId,
-        visitType: this.visitType,
+        category: this.visitType,
         batteryStatus: this.batteryStatus,
         duration: this.duration,
         mode: this.mode,
@@ -303,18 +339,50 @@ export default {
         apRatio: this.apRatio,
         vpRatio: this.vpRatio,
         ataf: this.ataf,
-        atafImg: this.atafImg,
+        atafImg: getImgUrl(this.ataf[0], this.atafImgFile),
         efRatio: this.efRatio,
-        efImg: this.efImg,
+        efImg: getImgUrl(this.efImg[0], this.efImgFile),
         qrsRatio: this.qrsRatio,
-        qrsImg: this.qrsImg
+        qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
       };
 
       let res = await bll.setVisitData(data);
       console.log(res);
+      this.$router.push({
+        name: "followUpMain",
+        id: this.patientId
+      });
+    },
+    async queryLast(id) {
+      let { data } = await bll.lastVisitDetail(id);
+      let paperVO = data.paperVO;
+      console.log(paperVO);
+      // this.visitType = paperVO.;
+      this.batteryStatus = paperVO.batteryStatus;
+      this.duration = paperVO.duration;
+      this.mode = paperVO.mode;
+      this.up = paperVO.up;
+      this.down = paperVO.down;
+      this.threshold = paperVO.threshold;
+      this.pulseWidth = paperVO.pulseWidth;
+      this.perception = paperVO.perception;
+      this.impedance = paperVO.impedance;
+      this.outputVoltage = paperVO.outputVoltage;
+      this.outputPulseWidth = paperVO.outputPulseWidth;
+      this.outputPerception = paperVO.outputPerception;
+      this.apRatio = paperVO.apRatio.split("");
+      this.vpRatio = paperVO.vpRatio.split("");
+      // this.ataf = paperVO.ataf;
+      this.atafImg = [{ url: paperVO.atafImg, isImage: true }];
+      this.efRatio = paperVO.efRatio;
+      this.efImg = [{ url: paperVO.efImg, isImage: true }];
+      //   "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
+      // ];
+      this.qrsRatio = paperVO.qrsRatio;
+      this.qrsImg = [{ url: paperVO.qrsImg, isImage: true }];
     }
   },
-  mounted() {
+  async mounted() {
     // 病人编号
     this.patientId = this.$route.query.id;
 
@@ -324,36 +392,10 @@ export default {
 
     // mock
     // 正式环境下要删除
-    {
-      this.patientId = "1";
-      this.visitType = "1";
-      this.batteryStatus = "1";
-      this.duration = "4";
-      this.mode = "7";
-      this.up = "100";
-      this.down = "200";
-      this.threshold = { a: "1", rv: "2", lv: "3" };
-      this.pulseWidth = { a: "11", rv: "21", lv: "31" };
-      this.perception = { a: "12", rv: "22", lv: "32" };
-      this.impedance = { a: "13", rv: "23", lv: "33" };
-      this.outputVoltage = { a: "101", rv: "102", lv: "103" };
-      this.outputPulseWidth = { a: "1011", rv: "1021", lv: "1031" };
-      this.outputPerception = { a: "1021", rv: "1022", lv: "1032" };
-      this.apRatio = ["0", "1", "2"];
-      this.vpRatio = ["0", "1", "6"];
-      this.ataf = "1";
-      this.atafImg = [
-        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/3.jpg"
-      ];
-      this.efRatio = "89";
-      this.efImg = [
-        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
-      ];
-      this.qrsRatio = "78";
-      this.qrsImg = [
-        "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/5.jpg"
-      ];
-    }
+    this._mock();
+
+    //
+    await this.queryLast(this.patientId);
   }
 };
 </script>

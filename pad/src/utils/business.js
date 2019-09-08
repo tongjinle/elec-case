@@ -33,12 +33,17 @@ export function visitsSchedule(id) {
 
 // 患者-随访列表
 export function patientVisitsSchedule(id) {
-  return createRequest().get("/elecase/visits/patients/" + id);
+  return createRequest().get("/elecase/visits/patient/" + id);
 }
 
 // 随访详情
 export function visitDetail(id) {
   return createRequest().get("/elecase/visits/" + id);
+}
+
+// 上次随访详情
+export function lastVisitDetail(id) {
+  return createRequest().get("/elecase/visits/patient/last/" + id);
 }
 
 // 首页统计
@@ -83,10 +88,10 @@ export function uploadImage(file) {
 // 获取图片
 export function getImage(id) {
   // todo
-  // return prefix + "/elecase/res/image/" + id;
+  return prefix + "/elecase/res/image/" + id;
   // 下面这局仅仅是为了展示
   // 生产环境用上面的
-  return prefix + "/elecase/res/image/abc1567540360443_429";
+  // return prefix + "/elecase/res/image/abc1567540360443_429";
 }
 
 // 新增随访

@@ -54,7 +54,7 @@
         </div>
         <div class="mainer">
           <div class="title">随访种类：</div>
-          <div class="msg">{{fullVisitType}}</div>
+          <div class="msg">{{fullCategory}}</div>
         </div>
       </div>
       <div class="itemContent">
@@ -178,7 +178,7 @@ export default {
       nextDate: "",
       // 医生编号
       doctor: "",
-      visitType: "",
+      category: -1,
       //
       batteryStatus: "",
       duration: "",
@@ -222,9 +222,9 @@ export default {
     };
   },
   computed: {
-    fullVisitType() {
-      let visitType = this.visitType;
-      let item = config.VISIT_TYPES.find(n => n.value === visitType);
+    fullCategory() {
+      let category = this.category;
+      let item = config.VISIT_TYPES.find(n => n.value === category);
       return item ? item.name : "";
     },
     fullBatteryStatus() {
@@ -316,7 +316,7 @@ export default {
       console.log(data);
       this.patientId = data.patientId;
       this.nextDate = data.nextDate;
-      this.visitType = data.visitType;
+      this.category = data.category;
       this.batteryStatus = data.batteryStatus;
       this.duration = data.duration;
       this.threshold = data.threshold;

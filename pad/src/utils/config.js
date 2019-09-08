@@ -1,3 +1,4 @@
+export let env = "dev";
 // 设备类型
 export const DEVICE_CATEGORIES = [
   { name: "BRADY", value: 1 },
@@ -32,9 +33,9 @@ export const VISIT_EVENTS = [
 
 // 随访类型
 export const VISIT_TYPES = [
-  { value: "1", name: "常规" },
-  { value: "2", name: "不适随访" },
-  { value: "3", name: "HIS随访" }
+  { value: 1, name: "常规" },
+  { value: 2, name: "不适随访" },
+  { value: 3, name: "HIS随访" }
 ];
 
 // 起搏模式
