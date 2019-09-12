@@ -214,7 +214,8 @@ export default {
       this.name = "童扑满";
       this.sex = "1";
       this.birth = new Date(1984, 0, 18);
-      this.phone = "18701816746";
+      this.phone =
+        "1870181" + (1e4 + Math.floor(1e2 * Math.random())).toString().slice(1);
       this.emergPhone = "22201816747";
       this.plantTime = new Date(2010, 0, 18);
       this.deviceModel = "奥特曼";
@@ -234,7 +235,7 @@ export default {
         emergPhone: this.emergPhone,
         addr: this.addr,
         treat: {
-          doctorId: this.doctor
+          doctorId: this.doctorId
         },
         psmk: {
           plantTime: bll.timeToString(this.plantTime),
