@@ -262,7 +262,7 @@ export default {
   methods: {
     _mock() {
       if (config.env) {
-        this.patientId = "1";
+        this.patientId = "64";
         this.visitType = "1";
         this.batteryStatus = "1";
         this.duration = "4";
@@ -392,7 +392,7 @@ export default {
 
     // mock
     // 正式环境下要删除
-    this._mock();
+    // this._mock();
 
     //
     await this.queryLast(this.patientId);

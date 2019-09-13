@@ -211,7 +211,7 @@ export default {
   },
   async mounted() {
     // mock
-    let id = 19;
+    let id = 64;
     await this.queryDoctors();
     await this.queryFactories();
     this.queryPatient(id);
