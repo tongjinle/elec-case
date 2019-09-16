@@ -113,7 +113,7 @@ export default {
 <style lang="less">
 @base: 1rem;
 .searchBox {
-  font-size: @base / 2;
+  font-size: @base / 3;
   display: flex;
   justify-content: flex-start;
   .navleft {
@@ -127,7 +127,9 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
       .input {
+        width: 95%;
         display: flex;
         justify-content: center;
         input {
@@ -144,12 +146,12 @@ export default {
         .searchImg {
           position: relative;
           left: @base*1.3;
-          top: @base*0.4;
+          top: @base*0.3;
         }
         .photoImg {
           position: relative;
           left: -@base*1.3;
-          top: @base*0.4;
+          top: @base*0.3;
         }
       }
       .add {

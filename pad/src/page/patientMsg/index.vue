@@ -223,7 +223,7 @@ export default {
       console.log(data);
       this.name = data.name;
       this.sex = data.sex;
-      this.birth = data.birth;
+      this.birth = data.birth.slice(0, 10);
       this.phone = data.phone;
       this.emergPhone = data.emergPhone;
       this.plantTime = psmk.plantTime;
@@ -307,6 +307,7 @@ export default {
             background-color: rgb(247, 247, 247);
             border-radius: 5px;
             padding: 10px 20px;
+            min-height: 22px;
             width: @base*3;
           }
           .radio {
@@ -334,6 +335,7 @@ export default {
               background-color: rgb(247, 247, 247);
               border-radius: 5px;
               padding: 10px 20px;
+              min-height: 22px;
               width: @base*2;
             }
             span {

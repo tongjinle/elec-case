@@ -63,9 +63,9 @@
           </div>
         </div>
 
-        <div class="mainer">
+        <div class="mainers">
           <div class="mainerItemTitle">阻抗（欧）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
+          <div class="mainerItems" v-for="(item, index) in ['a','rv','lv']" :key="index">
             <input class="inputbox" type="text" v-model="impedance[item]" />
           </div>
 
@@ -434,12 +434,21 @@ export default {
         padding: 10px 20px;
         border: 1px solid #dddddd;
         border-radius: 5px;
-        width: 3rem;
+        width: 2.5rem;
       }
       .title {
         padding-left: 20px;
         border-left: 5px solid rgb(18, 159, 259);
         margin-bottom: 20px;
+      }
+      .mainers {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .mainerItems {
+          width: @base*3;
+        }
       }
       .mainer {
         display: flex;
@@ -488,6 +497,7 @@ export default {
             color: #333;
           }
         }
+
         .mainerItem {
           width: @base*5;
           .subtitle {

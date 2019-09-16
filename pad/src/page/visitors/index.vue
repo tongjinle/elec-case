@@ -16,6 +16,7 @@
         :visitTime="item.visitTime"
         :deviceId="item.deviceId"
         :addVisitHandle="item.addVisit"
+        :deviceCate="item.deviceCate"
         :viewVisitHandle="item.viewVisit"
       />
     </div>

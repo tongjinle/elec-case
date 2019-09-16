@@ -50,7 +50,7 @@ export default {
     deviceCateText() {
       let value = this.deviceCate;
       let item = config.DEVICE_CATEGORIES.find(n => n.value === value);
-      return item ? item.name : "";
+      return item;
     }
   },
   methods: {
@@ -83,6 +83,7 @@ export default {
       .up {
         display: flex;
         justify-content: flex-start;
+        align-items: baseline;
         span {
           margin-left: @base / 2;
           color: black;
@@ -93,6 +94,7 @@ export default {
       .down {
         display: flex;
         justify-content: flex-start;
+        align-items: baseline;
         .item {
           margin-right: @base / 2;
           span {

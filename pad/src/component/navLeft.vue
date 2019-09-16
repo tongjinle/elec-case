@@ -10,7 +10,7 @@
       </div>
       <div class="my" @click="toVisitorsPage">
         <img class="icon-my" src="../assets/image/icon-my.png" />
-        <div>我的</div>
+        <div>患者</div>
       </div>
       <div class="logOut" @click="logout">
         <img class="icon-logOut" src="../assets/image/icon-logOut.png" />

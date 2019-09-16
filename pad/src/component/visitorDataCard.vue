@@ -48,7 +48,7 @@ export default {
   &__title {
     margin: 20px 0 0 0;
     padding-left: 60px;
-    font-size: @base / 2;
+    font-size: @base / 3;
   }
 }
 </style>

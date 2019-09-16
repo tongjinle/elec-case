@@ -5,9 +5,7 @@
         <img src="../../assets/image/back.png" alt />
       </div>
       <p>新增患者</p>
-      <div class="right" @click="addPatient">
-        <img src="../../assets/image/download@2x.png" alt />
-      </div>
+      <div class="right" @click="addPatient">下一步</div>
     </div>
     <div class="content">
       <div class="item">
@@ -307,7 +305,7 @@ export default {
 <style lang="less" scoped>
 @base: 1rem;
 .newPatientBox {
-  font-size: @base / 3;
+  font-size: @base / 4;
   .head {
     display: flex;
     justify-content: flex-start;
@@ -324,15 +322,15 @@ export default {
     }
     .left {
       justify-content: flex-start;
-      margin-left: @base / 2;
+      margin-left: @base / 3;
     }
     .right {
       justify-content: flex-end;
-      margin-right: @base / 2;
+      margin-right: @base / 3;
     }
     p {
       width: 80%;
-      font-size: @base / 2;
+      font-size: @base / 3;
       text-align: center;
       margin: 0;
       line-height: 50px;
@@ -354,7 +352,7 @@ export default {
         margin-bottom: 20px;
         span {
           color: rgb(153, 153, 153);
-          font-size: @base / 2.5;
+          font-size: @base / 3.5;
         }
       }
       .itemContentBox {

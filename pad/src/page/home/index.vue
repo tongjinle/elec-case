@@ -109,7 +109,7 @@ export default {
               type: "pie",
               data: toData(dict),
               roseType: "angle",
-              radius: [20, 110]
+              radius: [20, 40]
             }
           ]
         };
@@ -140,7 +140,7 @@ export default {
 @base: 75rem;
 .home {
   background-color: rgb(244, 248, 249);
-  font-size: 28 / @base;
+  font-size: 20 / @base;
   color: #333333;
   height: 100%;
   display: flex;

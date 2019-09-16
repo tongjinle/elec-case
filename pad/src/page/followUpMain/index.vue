@@ -461,6 +461,7 @@ export default {
         .msg {
           width: @base*2.2;
           padding: 10px 20px;
+          min-height: 22px;
           background-color: rgb(247, 247, 247);
           color: rgb(102, 102, 102);
         }
@@ -485,6 +486,7 @@ export default {
             .msg {
               width: @base*3;
               padding: 10px 20px;
+              min-height: 22px;
               background-color: rgb(247, 247, 247);
               color: rgb(102, 102, 102);
             }
