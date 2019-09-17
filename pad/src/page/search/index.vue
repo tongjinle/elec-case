@@ -79,9 +79,12 @@ export default {
   methods: {
     async search() {
       let encodeKeyword = encodeURIComponent(this.keyword);
-      let { data } = await bll.search(encodeKeyword);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.search(encodeKeyword);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(data);
       this.list = data;

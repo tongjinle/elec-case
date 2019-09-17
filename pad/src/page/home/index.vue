@@ -67,9 +67,6 @@ export default {
   async mounted() {
     try {
       let { data } = await bll.stat();
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
-      }
       console.log(data);
       this.stat = data;
 
@@ -126,7 +123,11 @@ export default {
       myChartLeft.setOption(optionLeft);
       myChartCenter.setOption(optionCenter);
       myChartRight.setOption(optionRight);
-    } catch (e) {}
+    } catch (err) {
+      if (err.response.data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
+    }
   },
 
   methods: {

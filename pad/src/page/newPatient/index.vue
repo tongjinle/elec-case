@@ -189,9 +189,12 @@ export default {
     this.plantTime = new Date();
 
     {
-      let { data: doctors } = await bll.doctors();
-      if (data.doctors.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data: doctors } = await bll.doctors();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(doctors);
       this.doctors = doctors.map(n => ({ name: n.name, value: n.id }));
@@ -200,9 +203,12 @@ export default {
     this.plantReasons = config.PLANT_REASONS;
 
     {
-      let { data: factories } = await bll.factories();
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data: factories } = await bll.factories();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       this.factories = factories.map(n => ({ name: n.name, value: n.id }));
     }
@@ -255,18 +261,24 @@ export default {
           doctorId: this.doctorId
         }
       };
-      let res = await bll.addPatient(data);
-      if (res.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let res = await bll.addPatient(data);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(res);
       // this.gotoDetails();
     },
     async afterRead(res) {
       let file = res.file;
-      let { data } = await bll.uploadImage(file);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.uploadImage(file);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log("image id:", data);
       return data;

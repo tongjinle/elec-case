@@ -314,11 +314,14 @@ export default {
     },
     async afterRead(res) {
       let file = res.file;
-      let { data } = await bll.uploadImage(file);
-      console.log("image id:", data);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.uploadImage(file);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
+      console.log("image id:", data);
       return data;
     },
     async submit() {
@@ -351,10 +354,12 @@ export default {
         qrsRatio: this.qrsRatio,
         qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
       };
-
-      let res = await bll.setVisitData(data);
-      if (res.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let res = await bll.setVisitData(data);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(res);
       this.$router.push({
@@ -366,9 +371,13 @@ export default {
       });
     },
     async queryLast(id) {
-      let { data } = await bll.lastVisitDetail(id);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.lastVisitDetail(id);
+      } catch (err) {
+        console.log(err.response.data.message, "1");
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       let paperVO = data.paperVO;
       console.log(paperVO);

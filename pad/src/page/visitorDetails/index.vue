@@ -64,9 +64,12 @@ export default {
       this.name = query.name;
 
       let patientId = query.id;
-      let { data } = await bll.patientVisitsSchedule(patientId);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.patientVisitsSchedule(patientId);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(data);
       this.nextDate = data.nextDate;

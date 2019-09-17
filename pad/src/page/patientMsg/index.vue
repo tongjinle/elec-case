@@ -218,9 +218,12 @@ export default {
   },
   methods: {
     async queryPatient(patientId) {
-      let { data } = await bll.patient(patientId);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.patient(patientId);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       let psmk = data.psmk;
       console.log(data);
@@ -242,17 +245,23 @@ export default {
       this.plantBaseQrsImg = psmk.plantBaseQrsImg;
     },
     async queryDoctors() {
-      let { data } = await bll.doctors();
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.doctors();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(data);
       this.doctors = data;
     },
     async queryFactories() {
-      let { data } = await bll.factories();
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.factories();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(data);
       this.factories = data;

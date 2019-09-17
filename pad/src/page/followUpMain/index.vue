@@ -273,9 +273,12 @@ export default {
   },
   methods: {
     async submit() {
-      let prevData = bll.getVisitData();
-      if (prevData.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let prevData = bll.getVisitData();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       let data = {
         ...prevData,
@@ -290,9 +293,12 @@ export default {
         vpRatio: prevData.vpRatio.join("")
       };
       console.log("submit data:", data);
-      let res = await bll.addVisit(this.patientId, data);
-      if (res.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let res = await bll.addVisit(this.patientId, data);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log("after submit add visit:", res);
       this.$router.push({
@@ -302,7 +308,13 @@ export default {
     },
     async changeTime(value) {
       this.timeStep = value;
-      let { data } = await bll.date(4, value);
+      try {
+        let { data } = await bll.date(4, value);
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
+      }
       console.log(data);
       this.nextDate = data;
     },
@@ -323,9 +335,12 @@ export default {
       this.$router.push({ path: "/visitorDetails" });
     },
     async getVisitData() {
-      let data = bll.getVisitData();
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let data = bll.getVisitData();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
       console.log(data);
       this.patientId = data.patientId;
@@ -349,11 +364,14 @@ export default {
   async mounted() {
     this.getVisitData();
     {
-      let { data } = await bll.doctors();
-      console.log(data);
-      if (data.message == "token非法！") {
-        this.$router.push({ path: "login" });
+      try {
+        let { data } = await bll.doctors();
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
       }
+      console.log(data);
       let doctors = data.map(n => {
         return {
           value: n.id,
