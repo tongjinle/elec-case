@@ -168,7 +168,7 @@ export default {
     }
     .card {
       .mainer {
-        height: @base*10;
+        height: @base*8;
         display: flex;
         flex-direction: column;
         align-items: center;
