@@ -78,7 +78,7 @@
         <div class="title">基本参数</div>
         <div class="mainer">
           <div class="mainerItemTitle">起搏模式：</div>
-          <div class="mainerItem">
+          <div class="mainerItem" style="width:5rem">
             <DropDown :actions="modes" @on-change="changeMode" />
           </div>
         </div>
@@ -316,11 +316,17 @@ export default {
       let file = res.file;
       let { data } = await bll.uploadImage(file);
       console.log("image id:", data);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       return data;
     },
     async submit() {
       let getImgUrl = (obj, imgId) =>
         obj ? obj.url || bll.getImage(imgId) : "";
+      // if (getImgUrl.message == "token非法！") {
+      //   this.$router.push({ path: "login" });
+      // }
       let data = {
         patientId: this.patientId,
         category: this.visitType,
@@ -347,14 +353,23 @@ export default {
       };
 
       let res = await bll.setVisitData(data);
+      if (res.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(res);
       this.$router.push({
-        name: "followUpMain",
-        id: this.patientId
+        path: "visitorDetails",
+        query: {
+          id: 1,
+          name: "百里"
+        }
       });
     },
     async queryLast(id) {
       let { data } = await bll.lastVisitDetail(id);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       let paperVO = data.paperVO;
       console.log(paperVO);
       // this.visitType = paperVO.;
@@ -403,12 +418,12 @@ export default {
 <style lang="less" scoped>
 @base: 1rem;
 .addBox {
-  font-size: @base / 3;
+  font-size: @base / 4;
   .head {
     display: flex;
     justify-content: flex-start;
     div {
-      width: 10%;
+      width: 5%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -419,15 +434,15 @@ export default {
       }
     }
     p {
-      width: 80%;
-      font-size: @base / 2;
+      width: 90%;
+      font-size: @base / 3;
       text-align: center;
       margin: 0;
       line-height: 50px;
     }
   }
   .content {
-    padding: 0 @base;
+    padding: 0 @base / 2;
     .item {
       margin-bottom: 20px;
       .inputbox {
@@ -443,11 +458,19 @@ export default {
       }
       .mainers {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         margin-bottom: 10px;
         .mainerItems {
-          width: @base*3;
+          width: @base*4;
+        }
+        .mainerItemTitle {
+          width: @base*2.2;
+          display: flex;
+          align-items: center;
+          span {
+            color: #333;
+          }
         }
       }
       .mainer {
@@ -499,7 +522,7 @@ export default {
         }
 
         .mainerItem {
-          width: @base*5;
+          width: @base*4;
           .subtitle {
             text-align: center;
             padding: 0 20px;

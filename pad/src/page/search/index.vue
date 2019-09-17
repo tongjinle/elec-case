@@ -80,6 +80,9 @@ export default {
     async search() {
       let encodeKeyword = encodeURIComponent(this.keyword);
       let { data } = await bll.search(encodeKeyword);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(data);
       this.list = data;
       this.isFirst = false;

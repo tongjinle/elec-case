@@ -53,7 +53,7 @@ export default {
 <style lang="less">
 @base: 1rem;
 .dropDown {
-  font-size: @base / 3;
+  font-size: @base / 4;
   .box {
     input {
       padding: 10px 20px;

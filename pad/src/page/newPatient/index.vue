@@ -190,6 +190,9 @@ export default {
 
     {
       let { data: doctors } = await bll.doctors();
+      if (data.doctors.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(doctors);
       this.doctors = doctors.map(n => ({ name: n.name, value: n.id }));
     }
@@ -198,6 +201,9 @@ export default {
 
     {
       let { data: factories } = await bll.factories();
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       this.factories = factories.map(n => ({ name: n.name, value: n.id }));
     }
 
@@ -250,12 +256,18 @@ export default {
         }
       };
       let res = await bll.addPatient(data);
+      if (res.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(res);
       // this.gotoDetails();
     },
     async afterRead(res) {
       let file = res.file;
       let { data } = await bll.uploadImage(file);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log("image id:", data);
       return data;
     },

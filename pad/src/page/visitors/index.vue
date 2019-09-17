@@ -76,6 +76,9 @@ export default {
   async mounted() {
     try {
       let { data } = await bll.visitsSchedule(1);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       this.list = data;
     } catch (e) {}
   }

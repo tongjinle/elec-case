@@ -1,8 +1,9 @@
 <template>
   <div class="followUpMainBox" @click="closeCard">
     <div class="head">
-      <div class="left" @click="getBack()">
-        <img src="../../assets/image/back.png" alt />
+      <div class="left">
+        <img @click="getBack()" src="../../assets/image/back.png" alt />
+        <img style="margin-left:10px;" src="../../assets/image/printing.png" alt />
       </div>
       <p>随访详情</p>
       <div class="right">
@@ -273,6 +274,9 @@ export default {
   methods: {
     async submit() {
       let prevData = bll.getVisitData();
+      if (prevData.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       let data = {
         ...prevData,
         nextDate: this.nextDate,
@@ -287,7 +291,14 @@ export default {
       };
       console.log("submit data:", data);
       let res = await bll.addVisit(this.patientId, data);
+      if (res.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log("after submit add visit:", res);
+      this.$router.push({
+        path: "visitorDetails",
+        query: { id: 1, name: "百里" }
+      });
     },
     async changeTime(value) {
       this.timeStep = value;
@@ -313,6 +324,9 @@ export default {
     },
     async getVisitData() {
       let data = bll.getVisitData();
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(data);
       this.patientId = data.patientId;
       this.nextDate = data.nextDate;
@@ -337,6 +351,9 @@ export default {
     {
       let { data } = await bll.doctors();
       console.log(data);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       let doctors = data.map(n => {
         return {
           value: n.id,
@@ -362,7 +379,7 @@ export default {
 <style lang="less" scoped>
 @base: 1rem;
 .followUpMainBox {
-  font-size: @base / 3;
+  font-size: @base / 4;
   .head {
     display: flex;
     justify-content: flex-start;
@@ -371,13 +388,13 @@ export default {
     width: 100%;
     .left,
     .right {
-      width: 10%;
+      width: 5%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       color: rgb(18, 159, 259);
       img {
-        margin-left: @base;
+        margin-left: @base / 2;
         width: 25px;
         height: 25px;
       }
@@ -391,8 +408,8 @@ export default {
     //   }
     // }
     p {
-      width: 80%;
-      font-size: @base / 2;
+      width: 90%;
+      font-size: @base / 3;
       text-align: center;
       margin: 0;
       line-height: 50px;
@@ -408,11 +425,11 @@ export default {
     display: flex;
     justify-content: flex-end;
     .cardMain {
-      width: 25%;
+      width: 30%;
       background: white;
       padding: @base*2 20px;
       .title {
-        font-size: @base / 2;
+        font-size: @base / 3;
         color: rgb(102, 102, 102);
       }
       .cardItem {
@@ -430,7 +447,7 @@ export default {
         }
       }
       .foot {
-        margin-top: @base*5;
+        margin-top: @base*3;
         display: flex;
         justify-content: center;
         button {
@@ -440,12 +457,13 @@ export default {
           border: none;
           border-radius: 10px;
           color: white;
+          line-height: 30px;
         }
       }
     }
   }
   .content {
-    padding: 0 @base;
+    padding: 0 @base / 2;
     .item {
       display: flex;
       justify-content: flex-start;
@@ -500,7 +518,7 @@ export default {
             justify-content: flex-start;
             .tr {
               div {
-                width: @base*2.3;
+                width: @base*1.8;
                 height: @base / 2;
                 padding: 10px 10px;
                 border-right: 1px solid black;

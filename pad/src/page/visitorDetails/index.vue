@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getBack() {
-      this.$router.back(-1);
+      this.$router.push({ path: "visitors" });
     },
     gotoAdd() {
       this.$router.push({ path: "/newAdd" });
@@ -65,6 +65,9 @@ export default {
 
       let patientId = query.id;
       let { data } = await bll.patientVisitsSchedule(patientId);
+      if (data.message == "token非法！") {
+        this.$router.push({ path: "login" });
+      }
       console.log(data);
       this.nextDate = data.nextDate;
       this.list = data.visits;
@@ -88,7 +91,7 @@ export default {
     align-items: center;
     height: 50px;
     div {
-      width: 10%;
+      width: 5%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -98,7 +101,7 @@ export default {
       }
     }
     p {
-      width: 80%;
+      width: 90%;
       font-size: @base / 2;
       text-align: center;
       margin: 0;
@@ -118,7 +121,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 @base;
+    padding: 0 @base / 2;
   }
 }
 </style>
