@@ -317,7 +317,7 @@ export default {
       try {
         let { data } = await bll.uploadImage(file);
         console.log("image id:", data);
-        return data;
+        return bll.getImage(data);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
@@ -326,8 +326,7 @@ export default {
     },
     async submit() {
       try {
-        let getImgUrl = (obj, imgId) =>
-          obj ? obj.url || bll.getImage(imgId) : "";
+        let getImgUrl = (obj, imgUrl) => (obj && obj.url) || imgUrl;
         let data = {
           patientId: this.patientId,
           category: this.visitType,
