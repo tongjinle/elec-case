@@ -356,12 +356,12 @@ export default {
       };
       try {
         let res = await bll.setVisitData(data);
+        console.log(res);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(res);
       this.$router.push({
         path: "visitorDetails",
         query: {
@@ -373,37 +373,37 @@ export default {
     async queryLast(id) {
       try {
         let { data } = await bll.lastVisitDetail(id);
+        let paperVO = data.paperVO;
+        console.log(paperVO);
+        // this.visitType = paperVO.;
+        this.batteryStatus = paperVO.batteryStatus;
+        this.duration = paperVO.duration;
+        this.mode = paperVO.mode;
+        this.up = paperVO.up;
+        this.down = paperVO.down;
+        this.threshold = paperVO.threshold;
+        this.pulseWidth = paperVO.pulseWidth;
+        this.perception = paperVO.perception;
+        this.impedance = paperVO.impedance;
+        this.outputVoltage = paperVO.outputVoltage;
+        this.outputPulseWidth = paperVO.outputPulseWidth;
+        this.outputPerception = paperVO.outputPerception;
+        this.apRatio = paperVO.apRatio.split("");
+        this.vpRatio = paperVO.vpRatio.split("");
+        // this.ataf = paperVO.ataf;
+        this.atafImg = [{ url: paperVO.atafImg, isImage: true }];
+        this.efRatio = paperVO.efRatio;
+        this.efImg = [{ url: paperVO.efImg, isImage: true }];
+        //   "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
+        // ];
+        this.qrsRatio = paperVO.qrsRatio;
+        this.qrsImg = [{ url: paperVO.qrsImg, isImage: true }];
       } catch (err) {
         console.log(err.response.data.message, "1");
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      let paperVO = data.paperVO;
-      console.log(paperVO);
-      // this.visitType = paperVO.;
-      this.batteryStatus = paperVO.batteryStatus;
-      this.duration = paperVO.duration;
-      this.mode = paperVO.mode;
-      this.up = paperVO.up;
-      this.down = paperVO.down;
-      this.threshold = paperVO.threshold;
-      this.pulseWidth = paperVO.pulseWidth;
-      this.perception = paperVO.perception;
-      this.impedance = paperVO.impedance;
-      this.outputVoltage = paperVO.outputVoltage;
-      this.outputPulseWidth = paperVO.outputPulseWidth;
-      this.outputPerception = paperVO.outputPerception;
-      this.apRatio = paperVO.apRatio.split("");
-      this.vpRatio = paperVO.vpRatio.split("");
-      // this.ataf = paperVO.ataf;
-      this.atafImg = [{ url: paperVO.atafImg, isImage: true }];
-      this.efRatio = paperVO.efRatio;
-      this.efImg = [{ url: paperVO.efImg, isImage: true }];
-      //   "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
-      // ];
-      this.qrsRatio = paperVO.qrsRatio;
-      this.qrsImg = [{ url: paperVO.qrsImg, isImage: true }];
     }
   },
   async mounted() {

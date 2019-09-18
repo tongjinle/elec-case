@@ -275,32 +275,32 @@ export default {
     async submit() {
       try {
         let prevData = bll.getVisitData();
+        let data = {
+          ...prevData,
+          nextDate: this.nextDate,
+          doctorId: this.doctor,
+          advise: this.advise,
+          events: this.events,
+          ataf: prevData.ataf ? prevData.ataf[0] : "",
+          efImg: prevData.efImg ? prevData.efImg[0] : "",
+          qrsImg: prevData.qrsImg ? prevData.qrsImg[0] : "",
+          apRatio: prevData.apRatio.join(""),
+          vpRatio: prevData.vpRatio.join("")
+        };
+        console.log("submit data:", data);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      let data = {
-        ...prevData,
-        nextDate: this.nextDate,
-        doctorId: this.doctor,
-        advise: this.advise,
-        events: this.events,
-        ataf: prevData.ataf ? prevData.ataf[0] : "",
-        efImg: prevData.efImg ? prevData.efImg[0] : "",
-        qrsImg: prevData.qrsImg ? prevData.qrsImg[0] : "",
-        apRatio: prevData.apRatio.join(""),
-        vpRatio: prevData.vpRatio.join("")
-      };
-      console.log("submit data:", data);
       try {
         let res = await bll.addVisit(this.patientId, data);
+        console.log("after submit add visit:", res);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log("after submit add visit:", res);
       this.$router.push({
         path: "visitorDetails",
         query: { id: 1, name: "百里" }
@@ -310,13 +310,13 @@ export default {
       this.timeStep = value;
       try {
         let { data } = await bll.date(4, value);
+        console.log(data);
+        this.nextDate = data;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.nextDate = data;
     },
     changeDoctor(doctor) {
       this.doctor = doctor;
@@ -337,28 +337,28 @@ export default {
     async getVisitData() {
       try {
         let data = bll.getVisitData();
+        console.log(data);
+        this.patientId = data.patientId;
+        this.nextDate = data.nextDate;
+        this.category = data.category;
+        this.batteryStatus = data.batteryStatus;
+        this.duration = data.duration;
+        this.threshold = data.threshold;
+        this.pulseWidth = data.pulseWidth;
+        this.perception = data.perception;
+        this.impedance = data.impedance;
+        this.mode = data.mode;
+        this.up = data.up;
+        this.down = data.down;
+        this.outputVoltage = data.outputVoltage;
+        this.outputPulseWidth = data.outputPulseWidth;
+        this.outputPerception = data.outputPerception;
+        this.ataf = data.ataf;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.patientId = data.patientId;
-      this.nextDate = data.nextDate;
-      this.category = data.category;
-      this.batteryStatus = data.batteryStatus;
-      this.duration = data.duration;
-      this.threshold = data.threshold;
-      this.pulseWidth = data.pulseWidth;
-      this.perception = data.perception;
-      this.impedance = data.impedance;
-      this.mode = data.mode;
-      this.up = data.up;
-      this.down = data.down;
-      this.outputVoltage = data.outputVoltage;
-      this.outputPulseWidth = data.outputPulseWidth;
-      this.outputPerception = data.outputPerception;
-      this.ataf = data.ataf;
     }
   },
   async mounted() {
@@ -366,19 +366,19 @@ export default {
     {
       try {
         let { data } = await bll.doctors();
+        console.log(data);
+        let doctors = data.map(n => {
+          return {
+            value: n.id,
+            name: n.name
+          };
+        });
+        this.doctors = doctors;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      let doctors = data.map(n => {
-        return {
-          value: n.id,
-          name: n.name
-        };
-      });
-      this.doctors = doctors;
     }
     {
       let timeSteps = [

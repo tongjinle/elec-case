@@ -220,51 +220,51 @@ export default {
     async queryPatient(patientId) {
       try {
         let { data } = await bll.patient(patientId);
+        let psmk = data.psmk;
+        console.log(data);
+        this.name = data.name;
+        this.sex = data.sex;
+        this.birth = data.birth.slice(0, 10);
+        this.phone = data.phone;
+        this.emergPhone = data.emergPhone;
+        this.plantTime = psmk.plantTime;
+        this.doctorId = psmk.doctorId;
+        this.plantReason = psmk.plantReason;
+        this.factoryId = psmk.factoryId;
+        this.deviceCate = psmk.deviceCate;
+        this.deviceModel = psmk.deviceModel;
+        this.deviceNo = psmk.deviceNo;
+        this.plantBaseEf = psmk.plantBaseEf;
+        this.plantBaseEfImg = psmk.plantBaseEfImg;
+        this.plantBaseQrs = psmk.plantBaseQrs;
+        this.plantBaseQrsImg = psmk.plantBaseQrsImg;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      let psmk = data.psmk;
-      console.log(data);
-      this.name = data.name;
-      this.sex = data.sex;
-      this.birth = data.birth.slice(0, 10);
-      this.phone = data.phone;
-      this.emergPhone = data.emergPhone;
-      this.plantTime = psmk.plantTime;
-      this.doctorId = psmk.doctorId;
-      this.plantReason = psmk.plantReason;
-      this.factoryId = psmk.factoryId;
-      this.deviceCate = psmk.deviceCate;
-      this.deviceModel = psmk.deviceModel;
-      this.deviceNo = psmk.deviceNo;
-      this.plantBaseEf = psmk.plantBaseEf;
-      this.plantBaseEfImg = psmk.plantBaseEfImg;
-      this.plantBaseQrs = psmk.plantBaseQrs;
-      this.plantBaseQrsImg = psmk.plantBaseQrsImg;
     },
     async queryDoctors() {
       try {
         let { data } = await bll.doctors();
+        console.log(data);
+        this.doctors = data;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.doctors = data;
     },
     async queryFactories() {
       try {
         let { data } = await bll.factories();
+        console.log(data);
+        this.factories = data;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.factories = data;
     },
     getBack() {
       this.$router.back(-1);

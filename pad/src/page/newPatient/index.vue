@@ -191,13 +191,13 @@ export default {
     {
       try {
         let { data: doctors } = await bll.doctors();
+        console.log(doctors);
+        this.doctors = doctors.map(n => ({ name: n.name, value: n.id }));
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(doctors);
-      this.doctors = doctors.map(n => ({ name: n.name, value: n.id }));
     }
 
     this.plantReasons = config.PLANT_REASONS;
@@ -205,12 +205,12 @@ export default {
     {
       try {
         let { data: factories } = await bll.factories();
+        this.factories = factories.map(n => ({ name: n.name, value: n.id }));
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      this.factories = factories.map(n => ({ name: n.name, value: n.id }));
     }
 
     this.categories = config.DEVICE_CATEGORIES;
@@ -263,24 +263,24 @@ export default {
       };
       try {
         let res = await bll.addPatient(data);
+        console.log(res);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(res);
       // this.gotoDetails();
     },
     async afterRead(res) {
       let file = res.file;
       try {
         let { data } = await bll.uploadImage(file);
+        console.log("image id:", data);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log("image id:", data);
       return data;
     },
     // ef image的图像编号

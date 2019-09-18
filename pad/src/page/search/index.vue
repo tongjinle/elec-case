@@ -81,14 +81,14 @@ export default {
       let encodeKeyword = encodeURIComponent(this.keyword);
       try {
         let { data } = await bll.search(encodeKeyword);
+        console.log(data);
+        this.list = data;
+        this.isFirst = false;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.list = data;
-      this.isFirst = false;
     },
     scan() {},
 
