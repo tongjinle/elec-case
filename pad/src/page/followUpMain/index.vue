@@ -288,14 +288,14 @@ export default {
           vpRatio: prevData.vpRatio.join("")
         };
         console.log("submit data:", data);
-      } catch (err) {
-        if (err.response.data.message == "token非法！") {
-          this.$router.push({ path: "login" });
+        try {
+          let res = await bll.addVisit(this.patientId, data);
+          console.log("after submit add visit:", res);
+        } catch (err) {
+          if (err.response.data.message == "token非法！") {
+            this.$router.push({ path: "login" });
+          }
         }
-      }
-      try {
-        let res = await bll.addVisit(this.patientId, data);
-        console.log("after submit add visit:", res);
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
