@@ -66,14 +66,14 @@ export default {
       let patientId = query.id;
       try {
         let { data } = await bll.patientVisitsSchedule(patientId);
+        console.log(data);
+        this.nextDate = data.nextDate;
+        this.list = data.visits;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log(data);
-      this.nextDate = data.nextDate;
-      this.list = data.visits;
     }
   },
   beforeUpdate() {
