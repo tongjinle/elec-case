@@ -316,13 +316,13 @@ export default {
       let file = res.file;
       try {
         let { data } = await bll.uploadImage(file);
+        console.log("image id:", data);
+        return data;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      console.log("image id:", data);
-      return data;
     },
     async submit() {
       try {
