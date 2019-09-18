@@ -54,7 +54,13 @@ export default {
       this.$router.push({ path: "visitors" });
     },
     gotoAdd() {
-      this.$router.push({ path: "/newAdd" });
+      this.$router.push({
+        path: "/newAdd",
+        query: {
+          id: this.$route.query.id,
+          name: this.$route.query.name
+        }
+      });
     },
     async query() {
       let query = this.$route.query;

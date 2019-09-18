@@ -38,6 +38,9 @@
           <div>下次时间：</div>
           <DropDown :actions="timeSteps" @on-change="changeTime" />
         </div>
+        <div class="choseItem">
+          <div>{{nextDate}}</div>
+        </div>
         <div class="foot">
           <button @click="submit">提交</button>
         </div>
@@ -275,6 +278,7 @@ export default {
     async submit() {
       try {
         let prevData = bll.getVisitData();
+        console.log(prevData);
         let data = {
           ...prevData,
           nextDate: this.nextDate,
@@ -291,6 +295,10 @@ export default {
         try {
           let res = await bll.addVisit(this.patientId, data);
           console.log("after submit add visit:", res);
+          this.$router.push({
+            path: "visitorDetails",
+            query: { id: prevData.patientId, name: this.$route.query.name }
+          });
         } catch (err) {
           if (err.response.data.message == "token非法！") {
             this.$router.push({ path: "login" });
@@ -301,10 +309,6 @@ export default {
           this.$router.push({ path: "login" });
         }
       }
-      this.$router.push({
-        path: "visitorDetails",
-        query: { id: 1, name: "百里" }
-      });
     },
     async changeTime(value) {
       this.timeStep = value;

@@ -264,6 +264,10 @@ export default {
       try {
         let res = await bll.addPatient(data);
         console.log(res);
+        this.$router.push({
+          path: "newAdd",
+          query: { id: res.data.id, name: res.data.name }
+        });
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });

@@ -94,9 +94,9 @@
         </div>
         <div class="mainer">
           <div class="mainerItemTitle"></div>
-          <div class="mainerItem" style="text-align:center;">A</div>
-          <div class="mainerItem" style="text-align:center;">RV</div>
-          <div class="mainerItem" style="text-align:center;">LV</div>
+          <div class="mainerItem" style="text-align:center;width:3.3rem">A</div>
+          <div class="mainerItem" style="text-align:center;width:4.8rem">RV</div>
+          <div class="mainerItem" style="text-align:center;width:3rem">LV</div>
         </div>
 
         <div class="mainer">
@@ -325,50 +325,48 @@ export default {
       return data;
     },
     async submit() {
-      let getImgUrl = (obj, imgId) =>
-        obj ? obj.url || bll.getImage(imgId) : "";
-      // if (getImgUrl.message == "token非法！") {
-      //   this.$router.push({ path: "login" });
-      // }
-      let data = {
-        patientId: this.patientId,
-        category: this.visitType,
-        batteryStatus: this.batteryStatus,
-        duration: this.duration,
-        mode: this.mode,
-        up: this.up,
-        down: this.down,
-        threshold: this.threshold,
-        pulseWidth: this.pulseWidth,
-        perception: this.perception,
-        impedance: this.impedance,
-        outputVoltage: this.outputVoltage,
-        outputPulseWidth: this.outputPulseWidth,
-        outputPerception: this.outputPerception,
-        apRatio: this.apRatio,
-        vpRatio: this.vpRatio,
-        ataf: this.ataf,
-        atafImg: getImgUrl(this.ataf[0], this.atafImgFile),
-        efRatio: this.efRatio,
-        efImg: getImgUrl(this.efImg[0], this.efImgFile),
-        qrsRatio: this.qrsRatio,
-        qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
-      };
       try {
+        let getImgUrl = (obj, imgId) =>
+          obj ? obj.url || bll.getImage(imgId) : "";
+        let data = {
+          patientId: this.patientId,
+          category: this.visitType,
+          batteryStatus: this.batteryStatus,
+          duration: this.duration,
+          mode: this.mode,
+          up: this.up,
+          down: this.down,
+          threshold: this.threshold,
+          pulseWidth: this.pulseWidth,
+          perception: this.perception,
+          impedance: this.impedance,
+          outputVoltage: this.outputVoltage,
+          outputPulseWidth: this.outputPulseWidth,
+          outputPerception: this.outputPerception,
+          apRatio: this.apRatio,
+          vpRatio: this.vpRatio,
+          ataf: this.ataf,
+          atafImg: getImgUrl(this.ataf[0], this.atafImgFile),
+          efRatio: this.efRatio,
+          efImg: getImgUrl(this.efImg[0], this.efImgFile),
+          qrsRatio: this.qrsRatio,
+          qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
+        };
         let res = await bll.setVisitData(data);
+        res = await bll.getVisitData();
         console.log(res);
+        this.$router.push({
+          path: "followUpMain",
+          query: {
+            id: res.patientId,
+            name: this.$route.query.name
+          }
+        });
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      this.$router.push({
-        path: "visitorDetails",
-        query: {
-          id: 1,
-          name: "百里"
-        }
-      });
     },
     async queryLast(id) {
       try {
@@ -536,7 +534,7 @@ export default {
             text-align: center;
             padding: 0 20px;
             box-sizing: content-box;
-            width: 3rem;
+            width: 2.5rem;
           }
         }
         .radio {
