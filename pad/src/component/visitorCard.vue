@@ -9,7 +9,7 @@
         <div class="down">
           <div class="item name">
             医生
-            <span>{{doctorName}}</span>
+            <span style="margin-left:0.42rem">{{doctorName}}</span>
           </div>
           <div class="item">
             上次随访
@@ -102,7 +102,7 @@ export default {
             font-size: @base / 2.5;
           }
           &.name {
-            width: 2 * @base;
+            width: 3 * @base;
           }
         }
       }
