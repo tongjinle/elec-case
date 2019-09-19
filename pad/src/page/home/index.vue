@@ -14,16 +14,18 @@
               :current="fullStat.curMonthVisitedNum"
             />
           </div>
-          <div class="right" @click="gotoVisitors">
+          <div class="right">
             <VisitorDataCard
               :total="fullStat.weekVisitNum"
               title="随访窗口人数 (本周)"
               class="VisitorDataCard"
+              @click="gotoVisitors(1)"
             />
             <VisitorDataCard
               :total="fullStat.weekVisitMissNum"
               title="随访窗外 (超期两周)"
               class="VisitorDataCard"
+              @click="gotoVisitors(2)"
             />
           </div>
         </div>
@@ -109,7 +111,7 @@ export default {
               type: "pie",
               data: toData(dict),
               roseType: "angle",
-              radius: [20, 40]
+              radius: [10, 40]
             }
           ]
         };
@@ -131,9 +133,10 @@ export default {
   },
 
   methods: {
-    gotoVisitors() {
+    gotoVisitors(id) {
       this.$router.push({
-        name: "visitors"
+        name: "visitors",
+        query: { id }
       });
     }
   }

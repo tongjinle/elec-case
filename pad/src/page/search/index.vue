@@ -44,6 +44,7 @@
 import NavLeft from "@/component/navLeft";
 import VisitorCard from "@/component/visitorCard";
 import * as bll from "../../utils/business";
+import * as tool from "../../utils/tool";
 
 export default {
   name: "dropDown",
@@ -62,7 +63,7 @@ export default {
         return {
           doctorName: n.doctorName,
           patientName: n.name,
-          visitTime: n.nextDate,
+          visitTime: tool.formateTime(n.lastVisitTime),
           deviceId: n.deviceCate,
           // 两个handle
           addVisit: () => {

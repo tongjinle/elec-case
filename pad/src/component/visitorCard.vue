@@ -70,7 +70,7 @@ export default {
 .visitor {
   margin-top: 40px;
   width: 100%;
-  font-size: @base / 3;
+  font-size: @base / 4;
   .card {
     display: flex;
     justify-content: space-between;
@@ -87,7 +87,7 @@ export default {
         span {
           margin-left: @base / 2;
           color: black;
-          font-size: @base / 2.5;
+          font-size: @base / 3.5;
         }
         margin-bottom: 20px;
       }
@@ -99,7 +99,7 @@ export default {
           margin-right: @base / 2;
           span {
             color: black;
-            font-size: @base / 2.5;
+            font-size: @base / 3.5;
           }
           &.name {
             width: 3 * @base;
@@ -111,7 +111,7 @@ export default {
       display: flex;
       align-items: center;
       button {
-        font-size: @base / 3;
+        font-size: @base / 4;
         padding: 10px 30px;
         border: 1px solid rgb(18, 159, 259);
         border-radius: @base / 2.5;

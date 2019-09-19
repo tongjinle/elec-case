@@ -43,7 +43,7 @@ export default {
           doctorName: n.doctorName,
           patientName: n.patientName,
           visitTime: n.nextDate,
-          deviceCate: n.deviceCate,
+          deviceCate: n.deviceModel,
           addVisit: () => {
             this.addVisit(n);
           },
@@ -75,7 +75,8 @@ export default {
   },
   async mounted() {
     try {
-      let { data } = await bll.visitsSchedule(1);
+      let id = this.$route.query.id;
+      let { data } = await bll.visitsSchedule(id);
       this.list = data;
     } catch (err) {
       if (err.response.data.message == "token非法！") {
