@@ -345,15 +345,16 @@ export default {
           apRatio: this.apRatio,
           vpRatio: this.vpRatio,
           ataf: this.ataf,
-          atafImg: getImgUrl(this.ataf[0], this.atafImgFile),
+          atafImg: getImgUrl(this.atafImg[0], this.atafImgFile),
           efRatio: this.efRatio,
           efImg: getImgUrl(this.efImg[0], this.efImgFile),
           qrsRatio: this.qrsRatio,
           qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
         };
+        console.log("data", data);
         let res = await bll.setVisitData(data);
         res = await bll.getVisitData();
-        console.log(res);
+        console.log("res", res);
         this.$router.push({
           path: "followUpMain",
           query: {
@@ -388,13 +389,35 @@ export default {
         this.apRatio = paperVO.apRatio.split("");
         this.vpRatio = paperVO.vpRatio.split("");
         // this.ataf = paperVO.ataf;
-        this.atafImg = [{ isImage: true, url: paperVO.atafImg + ".jpg" }];
+        this.atafImg = [
+          {
+            url:
+              paperVO.atafImg.substring(paperVO.atafImg.length - 4) == ".jpg"
+                ? paperVO.atafImg
+                : paperVO.atafImg + ".jpg",
+            isImage: true
+          }
+        ];
         this.efRatio = paperVO.efRatio;
-        this.efImg = [{ url: paperVO.efImg, isImage: true }];
-        //   "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
-        // ];
+        this.efImg = [
+          {
+            url:
+              paperVO.efImg.substring(paperVO.efImg.length - 4) == ".jpg"
+                ? paperVO.efImg
+                : paperVO.efImg + ".jpg",
+            isImage: true
+          }
+        ];
         this.qrsRatio = paperVO.qrsRatio;
-        this.qrsImg = [{ url: paperVO.qrsImg, isImage: true }];
+        this.qrsImg = [
+          {
+            url:
+              paperVO.qrsImg.substring(paperVO.qrsImg.length - 4) == ".jpg"
+                ? paperVO.qrsImg
+                : paperVO.qrsImg + ".jpg",
+            isImage: true
+          }
+        ];
       } catch (err) {
         console.log(err.response.data.message, "1");
         if (err.response.data.message == "token非法！") {

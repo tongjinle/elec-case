@@ -285,9 +285,9 @@ export default {
           doctorId: this.doctor,
           advise: this.advise,
           events: this.events,
-          ataf: prevData.ataf ? prevData.ataf[0] : "",
-          efImg: prevData.efImg ? prevData.efImg[0] : "",
-          qrsImg: prevData.qrsImg ? prevData.qrsImg[0] : "",
+          ataf: prevData.ataf ? prevData.ataf : "",
+          efImg: prevData.efImg ? prevData.efImg : "",
+          qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
           apRatio: prevData.apRatio.join(""),
           vpRatio: prevData.vpRatio.join("")
         };
