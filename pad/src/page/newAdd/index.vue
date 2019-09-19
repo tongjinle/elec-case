@@ -388,7 +388,7 @@ export default {
         this.apRatio = paperVO.apRatio.split("");
         this.vpRatio = paperVO.vpRatio.split("");
         // this.ataf = paperVO.ataf;
-        this.atafImg = [{ url: paperVO.atafImg, isImage: true }];
+        this.atafImg = [{ isImage: true, url: paperVO.atafImg + ".jpg" }];
         this.efRatio = paperVO.efRatio;
         this.efImg = [{ url: paperVO.efImg, isImage: true }];
         //   "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
@@ -403,7 +403,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  async beforeMount() {
     // 病人编号
     this.patientId = this.$route.query.id;
 
