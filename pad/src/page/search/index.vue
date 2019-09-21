@@ -22,6 +22,7 @@
             :patientName="item.patientName"
             :visitTime="item.visitTime"
             :deviceId="item.deviceId"
+            :deviceCate="item.deviceCate"
             :addVisitHandle="item.addVisit"
             :viewVisitHandle="item.viewVisit"
           />
@@ -65,6 +66,7 @@ export default {
           patientName: n.name,
           visitTime: tool.formateTime(n.lastVisitTime),
           deviceId: n.deviceCate,
+          deviceCate:n.deviceModel,
           // 两个handle
           addVisit: () => {
             this.addVisit(n);
