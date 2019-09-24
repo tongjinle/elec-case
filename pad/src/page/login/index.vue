@@ -6,9 +6,15 @@
     <div class="login__form">
       <input class="form__item form__user" type="text" placeholder="用户名" v-model="username" />
       <img src="../../assets/image/icon-user.png" alt />
-      <input class="form__item form__password" type="password" placeholder="密码" v-model="password" />
+      <input
+        class="form__item form__password"
+        type="password"
+        @keyup.enter="login"
+        placeholder="密码"
+        v-model="password"
+      />
       <img src="../../assets/image/icon-password.png" alt />
-      <button class="form__item form__login" @click="login()">登录</button>
+      <el-button class="form__item form__login" @click="login">登录</el-button>
     </div>
   </div>
 </template>

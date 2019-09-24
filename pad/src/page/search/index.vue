@@ -114,6 +114,11 @@ export default {
         name: "newPatient"
       });
       // todo
+    },
+    addPatient(){
+      this.$router.push({
+        name: "newPatient"
+      });
     }
   }
 };

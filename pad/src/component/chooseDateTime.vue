@@ -5,7 +5,13 @@
       <img src="../assets/image/calendar.png" alt />
     </div>
     <div class="time" v-if="showtime" @click="closeitem">
-      <van-datetime-picker class="chooseTime" v-model="currentDate" type="date" @change="choose" />
+      <van-datetime-picker
+        class="chooseTime"
+        :min-date="minDate"
+        v-model="currentDate"
+        type="date"
+        @change="choose"
+      />
     </div>
   </div>
 </template>
@@ -21,7 +27,8 @@ export default {
   data() {
     return {
       showtime: false,
-      currentDate: new Date()
+      currentDate: new Date(),
+      minDate: new Date(Math.round(new Date()) - 3155760000000)
     };
   },
   computed: {

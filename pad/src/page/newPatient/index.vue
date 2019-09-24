@@ -127,7 +127,7 @@ import AddButton from "@/component/addButton";
 import * as bll from "../../utils/business";
 import * as tool from "../../utils/tool";
 import * as config from "../../utils/config";
-
+import { Toast } from "vant";
 export default {
   name: "newPatient",
   components: { ChooseDateTime, DropDown, AddButton },
@@ -236,6 +236,19 @@ export default {
     checkParams() {},
     async addPatient() {
       console.log("add patient");
+      var mobilePtn = /^1[34578][0-9]{9}$/;
+      var landlinePtn = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+      if (
+        !mobilePtn.test(this.emergPhone) ||
+        !landlinePtn.test(this.emergPhone)
+      ) {
+        Toast("紧急联系人手机号码有误，请重填");
+        return false;
+      }
+      if (!mobilePtn.test(this.phone) || !landlinePtn.test(this.phone)) {
+        Toast("手机号码有误，请重填");
+        return false;
+      }
       let data = {
         name: this.name,
         sex: this.sex,
