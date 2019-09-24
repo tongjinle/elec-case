@@ -76,6 +76,7 @@ export default {
   async mounted() {
     try {
       let id = this.$route.query.id;
+      console.log(id);
       let { data } = await bll.visitsSchedule(id);
       this.list = data;
     } catch (err) {

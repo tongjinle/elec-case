@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getBack() {
-      this.$router.push({ path: "visitors" });
+      this.$router.push({ path: "visitors", query: { id: 1 } });
     },
     gotoAdd() {
       this.$router.push({

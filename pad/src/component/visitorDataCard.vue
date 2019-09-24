@@ -1,5 +1,5 @@
 <template>
-  <div class="visitorDataCard">
+  <div class="visitorDataCard" @click="gotoMain">
     <div class="visitorDataCard__data">
       <img class="visitorDataCard__data-icon" src="../assets/image/icon-data.png" />
 
@@ -15,6 +15,11 @@ export default {
   props: {
     total: Number,
     title: String
+  },
+  methods: {
+    gotoMain() {
+      this.$emit("on-link");
+    }
   }
 };
 </script>

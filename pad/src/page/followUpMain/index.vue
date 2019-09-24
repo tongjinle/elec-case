@@ -103,9 +103,15 @@
               </div>
               <div class="tr">
                 <div class="td">起搏阻抗（Ω）</div>
-                <div>{{impedance.a}}%</div>
-                <div>{{impedance.rv}}%</div>
-                <div>{{impedance.lv}}%</div>
+                <div>{{impedance.a}}</div>
+                <div>{{impedance.rv}}</div>
+                <div>{{impedance.lv}}</div>
+              </div>
+              <div class="tr">
+                <div class="td">起搏百分比（%）</div>
+                <div>{{apRatio}}</div>
+                <div></div>
+                <div>{{vpRatio}}</div>
               </div>
             </div>
           </div>
@@ -156,11 +162,11 @@
           </div>
           <div class="massageBox">
             <div class="title">4.诊断信息</div>
-            <div class="msgContent">AT/AF：{{ataf}}</div>
+            <div class="msgContent">AT/AF：{{ataf==true?'有AT/AF异常':'无异常'}}</div>
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
-            <div class="msgContent">{{advise}}</div>
+            <div class="msgContent">{{advise==''?'无':advise}}</div>
           </div>
         </div>
       </div>

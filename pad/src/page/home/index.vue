@@ -19,13 +19,13 @@
               :total="fullStat.weekVisitNum"
               title="随访窗口人数 (本周)"
               class="VisitorDataCard"
-              @click="gotoVisitors(1)"
+              @on-link="gotoVisitors(1)"
             />
             <VisitorDataCard
               :total="fullStat.weekVisitMissNum"
               title="随访窗外 (超期两周)"
               class="VisitorDataCard"
-              @click="gotoVisitors(2)"
+              @on-link="gotoVisitors(2)"
             />
           </div>
         </div>
