@@ -72,7 +72,8 @@ export default {
   },
   methods: {
     gotoDetails() {
-      this.$router.push({ path: "/followUpMain" });
+      this.$emit("on-goto");
+      // this.$router.push({ path: "/followUpMain", query:{name}});
     }
   }
 };

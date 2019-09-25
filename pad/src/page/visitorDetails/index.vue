@@ -22,6 +22,7 @@
         :events="item.visit.events"
         :deviceNo="item.visit.deviceNo"
         :date="item.visit.date"
+        @on-goto="gotoDetail"
       />
     </div>
   </div>
@@ -50,6 +51,9 @@ export default {
     }
   },
   methods: {
+    gotoDetail() {
+      this.$router.push({ path: "/followUpMain", query: { name: this.name } });
+    },
     getBack() {
       this.$router.push({ path: "visitors", query: { id: 1 } });
     },
