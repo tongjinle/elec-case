@@ -210,7 +210,8 @@ export default {
       outputPerception: { a: "", rv: "", lv: "" },
       // ataf
       ataf: "",
-
+      apRatio: "",
+      vpRatio: "",
       // 等待选择的医生们
       doctors: [],
       // 事件选择
@@ -294,8 +295,8 @@ export default {
           ataf: prevData.ataf ? prevData.ataf : "",
           efImg: prevData.efImg ? prevData.efImg : "",
           qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
-          apRatio: prevData.apRatio.join(""),
-          vpRatio: prevData.vpRatio.join("")
+          apRatio: prevData.apRatio,
+          vpRatio: prevData.vpRatio
         };
         console.log("submit data:", data);
         try {
@@ -364,6 +365,8 @@ export default {
         this.outputPulseWidth = data.outputPulseWidth;
         this.outputPerception = data.outputPerception;
         this.ataf = data.ataf;
+        this.apRatio = data.apRatio;
+        this.vpRatio = data.vpRatio;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });

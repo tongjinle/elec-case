@@ -15,8 +15,8 @@
     </div>
     <div class="content">
       <VisitorDetailCard
-        v-for="item in list"
-        :key="item"
+        v-for="(item,index) in list"
+        :key="index"
         :doctorName="item.doctor.name"
         :batteryStatus="item.visit.batteryStatus"
         :events="item.visit.events"
