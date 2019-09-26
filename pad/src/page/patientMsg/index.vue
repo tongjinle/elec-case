@@ -211,7 +211,8 @@ export default {
   },
   async mounted() {
     // mock
-    let id = 64;
+    console.log(this.$route.query.id);
+    let id = this.$route.query.id;
     await this.queryDoctors();
     await this.queryFactories();
     this.queryPatient(id);

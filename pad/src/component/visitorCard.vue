@@ -1,5 +1,5 @@
 <template>
-  <div class="visitor">
+  <div class="visitor" @click="gotoDetails">
     <div class="card">
       <div class="cardLeft">
         <div class="up">
@@ -60,6 +60,9 @@ export default {
     },
     onViewVisit() {
       this.viewVisitHandle && this.viewVisitHandle();
+    },
+    gotoDetails() {
+      this.$emit("on-gotoDetails");
     }
   }
 };

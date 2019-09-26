@@ -25,6 +25,7 @@
             :deviceCate="item.deviceCate"
             :addVisitHandle="item.addVisit"
             :viewVisitHandle="item.viewVisit"
+            @on-gotoDetails="gotoDetails(item.id)"
           />
         </div>
       </div>
@@ -67,6 +68,7 @@ export default {
           visitTime: tool.formateTime(n.lastVisitTime),
           deviceId: n.deviceCate,
           deviceCate: n.deviceModel,
+          id: n.id,
           // 两个handle
           addVisit: () => {
             this.addVisit(n);
@@ -96,6 +98,10 @@ export default {
     }
   },
   methods: {
+    gotoDetails(id) {
+      console.log(id);
+      this.$router.push({ path: "patientMsg", query: { id: id } });
+    },
     async search() {
       let encodeKeyword = encodeURIComponent(this.keyword);
       try {
