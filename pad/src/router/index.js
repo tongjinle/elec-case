@@ -58,6 +58,11 @@ const router = new VueRouter({
       component: loadComponent("followUpMain")
     },
     {
+      path: "/followUpContent",
+      name: "followUpContent",
+      component: loadComponent("followUpContent")
+    },
+    {
       path: "/newPatient",
       name: "newPatient",
       component: loadComponent("newPatient")

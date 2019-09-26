@@ -238,6 +238,10 @@ export default {
       console.log("add patient");
       var mobilePtn = /^1[34578][0-9]{9}$/;
       var landlinePtn = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+      if (this.emergPhone == this.phone) {
+        Toast("手机号码与紧急联系人手机号码重复，请重填");
+        return false;
+      }
       if (
         !mobilePtn.test(this.emergPhone) ||
         !landlinePtn.test(this.emergPhone)
@@ -278,7 +282,7 @@ export default {
         let res = await bll.addPatient(data);
         console.log(res);
         this.$router.push({
-          path: "newAdd",
+          path: "search",
           query: { id: res.data.id, name: res.data.name }
         });
       } catch (err) {
@@ -330,7 +334,8 @@ export default {
       this.birth = new Date(year, month - 1, date);
     },
     choosePlantTime(time) {
-      this.plantTime = time;
+      let [year, month, date] = time.split("-");
+      this.plantTime = new Date(year, month - 1, date);
       console.log("plantTime:", this.plantTime);
     },
     getBack() {

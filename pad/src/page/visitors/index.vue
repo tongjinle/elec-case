@@ -38,7 +38,6 @@ export default {
   computed: {
     fullList() {
       return this.list.map(n => {
-        console.log(n);
         return {
           doctorName: n.doctorName,
           patientName: n.patientName,
@@ -56,7 +55,7 @@ export default {
   },
   methods: {
     getBack() {
-      this.$router.back(-1);
+      this.$router.push({ path: "home" });
     },
     addVisit(item) {
       console.log("新增随访", item);

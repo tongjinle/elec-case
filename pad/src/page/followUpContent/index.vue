@@ -1,60 +1,25 @@
 <template>
-  <div class="followUpMainBox" @click="closeCard">
+  <div class="followUpContentBox">
     <div class="head">
       <div class="left">
         <img @click="getBack()" src="../../assets/image/back.png" alt />
-        <!-- <img style="margin-left:10px;" src="../../assets/image/printing.png" alt /> -->
+        <img style="margin-left:10px;" src="../../assets/image/printing.png" alt />
       </div>
       <p>随访详情</p>
       <div class="right">
         <ChooseDateTime v-if="showRight" />
-        <div @click.stop="showCard()">提交</div>
-      </div>
-    </div>
-    <div class="leftCard" v-if="isShowCard">
-      <div class="cardMain" @click.stop="clickLeftCard">
-        <div class="title">随访结论：</div>
-        <div class="cardItem">
-          <div>电池状态异常：</div>
-          <van-checkbox v-model="isBattery"></van-checkbox>
-        </div>
-        <div class="cardItem">
-          <div>发现心率异常AT/AF：</div>
-          <van-checkbox v-model="isXinlv"></van-checkbox>
-        </div>
-        <div class="cardItem">
-          <div>起搏参数异常：</div>
-          <van-checkbox v-model="isQibo"></van-checkbox>
-        </div>
-        <div class="cardItem">
-          <div>是否修改设置：</div>
-          <van-checkbox v-model="isShezhi"></van-checkbox>
-        </div>
-        <div class="choseItem">
-          <div>随访医师：</div>
-          <DropDown :actions="doctors" @on-change="changeDoctor" />
-        </div>
-        <div class="choseItem">
-          <div>下次时间：</div>
-          <DropDown :actions="timeSteps" @on-change="changeTime" />
-        </div>
-        <div class="choseItem">
-          <div>{{nextDate}}</div>
-        </div>
-        <div class="foot">
-          <button @click="submit">提交</button>
-        </div>
+        <div>{{list.paperVO.date}}</div>
       </div>
     </div>
     <div class="content">
       <div class="item">
         <div class="mainer">
           <div class="title">随访日期：</div>
-          <div class="msg">{{nextDate}}</div>
+          <div class="msg">{{list.nextDate}}</div>
         </div>
         <div class="mainer">
           <div class="title">随访医师：</div>
-          <div class="msg">{{doctorName}}</div>
+          <div class="msg">{{list.paperVO.doctor.name}}</div>
         </div>
         <div class="mainer">
           <div class="title">随访种类：</div>
@@ -85,33 +50,33 @@
               </div>
               <div class="tr">
                 <div class="td">阈值（V）</div>
-                <div>{{threshold.a}}</div>
-                <div>{{threshold.rv}}</div>
-                <div>{{threshold.lv}}</div>
+                <div>{{list.paperVO.threshold.a}}</div>
+                <div>{{list.paperVO.threshold.rv}}</div>
+                <div>{{list.paperVO.threshold.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">脉宽（ms）</div>
-                <div>{{pulseWidth.a}}</div>
-                <div>{{pulseWidth.rv}}</div>
-                <div>{{pulseWidth.lv}}</div>
+                <div>{{list.paperVO.pulseWidth.a}}</div>
+                <div>{{list.paperVO.pulseWidth.rv}}</div>
+                <div>{{list.paperVO.pulseWidth.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">P/P波（mv）</div>
-                <div>{{perception.a}}</div>
-                <div>{{perception.rv}}</div>
-                <div>{{perception.lv}}</div>
+                <div>{{list.paperVO.perception.a}}</div>
+                <div>{{list.paperVO.perception.rv}}</div>
+                <div>{{list.paperVO.perception.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">起搏阻抗（Ω）</div>
-                <div>{{impedance.a}}</div>
-                <div>{{impedance.rv}}</div>
-                <div>{{impedance.lv}}</div>
+                <div>{{list.paperVO.impedance.a}}</div>
+                <div>{{list.paperVO.impedance.rv}}</div>
+                <div>{{list.paperVO.impedance.lv}}</div>
               </div>
               <div class="tr">
                 <div class="td">起搏百分比（%）</div>
-                <div>{{AP}}</div>
+                <div>{{list.paperVO.apRatio}}</div>
                 <div></div>
-                <div>{{VP}}</div>
+                <div>{{list.paperVO.vpRatio}}</div>
               </div>
             </div>
           </div>
@@ -124,9 +89,9 @@
                 <div>上限跟踪频率</div>
               </div>
               <div class="tr">
-                <div class="td">{{fullMode}}</div>
-                <div>{{down}}次/分钟</div>
-                <div>{{up}}次/分钟</div>
+                <div class="td">{{list.paperVO.mode}}</div>
+                <div>{{list.paperVO.down}}次/分钟</div>
+                <div>{{list.paperVO.up}}次/分钟</div>
               </div>
               <div class="tr">
                 <div class="td">右房电极</div>
@@ -135,8 +100,8 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div>{{outputVoltage.a}}/{{outputPulseWidth.a}}</div>
-                <div>{{outputPerception.a}}mv</div>
+                <div>{{list.paperVO.outputVoltage.a}}/{{list.paperVO.outputPulseWidth.a}}</div>
+                <div>{{list.paperVO.outputPerception.a}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">右室电极</div>
@@ -145,8 +110,8 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div>{{outputVoltage.rv}}/{{outputPulseWidth.rv}}</div>
-                <div>{{outputPerception.rv}}mv</div>
+                <div>{{list.paperVO.outputVoltage.rv}}/{{list.paperVO.outputPulseWidth.rv}}</div>
+                <div>{{list.paperVO.outputPerception.rv}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">左室电极</div>
@@ -155,18 +120,18 @@
               </div>
               <div class="tr">
                 <div class="td"></div>
-                <div>{{outputVoltage.lv}}/{{outputPulseWidth.lv}}</div>
-                <div>{{outputPerception.lv}}mv</div>
+                <div>{{list.paperVO.outputVoltage.lv}}/{{list.paperVO.outputPulseWidth.lv}}</div>
+                <div>{{list.paperVO.outputPerception.lv}}mv</div>
               </div>
             </div>
           </div>
           <div class="massageBox">
             <div class="title">4.诊断信息</div>
-            <div class="msgContent">AT/AF：{{ataf==true?'有AT/AF异常':'无异常'}}</div>
+            <div class="msgContent">AT/AF：{{list.paperVO.ataf==true?'有AT/AF异常':'无异常'}}</div>
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
-            <div class="msgContent">{{advise==''?'无':advise}}</div>
+            <div class="msgContent">{{list.paperVO.advise==''?'无':list.paperVO.advise}}</div>
           </div>
         </div>
       </div>
@@ -181,10 +146,11 @@ import * as bll from "../../utils/business";
 import * as config from "../../utils/config";
 
 export default {
-  name: "followUpMain",
+  name: "followUpContent",
   components: { ChooseDateTime, DropDown },
   data() {
     return {
+      list: "",
       nextDate: "",
       // 医生编号
       doctor: "",
@@ -192,26 +158,26 @@ export default {
       //
       batteryStatus: "",
       duration: "",
-      // 电极阈值
-      threshold: { a: "", rv: "", lv: "" },
-      // 电极脉宽
-      pulseWidth: { a: "", rv: "", lv: "" },
-      // 电极感知
-      perception: { a: "", rv: "", lv: "" },
-      // 电极阻抗
-      impedance: { a: "", rv: "", lv: "" },
-      up: "",
-      down: "",
-      // 输出电压
-      outputVoltage: { a: "", rv: "", lv: "" },
-      // 输出脉宽
-      outputPulseWidth: { a: "", rv: "", lv: "" },
-      // 输出感知
-      outputPerception: { a: "", rv: "", lv: "" },
+      // // 电极阈值
+      // threshold: { a: "", rv: "", lv: "" },
+      // // 电极脉宽
+      // pulseWidth: { a: "", rv: "", lv: "" },
+      // // 电极感知
+      // perception: { a: "", rv: "", lv: "" },
+      // // 电极阻抗
+      // impedance: { a: "", rv: "", lv: "" },
+      // up: "",
+      // down: "",
+      // // 输出电压
+      // outputVoltage: { a: "", rv: "", lv: "" },
+      // // 输出脉宽
+      // outputPulseWidth: { a: "", rv: "", lv: "" },
+      // // 输出感知
+      // outputPerception: { a: "", rv: "", lv: "" },
       // ataf
-      ataf: "",
-      apRatio: "",
-      vpRatio: "",
+      // ataf: "",
+      // apRatio: "",
+      // vpRatio: "",
       // 等待选择的医生们
       doctors: [],
       // 事件选择
@@ -233,37 +199,36 @@ export default {
     };
   },
   computed: {
-    AP() {
-      let data = this.apRatio[0] + this.apRatio[1] + "." + this.apRatio[2];
-      return data;
-    },
-    VP() {
-      let data = this.vpRatio[0] + this.vpRatio[1] + "." + this.vpRatio[2];
-      return data;
-    },
     fullCategory() {
-      let category = this.category;
+      let category = this.list.paperVO.category;
       let item = config.VISIT_TYPES.find(n => n.value === category);
       return item ? item.name : "";
     },
     fullBatteryStatus() {
       let item = config.BATTERY_STATUS.find(
-        n => n.value === this.batteryStatus
+        n => n.value === this.list.paperVO.batteryStatus
       );
       return item ? item.name : "";
     },
     fullDuration() {
-      return this.duration ? ">" + this.duration : "未知寿命";
+      return this.list.paperVO.duration
+        ? ">" + this.list.paperVO.duration
+        : "未知寿命";
     },
     fullMode() {
-      let item = config.MODES.find(n => n.value === this.mode);
+      let item = config.MODES.find(n => n.value === this.list.paperVO.mode);
       return item ? item.name : "";
     },
     doctorName() {
-      if (!this.doctor || !this.doctors.length) {
+      if (
+        !this.list.paperVO.doctor.name ||
+        !this.list.paperVO.doctors.name.length
+      ) {
         return "";
       }
-      let item = this.doctors.find(n => n.value === this.doctor);
+      let item = this.list.paperVO.doctors.name.find(
+        n => n.value === this.list.paperVO.doctors.name
+      );
       return item ? item.name : "";
     },
     // 医生建议
@@ -303,8 +268,8 @@ export default {
           ataf: prevData.ataf ? prevData.ataf : "",
           efImg: prevData.efImg ? prevData.efImg : "",
           qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
-          apRatio: prevData.apRatio.toString(),
-          vpRatio: prevData.vpRatio.toString()
+          apRatio: prevData.apRatio,
+          vpRatio: prevData.vpRatio
         };
         console.log("submit data:", data);
         try {
@@ -339,12 +304,6 @@ export default {
     },
     changeDoctor(doctor) {
       this.doctor = doctor;
-    },
-    showCard() {
-      this.isShowCard = true;
-    },
-    closeCard() {
-      this.isShowCard = false;
     },
     clickLeftCard() {},
     getBack() {
@@ -383,41 +342,118 @@ export default {
     }
   },
   async mounted() {
-    this.getVisitData();
-    {
-      try {
-        let { data } = await bll.doctors();
-        console.log(data);
-        let doctors = data.map(n => {
-          return {
-            value: n.id,
-            name: n.name
-          };
-        });
-        this.doctors = doctors;
-      } catch (err) {
-        if (err.response.data.message == "token非法！") {
-          this.$router.push({ path: "login" });
-        }
+    try {
+      let list = await bll.visitDetail(this.$route.query.id);
+      console.log(list);
+      this.list = list.data;
+    } catch (err) {
+      console.log(err);
+      if (this.list == "") {
+        this.list = {
+          deviceCate: "",
+          doctorId: "",
+          doctorName: "",
+          nextDate: "",
+          paperVO: {
+            advise: "",
+            apRatio: "",
+            ataf: "",
+            atafImg: "",
+            batteryStatus: "",
+            category: "",
+            date: "",
+            doctor: {
+              id: "",
+              name: ""
+            },
+            down: "",
+            duration: "",
+            efImg: "",
+            efRatio: "",
+            events: "",
+            impedance: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            mode: "",
+            nextDate: "",
+            outputPerception: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            outputPulseWidth: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            outputVoltage: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            perception: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            pulseWidth: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            qrsImg: "",
+            qrsRatio: "",
+            threshold: {
+              a: "",
+              lv: "",
+              rv: ""
+            },
+            up: "",
+            vpRatio: ""
+          },
+          patientId: "",
+          patientName: "",
+          treatId: ""
+        };
       }
     }
-    {
-      let timeSteps = [
-        { value: 1, name: "一个月后" },
-        { value: 2, name: "两个月后" },
-        { value: 3, name: "三个月后" },
-        { value: 6, name: "半年后" },
-        { value: 12, name: "一年后" }
-      ];
-      this.timeSteps = timeSteps;
-    }
+    // this.getVisitData();
+    // {
+    //   try {
+    //     let { data } = await bll.doctors();
+    //     console.log(data);
+    //     let doctors = data.map(n => {
+    //       return {
+    //         value: n.id,
+    //         name: n.name
+    //       };
+    //     });
+    //     this.doctors = doctors;
+    //   } catch (err) {
+    //     if (err.response.data.message == "token非法！") {
+    //       this.$router.push({ path: "login" });
+    //     }
+    //   }
+    // }
+    // {
+    //   let timeSteps = [
+    //     { value: 1, name: "一个月后" },
+    //     { value: 2, name: "两个月后" },
+    //     { value: 3, name: "三个月后" },
+    //     { value: 6, name: "半年后" },
+    //     { value: 12, name: "一年后" }
+    //   ];
+    //   this.timeSteps = timeSteps;
+    // }
   }
 };
 </script>
 
 <style lang="less" scoped>
 @base: 1rem;
-.followUpMainBox {
+.followUpContentBox {
   font-size: @base / 4;
   .head {
     display: flex;
@@ -427,11 +463,10 @@ export default {
     width: 100%;
     .left,
     .right {
-      width: 5%;
+      width: 10%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      color: rgb(18, 159, 259);
       img {
         margin-left: @base / 2;
         width: 25px;
@@ -447,7 +482,7 @@ export default {
     //   }
     // }
     p {
-      width: 90%;
+      width: 80%;
       font-size: @base / 3;
       text-align: center;
       margin: 0;

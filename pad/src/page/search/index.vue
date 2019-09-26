@@ -66,7 +66,7 @@ export default {
           patientName: n.name,
           visitTime: tool.formateTime(n.lastVisitTime),
           deviceId: n.deviceCate,
-          deviceCate:n.deviceModel,
+          deviceCate: n.deviceModel,
           // 两个handle
           addVisit: () => {
             this.addVisit(n);
@@ -78,7 +78,23 @@ export default {
       });
     }
   },
-  mounted() {},
+  async mounted() {
+    let name = this.$route.query.name;
+    if (name) {
+      this.keyword = name;
+      let encodeKeyword = encodeURIComponent(this.keyword);
+      try {
+        let { data } = await bll.search(encodeKeyword);
+        console.log(data);
+        this.list = data;
+        this.isFirst = false;
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
+      }
+    }
+  },
   methods: {
     async search() {
       let encodeKeyword = encodeURIComponent(this.keyword);
@@ -115,7 +131,7 @@ export default {
       });
       // todo
     },
-    addPatient(){
+    addPatient() {
       this.$router.push({
         name: "newPatient"
       });

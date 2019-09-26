@@ -235,9 +235,9 @@ export default {
       // 输出灵敏度
       outputPerception: { a: "", rv: "", lv: "" },
       // AP%
-      apRatio: ["0", "0", "0"],
+      apRatio: ["", "", ""],
       // VP%
-      vpRatio: ["0", "0", "0"],
+      vpRatio: ["", "", ""],
       // AT/AF
       ataf: false,
       // AT/AF 留图
@@ -260,38 +260,6 @@ export default {
     };
   },
   methods: {
-    _mock() {
-      if (config.env) {
-        this.patientId = "64";
-        this.visitType = "1";
-        this.batteryStatus = "1";
-        this.duration = "4";
-        this.mode = "7";
-        this.up = "100";
-        this.down = "200";
-        this.threshold = { a: "1", rv: "2", lv: "3" };
-        this.pulseWidth = { a: "11", rv: "21", lv: "31" };
-        this.perception = { a: "12", rv: "22", lv: "32" };
-        this.impedance = { a: "13", rv: "23", lv: "33" };
-        this.outputVoltage = { a: "101", rv: "102", lv: "103" };
-        this.outputPulseWidth = { a: "1011", rv: "1021", lv: "1031" };
-        this.outputPerception = { a: "1021", rv: "1022", lv: "1032" };
-        this.apRatio = ["0", "1", "2"];
-        this.vpRatio = ["0", "1", "6"];
-        this.ataf = "1";
-        this.atafImg = [
-          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/3.jpg"
-        ];
-        this.efRatio = "89";
-        this.efImg = [
-          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/4.jpg"
-        ];
-        this.qrsRatio = "78";
-        this.qrsImg = [
-          "https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/test/yanzhiyouli/girls/5.jpg"
-        ];
-      }
-    },
     getBack() {
       this.$router.back(-1);
     },
@@ -386,8 +354,18 @@ export default {
         this.outputVoltage = paperVO.outputVoltage;
         this.outputPulseWidth = paperVO.outputPulseWidth;
         this.outputPerception = paperVO.outputPerception;
-        this.apRatio = paperVO.apRatio.split("");
-        this.vpRatio = paperVO.vpRatio.split("");
+        let ap = [];
+        ap.push(paperVO.apRatio.split("")[0]);
+        ap.push(paperVO.apRatio.split("")[2]);
+        ap.push(paperVO.apRatio.split("")[4]);
+        this.apRatio = ap;
+        console.log(this.apRatio);
+        let vp = [];
+        vp.push(paperVO.vpRatio.split("")[0]);
+        vp.push(paperVO.vpRatio.split("")[2]);
+        vp.push(paperVO.vpRatio.split("")[4]);
+        this.vpRatio = vp;
+        console.log(this.vpRatio);
         // this.ataf = paperVO.ataf;
         this.atafImg = [
           {
