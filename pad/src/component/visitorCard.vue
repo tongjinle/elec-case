@@ -1,7 +1,7 @@
 <template>
-  <div class="visitor" @click="gotoDetails">
+  <div class="visitor">
     <div class="card">
-      <div class="cardLeft">
+      <div class="cardLeft"  @click="gotoDetails">
         <div class="up">
           姓名
           <span>{{patientName}}</span>

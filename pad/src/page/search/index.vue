@@ -96,6 +96,10 @@ export default {
         }
       }
     }
+    if (localStorage.getItem("search")) {
+      this.keyword = localStorage.getItem("search");
+      this.search();
+    }
   },
   methods: {
     gotoDetails(id) {
@@ -103,6 +107,7 @@ export default {
       this.$router.push({ path: "patientMsg", query: { id: id } });
     },
     async search() {
+      localStorage.setItem("search", this.keyword);
       let encodeKeyword = encodeURIComponent(this.keyword);
       try {
         let { data } = await bll.search(encodeKeyword);
