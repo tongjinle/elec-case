@@ -2,7 +2,8 @@
   <div class="visitorDetail">
     <div class="card" @click="gotoDetails">
       <div class="cardUp">
-        <img src="../assets/image/time@2x.png" alt />2019-01-01
+        <img src="../assets/image/time@2x.png" alt />
+        {{date}}
       </div>
       <div class="cardDown">
         <div class="doctor item">
