@@ -23,7 +23,7 @@
       </div>
       <div class="cardRight">
         <button class="btnBlue" @click="onAddVisit">添加随访</button>
-        <button class="btnWhite" @click="onViewVisit">随访详情</button>
+        <button class="btnWhite" @click="onViewVisit">随访记录</button>
       </div>
     </div>
   </div>

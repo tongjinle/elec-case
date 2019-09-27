@@ -25,6 +25,12 @@
         @on-goto="gotoDetail(item.visit.id)"
       />
     </div>
+    <div class="card" v-if="list.length===0">
+      <div class="mainer">
+        <img src="../../assets/image/kong@2x.png" alt />
+        <div>没有数据哦~</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,7 +64,7 @@ export default {
       });
     },
     getBack() {
-      this.$router.push({ path: "visitors", query: { id: 1 } });
+      this.$router.go(-1);
     },
     gotoAdd() {
       this.$router.push({
@@ -101,6 +107,20 @@ export default {
 <style lang="less" scoped>
 @base: 1rem;
 .visitorDetailsBox {
+  .card {
+    .mainer {
+      height: @base*8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: @base*4;
+        height: @base*4;
+        margin-bottom: 50px;
+      }
+    }
+  }
   .head {
     display: flex;
     justify-content: flex-start;

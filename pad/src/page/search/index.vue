@@ -95,10 +95,11 @@ export default {
           this.$router.push({ path: "login" });
         }
       }
-    }
-    if (localStorage.getItem("search")) {
-      this.keyword = localStorage.getItem("search");
-      this.search();
+    } else if (!name) {
+      if (localStorage.getItem("search")) {
+        this.keyword = localStorage.getItem("search");
+        this.search();
+      }
     }
   },
   methods: {

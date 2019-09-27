@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getBack() {
-      this.$router.push({ path: "home" });
+      this.$router.go(-1);
     },
     addVisit(item) {
       console.log("新增随访", item);
