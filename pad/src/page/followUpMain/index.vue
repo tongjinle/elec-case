@@ -241,6 +241,13 @@ export default {
       ) {
         return "";
       }
+      if (
+        this.apRatio[0] == "" &&
+        this.apRatio[1] == "" &&
+        this.apRatio[2] == ""
+      ) {
+        return "";
+      }
       let data = this.apRatio[0] + this.apRatio[1] + "." + this.apRatio[2];
       return data;
     },
@@ -249,6 +256,13 @@ export default {
         this.vpRatio[0] == null ||
         this.vpRatio[1] == null ||
         this.vpRatio[2] == null
+      ) {
+        return "";
+      }
+      if (
+        this.vpRatio[0] == "" &&
+        this.vpRatio[1] == "" &&
+        this.vpRatio[2] == ""
       ) {
         return "";
       }

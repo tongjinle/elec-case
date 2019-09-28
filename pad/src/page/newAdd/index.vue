@@ -423,31 +423,38 @@ export default {
         this.outputVoltage = paperVO.outputVoltage;
         this.outputPulseWidth = paperVO.outputPulseWidth;
         this.outputPerception = paperVO.outputPerception;
+        console.log(
+          paperVO.apRatio.length,
+          "k",
+          paperVO.apRatio[1],
+          "j",
+          paperVO.vpRatio.length
+        );
         let ap = [];
-        if (paperVO.apRatio.split("").length < 5) {
+        if (paperVO.apRatio.length == 4) {
           ap.push("");
-          ap.push(paperVO.apRatio.split("")[2]);
-          ap.push(paperVO.apRatio.split("")[4]);
-        } else if (paperVO.apRatio.split("").length < 2) {
+          ap.push(paperVO.apRatio[1]);
+          ap.push(paperVO.apRatio[3]);
+        } else if (paperVO.apRatio.length < 3) {
           ap = ["", "", ""];
         } else {
-          ap.push(paperVO.apRatio.split("")[0]);
-          ap.push(paperVO.apRatio.split("")[2]);
-          ap.push(paperVO.apRatio.split("")[4]);
+          ap.push(paperVO.apRatio[0]);
+          ap.push(paperVO.apRatio[2]);
+          ap.push(paperVO.apRatio[4]);
         }
         this.apRatio = ap;
         console.log(this.apRatio);
         let vp = [];
-        if (paperVO.vpRatio.split("").length < 5) {
+        if (paperVO.vpRatio.length == 4) {
           vp.push("");
-          vp.push(paperVO.vpRatio.split("")[2]);
-          vp.push(paperVO.vpRatio.split("")[4]);
-        } else if (paperVO.apRatio.split("").length < 2) {
+          vp.push(paperVO.vpRatio[1]);
+          vp.push(paperVO.vpRatio[3]);
+        } else if (paperVO.vpRatio.length < 3) {
           vp = ["", "", ""];
         } else {
-          vp.push(paperVO.vpRatio.split("")[0]);
-          vp.push(paperVO.vpRatio.split("")[2]);
-          vp.push(paperVO.vpRatio.split("")[4]);
+          vp.push(paperVO.vpRatio[0]);
+          vp.push(paperVO.vpRatio[2]);
+          vp.push(paperVO.vpRatio[4]);
         }
         this.vpRatio = vp;
         console.log(this.vpRatio);
@@ -492,34 +499,37 @@ export default {
   async beforeMount() {
     // 病人编号
     this.patientId = this.$route.query.id;
-
+    console.log(this.patientId);
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
     // data = JSON.stringify(data);
-    console.log(data, data.patientId);
-    if (this.patientId == data.patientId) {
-      this.batteryStatus = data.batteryStatus;
-      this.duration = data.duration;
-      this.mode = data.mode;
-      this.up = data.up;
-      this.down = data.down;
-      this.threshold = data.threshold;
-      this.pulseWidth = data.pulseWidth;
-      this.perception = data.perception;
-      this.impedance = data.impedance;
-      this.outputVoltage = data.outputVoltage;
-      this.outputPulseWidth = data.outputPulseWidth;
-      this.outputPerception = data.outputPerception;
-      this.apRatio = data.apRatio;
-      this.vpRatio = data.vpRatio;
-      // this.atafImg = data.atafImg;
-      // this.efImg = data.efImg;
-      this.efRatio = data.efRatio;
-      this.qrsRatio = data.qrsRatio;
+    // console.log(data, data.patientId);
+    if (data) {
+      if (data.patientId == this.patientId) {
+        this.batteryStatus = data.batteryStatus;
+        this.duration = data.duration;
+        this.mode = data.mode;
+        this.up = data.up;
+        this.down = data.down;
+        this.threshold = data.threshold;
+        this.pulseWidth = data.pulseWidth;
+        this.perception = data.perception;
+        this.impedance = data.impedance;
+        this.outputVoltage = data.outputVoltage;
+        this.outputPulseWidth = data.outputPulseWidth;
+        this.outputPerception = data.outputPerception;
+        this.apRatio = data.apRatio;
+        this.vpRatio = data.vpRatio;
+        // this.atafImg = data.atafImg;
+        // this.efImg = data.efImg;
+        this.efRatio = data.efRatio;
+        this.qrsRatio = data.qrsRatio;
+      }
     } else {
+      console.log(1, this.patientId);
       await this.queryLast(this.patientId);
     }
   }
