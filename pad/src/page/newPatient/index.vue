@@ -217,7 +217,7 @@ export default {
   },
   mounted() {
     // mock
-    this._mock();
+    // this._mock();
   },
   methods: {
     _mock() {
