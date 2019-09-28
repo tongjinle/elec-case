@@ -199,6 +199,7 @@ import DropDown from "@/component/dropDown";
 import AddButton from "@/component/addButton";
 import * as config from "../../utils/config";
 import * as bll from "../../utils/business";
+import { Toast } from "vant";
 
 export default {
   name: "index",
@@ -293,6 +294,74 @@ export default {
       }
     },
     async submit() {
+      if (this.apRatio[0] != "") {
+        if (this.apRatio[1] == undefined) {
+          Toast("诊断信息百分比数值有误，请重新输入1");
+          return;
+        }
+        if (this.apRatio[0].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入2");
+          return;
+        }
+        if (this.apRatio[1] != "") {
+          if (this.apRatio[2] == undefined) {
+            Toast("诊断信息百分比数值有误，请重新输入11");
+            return;
+          }
+        }
+      }
+      if (this.apRatio[2] != undefined) {
+        if (this.apRatio[1] == undefined) {
+          Toast("诊断信息百分比数值有误，请重新输入3");
+          return;
+        }
+      }
+      if (this.vpRatio[2] != undefined) {
+        if (this.vpRatio[1] == undefined) {
+          Toast("诊断信息百分比数值有误，请重新输入4");
+          return;
+        }
+      }
+      if (this.vpRatio[0] != "") {
+        if (this.vpRatio[0].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入5");
+          return;
+        }
+        if (this.vpRatio[1] == undefined) {
+          Toast("诊断信息百分比数值有误，请重新输入6");
+          return;
+        }
+        if (this.vpRatio[1] != "") {
+          if (this.vpRatio[2] == undefined) {
+            Toast("诊断信息百分比数值有误，请重新输入11");
+            return;
+          }
+        }
+      }
+      if (this.apRatio[1] != undefined) {
+        if (this.apRatio[1].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入7");
+          return;
+        }
+      }
+      if (this.apRatio[2] != undefined) {
+        if (this.apRatio[2].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入8");
+          return;
+        }
+      }
+      if (this.vpRatio[1] != undefined) {
+        if (this.vpRatio[1].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入9");
+          return;
+        }
+      }
+      if (this.vpRatio[2] != undefined) {
+        if (this.vpRatio[2].length > 1) {
+          Toast("诊断信息百分比数值有误，请重新输入");
+          return;
+        }
+      }
       try {
         let getImgUrl = (obj, imgUrl) => (obj && obj.url) || imgUrl;
         let data = {
@@ -355,15 +424,31 @@ export default {
         this.outputPulseWidth = paperVO.outputPulseWidth;
         this.outputPerception = paperVO.outputPerception;
         let ap = [];
-        ap.push(paperVO.apRatio.split("")[0]);
-        ap.push(paperVO.apRatio.split("")[2]);
-        ap.push(paperVO.apRatio.split("")[4]);
+        if (paperVO.apRatio.split("").length < 5) {
+          ap.push("");
+          ap.push(paperVO.apRatio.split("")[2]);
+          ap.push(paperVO.apRatio.split("")[4]);
+        } else if (paperVO.apRatio.split("").length < 2) {
+          ap = ["", "", ""];
+        } else {
+          ap.push(paperVO.apRatio.split("")[0]);
+          ap.push(paperVO.apRatio.split("")[2]);
+          ap.push(paperVO.apRatio.split("")[4]);
+        }
         this.apRatio = ap;
         console.log(this.apRatio);
         let vp = [];
-        vp.push(paperVO.vpRatio.split("")[0]);
-        vp.push(paperVO.vpRatio.split("")[2]);
-        vp.push(paperVO.vpRatio.split("")[4]);
+        if (paperVO.vpRatio.split("").length < 5) {
+          vp.push("");
+          vp.push(paperVO.vpRatio.split("")[2]);
+          vp.push(paperVO.vpRatio.split("")[4]);
+        } else if (paperVO.apRatio.split("").length < 2) {
+          vp = ["", "", ""];
+        } else {
+          vp.push(paperVO.vpRatio.split("")[0]);
+          vp.push(paperVO.vpRatio.split("")[2]);
+          vp.push(paperVO.vpRatio.split("")[4]);
+        }
         this.vpRatio = vp;
         console.log(this.vpRatio);
         // this.ataf = paperVO.ataf;
@@ -411,13 +496,32 @@ export default {
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
-
-    // mock
-    // 正式环境下要删除
-    // this._mock();
-
-    //
-    await this.queryLast(this.patientId);
+    let data = localStorage.getItem("visitData");
+    data = JSON.parse(data);
+    // data = JSON.stringify(data);
+    console.log(data, data.patientId);
+    if (data) {
+      this.batteryStatus = data.batteryStatus;
+      this.duration = data.duration;
+      this.mode = data.mode;
+      this.up = data.up;
+      this.down = data.down;
+      this.threshold = data.threshold;
+      this.pulseWidth = data.pulseWidth;
+      this.perception = data.perception;
+      this.impedance = data.impedance;
+      this.outputVoltage = data.outputVoltage;
+      this.outputPulseWidth = data.outputPulseWidth;
+      this.outputPerception = data.outputPerception;
+      this.apRatio = data.apRatio;
+      this.vpRatio = data.vpRatio;
+      // this.atafImg = data.atafImg;
+      // this.efImg = data.efImg;
+      this.efRatio = data.efRatio;
+      this.qrsRatio = data.qrsRatio;
+    } else {
+      await this.queryLast(this.patientId);
+    }
   }
 };
 </script>

@@ -234,10 +234,24 @@ export default {
   },
   computed: {
     AP() {
+      if (
+        this.apRatio[0] == null ||
+        this.apRatio[1] == null ||
+        this.apRatio[2] == null
+      ) {
+        return "";
+      }
       let data = this.apRatio[0] + this.apRatio[1] + "." + this.apRatio[2];
       return data;
     },
     VP() {
+      if (
+        this.vpRatio[0] == null ||
+        this.vpRatio[1] == null ||
+        this.vpRatio[2] == null
+      ) {
+        return "";
+      }
       let data = this.vpRatio[0] + this.vpRatio[1] + "." + this.vpRatio[2];
       return data;
     },
@@ -256,7 +270,7 @@ export default {
       return this.duration ? ">" + this.duration : "未知寿命";
     },
     fullMode() {
-      let item = config.MODES.find(n => n.value === this.mode);
+      let item = config.MODES.find((n, i) => i === this.mode - 1);
       return item ? item.name : "";
     },
     doctorName() {
@@ -310,6 +324,7 @@ export default {
         try {
           let res = await bll.addVisit(this.patientId, data);
           console.log("after submit add visit:", res);
+          localStorage.removeItem("visitData");
           this.$router.push({
             path: "visitorDetails",
             query: { id: prevData.patientId, name: this.$route.query.name }
