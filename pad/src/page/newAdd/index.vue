@@ -500,7 +500,7 @@ export default {
     data = JSON.parse(data);
     // data = JSON.stringify(data);
     console.log(data, data.patientId);
-    if (data) {
+    if (this.patientId == data.patientId) {
       this.batteryStatus = data.batteryStatus;
       this.duration = data.duration;
       this.mode = data.mode;
