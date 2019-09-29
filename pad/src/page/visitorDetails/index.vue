@@ -20,7 +20,7 @@
         :doctorName="item.doctor.name"
         :batteryStatus="item.visit.batteryStatus"
         :events="item.visit.events"
-        :deviceNo="item.visit.deviceNo"
+        :deviceNo="item.deviceModel"
         :date="item.visit.date"
         @on-goto="gotoDetail(item.visit.id)"
       />
