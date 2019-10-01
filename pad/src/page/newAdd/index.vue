@@ -296,63 +296,63 @@ export default {
     async submit() {
       if (this.apRatio[0] != "") {
         if (this.apRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入1");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
         if (this.apRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入2");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
         if (this.apRatio[1] != "") {
           if (this.apRatio[2] == undefined) {
-            Toast("诊断信息百分比数值有误，请重新输入11");
+            Toast("诊断信息百分比数值有误，请重新输入");
             return;
           }
         }
       }
       if (this.apRatio[2] != undefined) {
         if (this.apRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入3");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
       }
       if (this.vpRatio[2] != undefined) {
         if (this.vpRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入4");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
       }
       if (this.vpRatio[0] != "") {
         if (this.vpRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入5");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
         if (this.vpRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入6");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
         if (this.vpRatio[1] != "") {
           if (this.vpRatio[2] == undefined) {
-            Toast("诊断信息百分比数值有误，请重新输入11");
+            Toast("诊断信息百分比数值有误，请重新输入");
             return;
           }
         }
       }
       if (this.apRatio[1] != undefined) {
         if (this.apRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入7");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
       }
       if (this.apRatio[2] != undefined) {
         if (this.apRatio[2].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入8");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
       }
       if (this.vpRatio[1] != undefined) {
         if (this.vpRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入9");
+          Toast("诊断信息百分比数值有误，请重新输入");
           return;
         }
       }
@@ -506,7 +506,7 @@ export default {
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
     // data = JSON.stringify(data);
-    // console.log(data, data.patientId);
+    console.log(data, data.patientId);
     if (data) {
       if (data.patientId == this.patientId) {
         this.batteryStatus = data.batteryStatus;
@@ -527,6 +527,33 @@ export default {
         // this.efImg = data.efImg;
         this.efRatio = data.efRatio;
         this.qrsRatio = data.qrsRatio;
+        this.atafImg = [
+          {
+            url:
+              data.atafImg.substring(data.atafImg.length - 4) == ".jpg"
+                ? data.atafImg
+                : data.atafImg + ".jpg",
+            isImage: true
+          }
+        ];
+        this.efImg = [
+          {
+            url:
+              data.efImg.substring(data.efImg.length - 4) == ".jpg"
+                ? data.efImg
+                : data.efImg + ".jpg",
+            isImage: true
+          }
+        ];
+        this.qrsImg = [
+          {
+            url:
+              data.qrsImg.substring(data.qrsImg.length - 4) == ".jpg"
+                ? data.qrsImg
+                : data.qrsImg + ".jpg",
+            isImage: true
+          }
+        ];
       }
     } else {
       console.log(1, this.patientId);

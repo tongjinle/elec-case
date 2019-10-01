@@ -74,9 +74,9 @@
               </div>
               <div class="tr">
                 <div class="td">起搏百分比（%）</div>
-                <div>{{list.paperVO.apRatio}}</div>
+                <div>{{AP}}</div>
                 <div></div>
-                <div>{{list.paperVO.vpRatio}}</div>
+                <div>{{VP}}</div>
               </div>
             </div>
           </div>
@@ -199,6 +199,28 @@ export default {
     };
   },
   computed: {
+    AP() {
+      let data = this.list.paperVO.apRatio;
+      let x = [];
+      for (var a = 0; a < data.length; a++) {
+        if (Number(data[a]) == data[a]) {
+          x.push(data[a]);
+        }
+      }
+      data = x[0] + x[1] + "." + x[2];
+      return data;
+    },
+    VP() {
+      let data = this.list.paperVO.vpRatio;
+      let x = [];
+      for (var a = 0; a < data.length; a++) {
+        if (Number(data[a]) == data[a]) {
+          x.push(data[a]);
+        }
+      }
+      data = x[0] + x[1] + "." + x[2];
+      return data;
+    },
     fullCategory() {
       let category = this.list.paperVO.category;
       let item = config.VISIT_TYPES.find(n => n.value === category);
