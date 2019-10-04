@@ -42,7 +42,6 @@ export const VISIT_TYPES = [
 export const MODES = [
   { value: "1", name: "VVI" },
   { value: "2", name: "VVIR" },
-
   { value: "3", name: "AAI" },
   { value: "4", name: "AAIR" },
   { value: "5", name: "DDD" },

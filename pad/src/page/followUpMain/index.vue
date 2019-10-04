@@ -229,7 +229,8 @@ export default {
 
       showRight: false,
       isShowCard: false,
-      msg: ""
+      msg: "",
+      mode: ""
     };
   },
   computed: {

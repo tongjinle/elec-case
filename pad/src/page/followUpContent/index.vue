@@ -89,7 +89,7 @@
                 <div>上限跟踪频率</div>
               </div>
               <div class="tr">
-                <div class="td">{{list.paperVO.mode}}</div>
+                <div class="td">{{fullMode}}</div>
                 <div>{{list.paperVO.down}}次/分钟</div>
                 <div>{{list.paperVO.up}}次/分钟</div>
               </div>
