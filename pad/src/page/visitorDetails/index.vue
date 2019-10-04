@@ -64,7 +64,11 @@ export default {
       });
     },
     getBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({
+        name: "search",
+        query: { name: this.$route.query.name }
+      });
     },
     gotoAdd() {
       this.$router.push({
