@@ -518,52 +518,50 @@ export default {
     this.mode = this.modes[0].value;
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
-    if (data) {
-      if (data.patientId == this.patientId) {
-        this.batteryStatus = data.batteryStatus;
-        this.duration = data.duration;
-        this.mode = data.mode;
-        this.up = data.up;
-        this.down = data.down;
-        this.threshold = data.threshold;
-        this.pulseWidth = data.pulseWidth;
-        this.perception = data.perception;
-        this.impedance = data.impedance;
-        this.outputVoltage = data.outputVoltage;
-        this.outputPulseWidth = data.outputPulseWidth;
-        this.outputPerception = data.outputPerception;
-        this.apRatio = data.apRatio;
-        this.vpRatio = data.vpRatio;
-        this.efRatio = data.efRatio;
-        this.qrsRatio = data.qrsRatio;
-        this.atafImg = [
-          {
-            url:
-              data.atafImg.substring(data.atafImg.length - 4) == ".jpg"
-                ? data.atafImg
-                : data.atafImg + ".jpg",
-            isImage: true
-          }
-        ];
-        this.efImg = [
-          {
-            url:
-              data.efImg.substring(data.efImg.length - 4) == ".jpg"
-                ? data.efImg
-                : data.efImg + ".jpg",
-            isImage: true
-          }
-        ];
-        this.qrsImg = [
-          {
-            url:
-              data.qrsImg.substring(data.qrsImg.length - 4) == ".jpg"
-                ? data.qrsImg
-                : data.qrsImg + ".jpg",
-            isImage: true
-          }
-        ];
-      }
+    if (data && data.patientId == this.patientId) {
+      this.batteryStatus = data.batteryStatus;
+      this.duration = data.duration;
+      this.mode = data.mode;
+      this.up = data.up;
+      this.down = data.down;
+      this.threshold = data.threshold;
+      this.pulseWidth = data.pulseWidth;
+      this.perception = data.perception;
+      this.impedance = data.impedance;
+      this.outputVoltage = data.outputVoltage;
+      this.outputPulseWidth = data.outputPulseWidth;
+      this.outputPerception = data.outputPerception;
+      this.apRatio = data.apRatio;
+      this.vpRatio = data.vpRatio;
+      this.efRatio = data.efRatio;
+      this.qrsRatio = data.qrsRatio;
+      this.atafImg = [
+        {
+          url:
+            data.atafImg.substring(data.atafImg.length - 4) == ".jpg"
+              ? data.atafImg
+              : data.atafImg + ".jpg",
+          isImage: true
+        }
+      ];
+      this.efImg = [
+        {
+          url:
+            data.efImg.substring(data.efImg.length - 4) == ".jpg"
+              ? data.efImg
+              : data.efImg + ".jpg",
+          isImage: true
+        }
+      ];
+      this.qrsImg = [
+        {
+          url:
+            data.qrsImg.substring(data.qrsImg.length - 4) == ".jpg"
+              ? data.qrsImg
+              : data.qrsImg + ".jpg",
+          isImage: true
+        }
+      ];
     } else {
       console.log(1, this.patientId);
       await this.queryLast(this.patientId);
