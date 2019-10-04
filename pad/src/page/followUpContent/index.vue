@@ -150,7 +150,74 @@ export default {
   components: { ChooseDateTime, DropDown },
   data() {
     return {
-      list: "",
+      list: {
+        deviceCate: "",
+        doctorId: "",
+        doctorName: "",
+        nextDate: "",
+        paperVO: {
+          advise: "",
+          apRatio: "",
+          ataf: "",
+          atafImg: "",
+          batteryStatus: "",
+          category: "",
+          date: "",
+          doctor: {
+            id: "",
+            name: ""
+          },
+          down: "",
+          duration: "",
+          efImg: "",
+          efRatio: "",
+          events: "",
+          impedance: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          mode: "",
+          nextDate: "",
+          outputPerception: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          outputPulseWidth: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          outputVoltage: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          perception: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          pulseWidth: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          qrsImg: "",
+          qrsRatio: "",
+          threshold: {
+            a: "",
+            lv: "",
+            rv: ""
+          },
+          up: "",
+          vpRatio: ""
+        },
+        patientId: "",
+        patientName: "",
+        treatId: ""
+      },
       nextDate: "",
       // 医生编号
       doctor: "",
@@ -207,8 +274,15 @@ export default {
           x.push(data[a]);
         }
       }
-      data = x[0] + x[1] + "." + x[2];
-      return data;
+      if (x.length == 2) {
+        data = x[0] + "." + x[1];
+        return data;
+      } else if (x.length == 3) {
+        data = x[0] + x[1] + "." + x[2];
+        return data;
+      } else {
+        return "";
+      }
     },
     VP() {
       let data = this.list.paperVO.vpRatio;
@@ -218,8 +292,15 @@ export default {
           x.push(data[a]);
         }
       }
-      data = x[0] + x[1] + "." + x[2];
-      return data;
+      if (x.length == 2) {
+        data = x[0] + "." + x[1];
+        return data;
+      } else if (x.length == 3) {
+        data = x[0] + x[1] + "." + x[2];
+        return data;
+      } else {
+        return "";
+      }
     },
     fullCategory() {
       let category = this.list.paperVO.category;
@@ -363,7 +444,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  async beforeMount() {
     try {
       let list = await bll.visitDetail(this.$route.query.id);
       console.log(list);

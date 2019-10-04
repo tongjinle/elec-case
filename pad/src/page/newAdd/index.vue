@@ -294,71 +294,84 @@ export default {
       }
     },
     async submit() {
+      console.log("ap", this.apRatio);
       if (this.apRatio[0] != "") {
-        if (this.apRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+        if (this.apRatio[1] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入1");
           return;
         }
         if (this.apRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入2");
           return;
         }
         if (this.apRatio[1] != "") {
-          if (this.apRatio[2] == undefined) {
-            Toast("诊断信息百分比数值有误，请重新输入");
+          if (this.apRatio[2] == "") {
+            Toast("诊断信息百分比数值有误，请重新输入3");
             return;
           }
         }
       }
-      if (this.apRatio[2] != undefined) {
-        if (this.apRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+      if (this.apRatio[2] != "") {
+        if (this.apRatio[1] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入4");
           return;
         }
       }
-      if (this.vpRatio[2] != undefined) {
-        if (this.vpRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+      if (this.apRatio[1] != "") {
+        if (this.apRatio[2] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入99");
+          return;
+        }
+      }
+      if (this.vpRatio[1] != "") {
+        if (this.vpRatio[2] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入98");
+          return;
+        }
+      }
+      if (this.vpRatio[2] != "") {
+        if (this.vpRatio[1] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入5");
           return;
         }
       }
       if (this.vpRatio[0] != "") {
         if (this.vpRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入6");
           return;
         }
-        if (this.vpRatio[1] == undefined) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+        if (this.vpRatio[1] == "") {
+          Toast("诊断信息百分比数值有误，请重新输入7");
           return;
         }
         if (this.vpRatio[1] != "") {
-          if (this.vpRatio[2] == undefined) {
-            Toast("诊断信息百分比数值有误，请重新输入");
+          if (this.vpRatio[2] == "") {
+            Toast("诊断信息百分比数值有误，请重新输入8");
             return;
           }
         }
       }
-      if (this.apRatio[1] != undefined) {
+      if (this.apRatio[1] != "") {
         if (this.apRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入9");
           return;
         }
       }
-      if (this.apRatio[2] != undefined) {
+      if (this.apRatio[2] != "") {
         if (this.apRatio[2].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入10");
           return;
         }
       }
-      if (this.vpRatio[1] != undefined) {
+      if (this.vpRatio[1] != "") {
         if (this.vpRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入11");
           return;
         }
       }
-      if (this.vpRatio[2] != undefined) {
+      if (this.vpRatio[2] != "") {
         if (this.vpRatio[2].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入");
+          Toast("诊断信息百分比数值有误，请重新输入12");
           return;
         }
       }
@@ -499,14 +512,12 @@ export default {
   async beforeMount() {
     // 病人编号
     this.patientId = this.$route.query.id;
-    console.log(this.patientId);
+    console.log(this.patientId, "1");
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
-    // data = JSON.stringify(data);
-    console.log(data, data.patientId);
     if (data) {
       if (data.patientId == this.patientId) {
         this.batteryStatus = data.batteryStatus;
@@ -523,8 +534,6 @@ export default {
         this.outputPerception = data.outputPerception;
         this.apRatio = data.apRatio;
         this.vpRatio = data.vpRatio;
-        // this.atafImg = data.atafImg;
-        // this.efImg = data.efImg;
         this.efRatio = data.efRatio;
         this.qrsRatio = data.qrsRatio;
         this.atafImg = [
