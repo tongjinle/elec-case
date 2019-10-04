@@ -297,12 +297,12 @@ export default {
       try {
         let { data } = await bll.uploadImage(file);
         console.log("image id:", data);
+        return data;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
-      return data;
     },
     // ef image的图像编号
     async afterReadOfEfImage(res) {
@@ -310,6 +310,7 @@ export default {
     },
     // qrs image的图像编号
     async afterReadOfQrsImage(res) {
+      console.log(res);
       this.plantBaseQrsImg = await this.afterRead(res);
     },
     chooseDoctor(value) {
