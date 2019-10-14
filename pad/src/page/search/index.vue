@@ -35,7 +35,7 @@
           <div>没有数据哦~</div>
         </div>
         <div class="foot">
-          <button @click="addPatient">新增患者</button>
+          <!-- <button @click="addPatient">新增患者</button> -->
         </div>
       </div>
     </div>
