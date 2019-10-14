@@ -8,6 +8,7 @@
       <van-datetime-picker
         class="chooseTime"
         :min-date="minDate"
+        :max-data="maxDate"
         v-model="currentDate"
         type="date"
         @change="choose"
@@ -18,17 +19,36 @@
 
 <script>
 import * as bll from "../utils/business";
+const SEC = 1000;
+const MIN = 60 * SEC;
+const HOUR = 60 * MIN;
+const DAY = 24 * HOUR;
+const MONTH = 30 * DAY;
+const YEAR = 365 * DAY;
 export default {
   name: "dateTime",
   props: {
     chooseTimeHandle: Function,
-    value: Date
+    value: Date,
+    minDate: {
+      type: Date,
+      default: function() {
+        let now = Date.now();
+        return new Date(now - 120 * YEAR);
+      }
+    },
+    maxDate: {
+      type: Date,
+      default: function() {
+        let now = Date.now();
+        return new Date(now + 10 * YEAR);
+      }
+    }
   },
   data() {
     return {
       showtime: false,
-      currentDate: new Date(),
-      minDate: new Date(Math.round(new Date()) - 3155760000000)
+      currentDate: new Date()
     };
   },
   computed: {
