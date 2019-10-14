@@ -10,7 +10,7 @@
           <input type="text" v-model="keyword" placeholder="请输入患者姓名" @keyup.enter="search" />
           <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
         </div>
-        <div class="add" @click="onAdd">新增</div>
+        <div class="add" @click="onAdd">新增患者</div>
       </div>
       <div class="list" v-if="list.length!=0">
         <div class="title">患者</div>
@@ -171,9 +171,10 @@ export default {
       align-items: center;
       width: 100%;
       .input {
-        width: 95%;
+        width: 70%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        // align-items: center;
         input {
           width: @base*10;
           padding: 20px 100px;
@@ -197,7 +198,13 @@ export default {
         }
       }
       .add {
-        color: rgb(18, 159, 259);
+        @height: 52px;
+        color: #fff;
+        background-color: rgb(18, 159, 259);
+        border-radius: 5px;
+        height: @height;
+        line-height: @height;
+        padding: 0 20px;
       }
     }
     .list {
