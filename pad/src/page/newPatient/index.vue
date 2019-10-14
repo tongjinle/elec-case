@@ -243,7 +243,7 @@ export default {
         return false;
       }
       if (
-        !mobilePtn.test(this.emergPhone) ||
+        !mobilePtn.test(this.emergPhone) &&
         !landlinePtn.test(this.emergPhone)
       ) {
         Toast("紧急联系人手机号码有误，请重填");
