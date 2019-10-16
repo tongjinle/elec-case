@@ -251,6 +251,20 @@ export default {
         Toast("手机号码有误，请重填");
         return false;
       }
+
+      // 植入基线输入数字校验
+      {
+        let ptn = /^\d*$/;
+        if (!ptn.test(this.plantBaseEf)) {
+          Toast("植入基线EF必须为数字或者为空");
+          return false;
+        }
+        if (!ptn.test(this.plantBaseQrs)) {
+          Toast("植入基线QRS必须为数字或者为空");
+          return false;
+        }
+      }
+
       return true;
     },
     async preAddPatient() {
