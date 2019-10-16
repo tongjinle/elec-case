@@ -5,7 +5,7 @@
         <img src="../../assets/image/back.png" alt />
       </div>
       <p>新增患者</p>
-      <div class="right" @click="addPatient">下一步</div>
+      <div class="right" @click="preAddPatient">下一步</div>
     </div>
     <div class="content">
       <div class="item">
@@ -127,7 +127,7 @@ import AddButton from "@/component/addButton";
 import * as bll from "../../utils/business";
 import * as tool from "../../utils/tool";
 import * as config from "../../utils/config";
-import { Toast } from "vant";
+import { Toast, Dialog } from "vant";
 export default {
   name: "newPatient",
   components: { ChooseDateTime, DropDown, AddButton },
@@ -217,7 +217,7 @@ export default {
   },
   mounted() {
     // mock
-    // this._mock();
+    this._mock();
   },
   methods: {
     _mock() {
@@ -233,9 +233,7 @@ export default {
       this.plantBaseEf = "99";
       this.plantBaseQrs = "88";
     },
-    checkParams() {},
-    async addPatient() {
-      console.log("add patient");
+    checkParams() {
       var mobilePtn = /^1[34578][0-9]{9}$/;
       var landlinePtn = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
       if (this.emergPhone == this.phone) {
@@ -253,6 +251,25 @@ export default {
         Toast("手机号码有误，请重填");
         return false;
       }
+      return true;
+    },
+    async preAddPatient() {
+      if (!this.checkParams()) {
+        return;
+      }
+      Dialog.confirm({
+        title: "信息确认",
+        message: "是否确认信息输入无误？",
+        confirmButtonText: "确认提交",
+        cancelButtonText: "继续编辑"
+      }).then(() => {
+        // on confirm
+        this.addPatient();
+      });
+    },
+    async addPatient() {
+      console.log("add patient");
+
       let data = {
         name: this.name,
         sex: this.sex,
