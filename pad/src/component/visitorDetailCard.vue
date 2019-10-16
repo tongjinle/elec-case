@@ -19,9 +19,9 @@
           <span>{{deviceNo}}</span>
         </div>
         <div class="item">事件概况</div>
-        <button class="xinlv" :class="{'active':isXinlv}">心率</button>
-        <button class="qibo" :class="{'active':isQibo}">起搏</button>
-        <button class="shezhi" :class="{'active':isShezhi}">设置</button>
+        <button class="xinlv" :class="{'active':isXinlv}">心率失常</button>
+        <button class="qibo" :class="{'active':isQibo}">起搏参数</button>
+        <button class="shezhi" :class="{'active':isShezhi}">修改设置</button>
       </div>
     </div>
   </div>
