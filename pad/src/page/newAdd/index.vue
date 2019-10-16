@@ -293,7 +293,24 @@ export default {
         }
       }
     },
+    checkParams() {
+      // 电池寿命,0.5或者1-20
+      {
+        let arr = ["0.5"];
+        for (let i = 1; i <= 20; i++) {
+          arr.push(i + "");
+        }
+        if (!arr.find(n => n === this.duration)) {
+          Toast("电池寿命应该在0.5或者1-20");
+          return false;
+        }
+      }
+      return true;
+    },
     async submit() {
+      if (!this.checkParams()) {
+        return;
+      }
       console.log("ap", this.apRatio);
       if (this.apRatio[0] != "") {
         if (this.apRatio[1] == "") {
