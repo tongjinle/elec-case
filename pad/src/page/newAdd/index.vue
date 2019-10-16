@@ -70,7 +70,7 @@
           </div>
 
           <div class="mainerItem">
-            <span>100-3000 (per 100 as unit)</span>
+            <!-- <span>100-3000 (per 100 as unit)</span> -->
           </div>
         </div>
       </div>
