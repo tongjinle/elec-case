@@ -21,7 +21,7 @@
         <div class="mainer" style="align-items:flex-start">
           <van-radio-group v-model="batteryStatus" class="radio">
             <van-radio name="1" class="radioItem">OK</van-radio>
-            <van-radio name="2" class="radioItem">BRI</van-radio>
+            <van-radio name="2" class="radioItem">ERI</van-radio>
           </van-radio-group>
           <div class="duration">
             <span>预计</span>
