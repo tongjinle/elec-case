@@ -139,18 +139,22 @@
       <div class="item">
         <div class="title">诊断信息</div>
         <div class="mainer">
-          <div class="msgTitle">AP%</div>
-          <div class="msgInput">
-            <input type="text" v-model="apRatio[0]" />
-            <input type="text" v-model="apRatio[1]" /> .
-            <input type="text" v-model="apRatio[2]" /> %
+          <div class="mainerItemTitle">AP%</div>
+          <div class="mainerItem">
+            <input class="inputbox" type="text" v-model="apRatio" />
+            %
           </div>
+          <div class="mainerItemTitle">VP%</div>
+          <div class="mainerItem">
+            <input class="inputbox" type="text" v-model="vpRatio" />
+            %
+          </div>
+          <!-- <div class="msgTitle"></div>
+          <div class="msgInput"></div>
           <div class="msgTitle" style="margin-left:3rem">VP%</div>
           <div class="msgInput">
-            <input type="text" v-model="vpRatio[0]" />
-            <input type="text" v-model="vpRatio[1]" /> .
-            <input type="text" v-model="vpRatio[2]" /> %
-          </div>
+            <input type="text" v-model="vpRatio" />%
+          </div>-->
         </div>
         <div class="mainer" style="margin-top:1rem;">
           <div style="margin-right:0.5rem">AT/AF:</div>
@@ -260,9 +264,9 @@ export default {
       pacingPolarity: { a: "", rv: "", lv: "" },
       pacingPolaritys: { a: [], rv: [], lv: [] },
       // AP%
-      apRatio: ["", "", ""],
+      apRatio: "",
       // VP%
-      vpRatio: ["", "", ""],
+      vpRatio: "",
       // AT/AF
       ataf: false,
       // AT/AF 留图
@@ -335,6 +339,24 @@ export default {
           return false;
         }
       }
+
+      // ap必须是数字
+      {
+        let ptn = /\d+(\.\d+)?/;
+        if (!ptn.test(this.apRatio)) {
+          Toast("ap必须是数字");
+          return false;
+        }
+      }
+      // vp必须是数字
+      {
+        let ptn = /\d+(\.\d+)?/;
+        if (!ptn.test(this.vpRatio)) {
+          Toast("vp必须是数字");
+          return false;
+        }
+      }
+
       return true;
     },
     async submit() {
@@ -342,86 +364,7 @@ export default {
         return;
       }
       console.log("ap", this.apRatio);
-      if (this.apRatio[0] != "") {
-        if (this.apRatio[1] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入1");
-          return;
-        }
-        if (this.apRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入2");
-          return;
-        }
-        if (this.apRatio[1] != "") {
-          if (this.apRatio[2] == "") {
-            Toast("诊断信息百分比数值有误，请重新输入3");
-            return;
-          }
-        }
-      }
-      if (this.apRatio[2] != "") {
-        if (this.apRatio[1] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入4");
-          return;
-        }
-      }
-      if (this.apRatio[1] != "") {
-        if (this.apRatio[2] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入99");
-          return;
-        }
-      }
-      if (this.vpRatio[1] != "") {
-        if (this.vpRatio[2] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入98");
-          return;
-        }
-      }
-      if (this.vpRatio[2] != "") {
-        if (this.vpRatio[1] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入5");
-          return;
-        }
-      }
-      if (this.vpRatio[0] != "") {
-        if (this.vpRatio[0].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入6");
-          return;
-        }
-        if (this.vpRatio[1] == "") {
-          Toast("诊断信息百分比数值有误，请重新输入7");
-          return;
-        }
-        if (this.vpRatio[1] != "") {
-          if (this.vpRatio[2] == "") {
-            Toast("诊断信息百分比数值有误，请重新输入8");
-            return;
-          }
-        }
-      }
-      if (this.apRatio[1] != "") {
-        if (this.apRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入9");
-          return;
-        }
-      }
-      if (this.apRatio[2] != "") {
-        if (this.apRatio[2].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入10");
-          return;
-        }
-      }
-      if (this.vpRatio[1] != "") {
-        if (this.vpRatio[1].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入11");
-          return;
-        }
-      }
-      if (this.vpRatio[2] != "") {
-        if (this.vpRatio[2].length > 1) {
-          Toast("诊断信息百分比数值有误，请重新输入12");
-          return;
-        }
-      }
+
       try {
         let getImgUrl = (obj, imgUrl) => (obj && obj.url) || imgUrl;
         let data = {
@@ -485,35 +428,9 @@ export default {
         this.outputPerception = paperVO.outputPerception;
         this.pacingPolarity = paperVO.pacingPolarity;
         this.perceivedPolarity = paperVO.perceivedPolarity;
-        let ap = [];
-        if (paperVO.apRatio.length == 4) {
-          ap.push("");
-          ap.push(paperVO.apRatio[1]);
-          ap.push(paperVO.apRatio[3]);
-        } else if (paperVO.apRatio.length < 3) {
-          ap = ["", "", ""];
-        } else {
-          ap.push(paperVO.apRatio[0]);
-          ap.push(paperVO.apRatio[2]);
-          ap.push(paperVO.apRatio[4]);
-        }
-        this.apRatio = ap;
-        console.log(this.apRatio);
-        let vp = [];
-        if (paperVO.vpRatio.length == 4) {
-          vp.push("");
-          vp.push(paperVO.vpRatio[1]);
-          vp.push(paperVO.vpRatio[3]);
-        } else if (paperVO.vpRatio.length < 3) {
-          vp = ["", "", ""];
-        } else {
-          vp.push(paperVO.vpRatio[0]);
-          vp.push(paperVO.vpRatio[2]);
-          vp.push(paperVO.vpRatio[4]);
-        }
-        this.vpRatio = vp;
-        console.log(this.vpRatio);
-        // this.ataf = paperVO.ataf;
+
+        this.apRatio = paperVO.apRatio;
+        this.vpRatio = paperVO.vpRatio;
         this.atafImg = [
           {
             url:
