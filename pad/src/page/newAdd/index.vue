@@ -117,6 +117,24 @@
             <input class="inputbox" type="text" v-model="outputPerception[item]" />
           </div>
         </div>
+        <div class="mainer">
+          <div class="mainerItemTitle">感知极性</div>
+          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
+            <DropDown
+              :actions="perceivedPolaritys[item]"
+              @on-change="value=>changePerceivedPolaritys(item,value)"
+            />
+          </div>
+        </div>
+        <div class="mainer">
+          <div class="mainerItemTitle">起搏极性</div>
+          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
+            <DropDown
+              :actions="perceivedPolaritys[item]"
+              @on-change="value=>changePacingPolaritys(item,value)"
+            />
+          </div>
+        </div>
       </div>
       <div class="item">
         <div class="title">诊断信息</div>
@@ -235,6 +253,12 @@ export default {
       outputPulseWidth: { a: "", rv: "", lv: "" },
       // 输出灵敏度
       outputPerception: { a: "", rv: "", lv: "" },
+      // 感知极性
+      perceivedPolarity: { a: "", rv: "", lv: "" },
+      perceivedPolaritys: { a: [], rv: [], lv: [] },
+      // 起搏极性
+      pacingPolarity: { a: "", rv: "", lv: "" },
+      pacingPolaritys: { a: [], rv: [], lv: [] },
       // AP%
       apRatio: ["", "", ""],
       // VP%
@@ -269,6 +293,12 @@ export default {
     },
     changeMode(value) {
       this.mode = value;
+    },
+    changePerceivedPolaritys(type, value) {
+      this.perceivedPolarity[type] = value;
+    },
+    changePacingPolaritys(type, value) {
+      this.pacingPolarity[type] = value;
     },
     async afterReadAtaf(res) {
       this.atafImgFile = await this.afterRead(res);
@@ -453,13 +483,8 @@ export default {
         this.outputVoltage = paperVO.outputVoltage;
         this.outputPulseWidth = paperVO.outputPulseWidth;
         this.outputPerception = paperVO.outputPerception;
-        console.log(
-          paperVO.apRatio.length,
-          "k",
-          paperVO.apRatio[1],
-          "j",
-          paperVO.vpRatio.length
-        );
+        this.pacingPolarity = paperVO.pacingPolarity;
+        this.perceivedPolarity = paperVO.perceivedPolarity;
         let ap = [];
         if (paperVO.apRatio.length == 4) {
           ap.push("");
@@ -533,6 +558,16 @@ export default {
     // 起搏模式
     this.modes = config.MODES;
     this.mode = this.modes[0].value;
+    this.perceivedPolaritys = {
+      a: config.POLARS,
+      lv: config.POLARS,
+      rv: config.POLARS
+    };
+    this.pacingPolaritys = {
+      a: config.POLARS,
+      lv: config.POLARS,
+      rv: config.POLARS
+    };
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
     if (data && data.patientId == this.patientId) {

@@ -49,3 +49,9 @@ export const MODES = [
   { value: "7", name: "AAIR<=>DDDR" },
   { value: "8", name: "AAI<=>DDD" }
 ];
+
+// 极性
+export const POLARS = [
+  { value: "单", name: "单" },
+  { value: "双", name: "双" }
+];

@@ -59,7 +59,8 @@ export default {
       padding: 10px 20px;
       border: 1px solid rgb(221, 221, 221);
       border-radius: 5px;
-      width: @base*3;
+      width: @base*2.5;
+      // width: 100%;
     }
     img {
       position: relative;
