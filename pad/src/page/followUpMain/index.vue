@@ -109,9 +109,9 @@
               </div>
               <div class="tr">
                 <div class="td">起搏百分比（%）</div>
-                <div>{{AP}}</div>
+                <div>{{apRatio}}</div>
                 <div></div>
-                <div>{{VP}}</div>
+                <div>{{vpRatio}}</div>
               </div>
             </div>
           </div>
@@ -234,42 +234,6 @@ export default {
     };
   },
   computed: {
-    AP() {
-      if (
-        this.apRatio[0] == null ||
-        this.apRatio[1] == null ||
-        this.apRatio[2] == null
-      ) {
-        return "";
-      }
-      if (
-        this.apRatio[0] == "" &&
-        this.apRatio[1] == "" &&
-        this.apRatio[2] == ""
-      ) {
-        return "";
-      }
-      let data = this.apRatio[0] + this.apRatio[1] + "." + this.apRatio[2];
-      return data;
-    },
-    VP() {
-      if (
-        this.vpRatio[0] == null ||
-        this.vpRatio[1] == null ||
-        this.vpRatio[2] == null
-      ) {
-        return "";
-      }
-      if (
-        this.vpRatio[0] == "" &&
-        this.vpRatio[1] == "" &&
-        this.vpRatio[2] == ""
-      ) {
-        return "";
-      }
-      let data = this.vpRatio[0] + this.vpRatio[1] + "." + this.vpRatio[2];
-      return data;
-    },
     fullCategory() {
       let category = this.category;
       let item = config.VISIT_TYPES.find(n => n.value === category);
@@ -390,7 +354,7 @@ export default {
         this.patientId = data.patientId;
         this.nextDate = data.nextDate;
         this.category = data.category;
-        this.batteryStatus = data.batteryStatus;
+        this.batteryStatus = data.batteryStatus + "";
         this.duration = data.duration;
         this.threshold = data.threshold;
         this.pulseWidth = data.pulseWidth;

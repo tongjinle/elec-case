@@ -328,6 +328,9 @@ export default {
       }
     },
     checkParams() {
+      let checkNumber = str => /\d+(\.\d+)?/.test(str);
+      let checkNumberComb = value =>
+        ["a", "rv", "lv"].every(n => checkNumber(value[n]));
       // 电池寿命,0.5或者1-20
       {
         let arr = ["0.5"];
@@ -342,17 +345,79 @@ export default {
 
       // ap必须是数字
       {
-        let ptn = /\d+(\.\d+)?/;
-        if (!ptn.test(this.apRatio)) {
+        if (!checkNumber(this.apRatio)) {
           Toast("ap必须是数字");
           return false;
         }
       }
       // vp必须是数字
       {
-        let ptn = /\d+(\.\d+)?/;
-        if (!ptn.test(this.vpRatio)) {
+        if (!checkNumber(this.vpRatio)) {
           Toast("vp必须是数字");
+          return false;
+        }
+      }
+
+      // 阈值
+      {
+        if (!checkNumberComb(this.threshold)) {
+          Toast("阈值参数不是数字");
+          return false;
+        }
+      }
+      {
+        // 电极脉宽
+        if (!checkNumberComb(this.pulseWidth)) {
+          Toast("电极脉宽不是数字");
+          return false;
+        }
+      }
+      {
+        // 电极感知
+        if (!checkNumberComb(this.perception)) {
+          Toast("电极感知不是数字");
+          return false;
+        }
+      }
+      {
+        // 电极阻抗
+        if (!checkNumberComb(this.impedance)) {
+          Toast("电极阻抗不是数字");
+          return false;
+        }
+      }
+      {
+        // 低限频率
+        if (!checkNumber(this.down)) {
+          Toast("低限频率必须是数字");
+          return false;
+        }
+      }
+      {
+        // 上限频率
+        if (!checkNumber(this.up)) {
+          Toast("上限频率必须是数字");
+          return false;
+        }
+      }
+      {
+        // 输出电压
+        if (!checkNumberComb(this.outputVoltage)) {
+          Toast("输出电压不是数字");
+          return false;
+        }
+      }
+      {
+        // 输出脉宽
+        if (!checkNumberComb(this.outputPulseWidth)) {
+          Toast("输出脉宽不是数字");
+          return false;
+        }
+      }
+      {
+        // 输出灵敏度
+        if (!checkNumberComb(this.outputPerception)) {
+          Toast("输出灵敏度不是数字");
           return false;
         }
       }
@@ -370,7 +435,7 @@ export default {
         let data = {
           patientId: this.patientId,
           category: this.visitType,
-          batteryStatus: this.batteryStatus,
+          batteryStatus: this.batteryStatus - 0,
           duration: this.duration,
           mode: this.mode,
           up: this.up,
@@ -414,7 +479,7 @@ export default {
         let paperVO = data.paperVO;
         console.log(paperVO);
         // this.visitType = paperVO.;
-        this.batteryStatus = paperVO.batteryStatus;
+        this.batteryStatus = paperVO.batteryStatus + "";
         this.duration = paperVO.duration;
         this.mode = paperVO.mode;
         this.up = paperVO.up;
@@ -466,9 +531,62 @@ export default {
           this.$router.push({ path: "login" });
         }
       }
+    },
+    async _mock() {
+      this.modes = config.MODES;
+      this.mode = this.modes[0].value;
+      this.perceivedPolaritys = {
+        a: config.POLARS,
+        lv: config.POLARS,
+        rv: config.POLARS
+      };
+      this.perceivedPolarity = {
+        a: config.POLARS[0],
+        lv: config.POLARS[0],
+        rv: config.POLARS[0]
+      };
+      this.pacingPolaritys = {
+        a: config.POLARS,
+        lv: config.POLARS,
+        rv: config.POLARS
+      };
+      this.pacingPolarity = {
+        a: config.POLARS[0],
+        lv: config.POLARS[0],
+        rv: config.POLARS[0]
+      };
+      // 电池状态
+      this.batteryStatus = "1";
+      // 预计寿命
+      this.duration = "2";
+      // 电极阈值
+      this.threshold = { a: "1", rv: "2", lv: "3" };
+      // 电极脉宽
+      this.pulseWidth = { a: "4", rv: "5", lv: "6" };
+      // 电极感知
+      this.perception = { a: "7", rv: "8", lv: "9" };
+      // 电极阻抗
+      this.impedance = { a: "10", rv: "11", lv: "12" };
+      // 低限频率
+      this.down = "13";
+      // 上限频率
+      this.up = "14";
+      // 输出电压
+      this.outputVoltage = { a: "21", rv: "22", lv: "23" };
+      // 输出脉宽
+      this.outputPulseWidth = { a: "31", rv: "32", lv: "33" };
+      // 输出灵敏度
+      this.outputPerception = { a: "41", rv: "42", lv: "43" };
+
+      // AP%
+      this.apRatio = "51";
+      // VP%
+      this.vpRatio = "61";
     }
   },
   async beforeMount() {
+    this._mock();
+    return;
     // 病人编号
     this.patientId = this.$route.query.id;
     console.log(this.patientId, "1");
@@ -480,10 +598,20 @@ export default {
       lv: config.POLARS,
       rv: config.POLARS
     };
+    this.perceivedPolarity = {
+      a: config.POLARS[0],
+      lv: config.POLARS[0],
+      rv: config.POLARS[0]
+    };
     this.pacingPolaritys = {
       a: config.POLARS,
       lv: config.POLARS,
       rv: config.POLARS
+    };
+    this.pacingPolarity = {
+      a: config.POLARS[0],
+      lv: config.POLARS[0],
+      rv: config.POLARS[0]
     };
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
