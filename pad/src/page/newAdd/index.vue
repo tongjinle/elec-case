@@ -533,6 +533,7 @@ export default {
       }
     },
     async _mock() {
+      this.patientId = 115;
       this.modes = config.MODES;
       this.mode = this.modes[0].value;
       this.perceivedPolaritys = {

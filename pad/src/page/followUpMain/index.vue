@@ -185,6 +185,7 @@ export default {
   components: { ChooseDateTime, DropDown },
   data() {
     return {
+      patientId: "",
       nextDate: "",
       // 医生编号
       doctor: "",
