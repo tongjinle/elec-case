@@ -50,7 +50,7 @@
       <div class="item">
         <div class="mainer">
           <div class="title">随访日期：</div>
-          <div class="msg">{{nextDate}}</div>
+          <div class="msg">{{today}}</div>
         </div>
         <div class="mainer">
           <div class="title">随访医师：</div>
@@ -186,6 +186,7 @@ export default {
   data() {
     return {
       patientId: "",
+      today: undefined,
       nextDate: "",
       // 医生编号
       doctor: "",
@@ -378,6 +379,7 @@ export default {
     }
   },
   async mounted() {
+    this.today = bll.timeToString(new Date());
     this.getVisitData();
     {
       try {
