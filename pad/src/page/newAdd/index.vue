@@ -586,8 +586,8 @@ export default {
     }
   },
   async beforeMount() {
-    this._mock();
-    return;
+    // this._mock();
+    // return;
     // 病人编号
     this.patientId = this.$route.query.id;
     console.log(this.patientId, "1");
