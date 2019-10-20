@@ -63,7 +63,7 @@ export default {
 @base: 75rem;
 .login {
   &__banner {
-    width: 100%;
+    width: 100vw;
     &-img {
       display: block;
       width: 100%;
