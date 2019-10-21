@@ -5,11 +5,11 @@
         <img class="icon-logo" src="../assets/image/icon-logo.png" />
       </div>
       <div class="btn-list">
-        <div class="homePage" @click="toHomePage">
+        <div class="btn homePage" @click="toHomePage">
           <img class="icon-home" src="../assets/image/icon-home.png" />
           <div>首页</div>
         </div>
-        <div class="my" @click="toVisitorsPage">
+        <div class="btn my" @click="toVisitorsPage">
           <img class="icon-my" src="../assets/image/icon-my.png" />
           <div>患者</div>
         </div>
@@ -63,10 +63,15 @@ export default {
       margin-top: 20px;
     }
     .btn-list {
-      height: 40vh;
+      // min-height: 100px;
+      // height: 40vh;
+      height: 300px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      .btn {
+        margin-bottom: 20px;
+      }
     }
     .logOut {
       margin-bottom: 20px;

@@ -6,7 +6,7 @@
         v-model="rate"
         layer-color="rgb(225,225,225)"
         :rate="rate"
-        size="250px"
+        size="180px"
         :speed="100"
         :text="text"
       />

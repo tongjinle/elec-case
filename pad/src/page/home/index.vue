@@ -219,8 +219,9 @@ export default {
         height: 49%;
         display: flex;
         justify-content: space-between;
-        div {
+        > div {
           width: 30%;
+          background-color: #fff;
           height: 100%;
         }
       }
