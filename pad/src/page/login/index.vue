@@ -63,10 +63,14 @@ export default {
 @base: 75rem;
 .login {
   &__banner {
-    width: 100vw;
+    display: flex;
+    justify-content: center;
+    // width: 100vw;
+    height: 30vh;
     &-img {
       display: block;
-      width: 100%;
+      // width: 100%;
+      height: 100%;
     }
   }
 
@@ -89,12 +93,12 @@ export default {
       border: 1px solid grey;
       border-radius: 50 / @base;
       outline: none;
-      width: 600 / @base;
-      height: 80 / @base;
+      width: 45vw;
+      height: 1rem;
       font-size: 40 / @base;
     }
     .form__user {
-      margin-top: 50px;
+      margin-top: 20px;
     }
     .form__user:before {
       // position: absolute;
@@ -102,8 +106,8 @@ export default {
       // left: 50px;
       content: "sdfsdfs";
       display: block;
-      width: 100 / @base;
-      height: 107 / @base;
+      // width: 100 / @base;
+      // height: 107 / @base;
       background-color: red;
       // background: url('../assets/image/icon-user.png') no-repeat;
     }

@@ -27,7 +27,8 @@ module.exports = webpackMerge(baseConfig, {
   devServer: {
     contentBase: path.resolve(__dirname, "../dist"),
     port: 9000,
-    hot: true
+    hot: true,
+    host: "0.0.0.0" //这里也可以写死本地ip
     // proxy: {
     //   "/elecase": {
     //     target: "http://39.105.78.216:8081",
