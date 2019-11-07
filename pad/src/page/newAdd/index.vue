@@ -25,7 +25,7 @@
           </van-radio-group>
           <div class="duration">
             <span>预计</span>
-            <input class="inputbox" type="text" v-model="duration" />
+            <input class="inputbox" type="number" v-model="duration" />
           </div>
         </div>
       </div>
@@ -47,26 +47,26 @@
         <div class="mainer">
           <div class="mainerItemTitle">阈值（V）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="threshold[item]" />
+            <input class="inputbox" type="number" v-model="threshold[item]" />
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">脉宽（ms）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="pulseWidth[item]" />
+            <input class="inputbox" type="number" v-model="pulseWidth[item]" />
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知（mv）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="perception[item]" />
+            <input class="inputbox" type="number" v-model="perception[item]" />
           </div>
         </div>
 
         <div class="mainers">
           <div class="mainerItemTitle">阻抗（欧）</div>
           <div class="mainerItems" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="impedance[item]" />
+            <input class="inputbox" type="number" v-model="impedance[item]" />
           </div>
 
           <div class="mainerItem">
@@ -85,11 +85,11 @@
         <div class="mainer">
           <div class="mainerItemTitle">低限频率：</div>
           <div class="mainerItem">
-            <input class="inputbox" type="text" v-model="down" />
+            <input class="inputbox" type="number" v-model="down" />
           </div>
           <div class="mainerItemTitle">上限频率：</div>
           <div class="mainerItem">
-            <input class="inputbox" type="text" v-model="up" />
+            <input class="inputbox" type="number" v-model="up" />
           </div>
         </div>
         <div class="mainer">
@@ -102,19 +102,19 @@
         <div class="mainer">
           <div class="mainerItemTitle">输出（V）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="outputVoltage[item]" />
+            <input class="inputbox" type="number" v-model="outputVoltage[item]" />
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">脉宽（ms）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="outputPulseWidth[item]" />
+            <input class="inputbox" type="number" v-model="outputPulseWidth[item]" />
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知灵敏度（mv）</div>
           <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="text" v-model="outputPerception[item]" />
+            <input class="inputbox" type="number" v-model="outputPerception[item]" />
           </div>
         </div>
         <div class="mainer">
@@ -141,19 +141,19 @@
         <div class="mainer">
           <div class="mainerItemTitle">AP%</div>
           <div class="mainerItem">
-            <input class="inputbox" type="text" v-model="apRatio" />
+            <input class="inputbox" type="number" v-model="apRatio" />
             %
           </div>
           <div class="mainerItemTitle">VP%</div>
           <div class="mainerItem">
-            <input class="inputbox" type="text" v-model="vpRatio" />
+            <input class="inputbox" type="number" v-model="vpRatio" />
             %
           </div>
           <!-- <div class="msgTitle"></div>
           <div class="msgInput"></div>
           <div class="msgTitle" style="margin-left:3rem">VP%</div>
           <div class="msgInput">
-            <input type="text" v-model="vpRatio" />%
+            <input type="number" v-model="vpRatio" />%
           </div>-->
         </div>
         <div class="mainer" style="margin-top:1rem;">
@@ -175,7 +175,7 @@
             <div class="footItemLeft">
               <div>EF</div>
               <div class="footDown">
-                <input class="inputbox" type="text" v-model="efRatio" />
+                <input class="inputbox" type="number" v-model="efRatio" />
 
                 <span>%</span>
               </div>
@@ -197,7 +197,7 @@
                 <span class="smallFont">ms</span>
               </div>
               <div class="footDown">
-                <input class="inputbox" type="text" v-model="qrsRatio" />
+                <input class="inputbox" type="number" v-model="qrsRatio" />
               </div>
             </div>
             <div class="footItemRight">
