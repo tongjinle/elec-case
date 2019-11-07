@@ -37,6 +37,7 @@
             <div class="mainer">
               <div class="contentBoxTitle">预估平均使用寿命：</div>
               <div class="msg">{{fullDuration}}</div>
+              <span style="margin-left: 4px">年</span>
             </div>
           </div>
           <div class="tableBox">
@@ -250,7 +251,7 @@ export default {
       // 事件选择
       // 电池事件
       isBattery: false,
-      // 心率事件
+      // 心律事件
       isXinlv: false,
       // 起搏事件
       isQibo: false,

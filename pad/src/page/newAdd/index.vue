@@ -26,6 +26,7 @@
           <div class="duration">
             <span>预计</span>
             <input class="inputbox" type="text" v-model="duration" />
+            <span style="margin-left:4px">年</span>
           </div>
         </div>
       </div>
