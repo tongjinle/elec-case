@@ -25,7 +25,12 @@
           </van-radio-group>
           <div class="duration">
             <span>预计</span>
-            <input class="inputbox" type="number" v-model="duration" />
+            <!-- <input class="inputbox" type="number" v-model="duration" /> -->
+            <!-- :changeHandle="()=>{console.log(123)}" -->
+            <!-- :changeHandle="changeDuration" -->
+            <!-- :changeHandle="changeValue.bind(this,['duration'])" -->
+            <!-- <NumberBox :value="1" @on-change="changeDuration"></NumberBox> -->
+            <NumberBox :value="1" @on-change="value=>this.duration=value"></NumberBox>
           </div>
         </div>
       </div>
@@ -46,31 +51,159 @@
 
         <div class="mainer">
           <div class="mainerItemTitle">阈值（V）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="threshold[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.threshold.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.threshold.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.threshold.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">脉宽（ms）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="pulseWidth[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.pulseWidth.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.pulseWidth.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.pulseWidth.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知（mv）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="perception[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.perception.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.perception.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.perception.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
 
-        <div class="mainers">
+        <div class="mainer">
           <div class="mainerItemTitle">阻抗（欧）</div>
-          <div class="mainerItems" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="impedance[item]" />
-          </div>
-
           <div class="mainerItem">
-            <!-- <span>100-3000 (per 100 as unit)</span> -->
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.impedance.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.impedance.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.impedance.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -85,11 +218,29 @@
         <div class="mainer">
           <div class="mainerItemTitle">低限频率：</div>
           <div class="mainerItem">
-            <input class="inputbox" type="number" v-model="down" />
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.down=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix">次/分钟</div>
+            </div>
           </div>
           <div class="mainerItemTitle">上限频率：</div>
           <div class="mainerItem">
-            <input class="inputbox" type="number" v-model="up" />
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.up=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix">次/分钟</div>
+            </div>
           </div>
         </div>
         <div class="mainer">
@@ -101,20 +252,119 @@
 
         <div class="mainer">
           <div class="mainerItemTitle">输出（V）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="outputVoltage[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputVoltage.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputVoltage.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputVoltage.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">脉宽（ms）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="outputPulseWidth[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPluseWidth.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPluseWidth.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPluseWidth.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知灵敏度（mv）</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
-            <input class="inputbox" type="number" v-model="outputPerception[item]" />
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPerception.a=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPerception.rv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
+          </div>
+          <div class="mainerItem">
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox
+                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :value="''"
+                  @on-change="value=>this.outputPerception.lv=value"
+                ></NumberBox>
+              </div>
+              <div class="suffix"></div>
+            </div>
           </div>
         </div>
         <div class="mainer">
@@ -141,13 +391,25 @@
         <div class="mainer">
           <div class="mainerItemTitle">AP%</div>
           <div class="mainerItem">
-            <input class="inputbox" type="number" v-model="apRatio" />
-            %
+            <!-- <input class="inputbox" type="number" v-model="apRatio" />
+            %-->
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox :value="0" @on-change="val=>this.apRatio = val"></NumberBox>
+              </div>
+              <div class="suffix">%</div>
+            </div>
           </div>
           <div class="mainerItemTitle">VP%</div>
           <div class="mainerItem">
-            <input class="inputbox" type="number" v-model="vpRatio" />
-            %
+            <!-- <input class="inputbox" type="number" v-model="vpRatio" />
+            %-->
+            <div class="comb">
+              <div class="inputplace">
+                <NumberBox :value="0" @on-change="val=>this.vpRatio = val"></NumberBox>
+              </div>
+              <div class="suffix">%</div>
+            </div>
           </div>
           <!-- <div class="msgTitle"></div>
           <div class="msgInput"></div>
@@ -219,13 +481,14 @@
 <script>
 import DropDown from "@/component/dropDown";
 import AddButton from "@/component/addButton";
+import NumberBox from "@/component/numberBox";
 import * as config from "../../utils/config";
 import * as bll from "../../utils/business";
 import { Toast } from "vant";
 
 export default {
   name: "index",
-  components: { DropDown, AddButton },
+  components: { DropDown, AddButton, NumberBox },
   data() {
     return {
       // 病人编号
@@ -289,6 +552,22 @@ export default {
     };
   },
   methods: {
+    changeValue(props) {
+      let obj = this;
+      props.forEach(n => {
+        console.log(n);
+        obj = obj[n];
+      });
+      console.log("change value");
+      return value => {
+        console.log("inner function:", obj, value);
+        obj = value;
+      };
+    },
+    changeDuration(value) {
+      this.duration = value;
+      console.log("duration...", this.duration, value);
+    },
     getBack() {
       this.$router.back(-1);
     },
@@ -328,16 +607,24 @@ export default {
       }
     },
     checkParams() {
-      let checkNumber = str => /\d+(\.\d+)?/.test(str);
+      let checkNumber = str => /^[1-9](\d+)?(\.\d+)?$/.test(str);
+      let checkNumberAllowZero = str => /^\d+(\.\d+)?$/.test(str);
+      let checkNumberAllowEmpty = str =>
+        /^\s*$|^[1-9](\d+)?(\.\d+)?$/.test(str);
       let checkNumberComb = value =>
-        ["a", "rv", "lv"].every(n => checkNumber(value[n]));
+        ["a", "rv", "lv"].every(n => checkNumberAllowEmpty(value[n]));
       // 电池寿命,0.5或者1-20
       {
-        let arr = ["0.5"];
+        let arr = [0.5];
         for (let i = 1; i <= 20; i++) {
-          arr.push(i + "");
+          arr.push(i);
         }
-        if (!arr.find(n => n === this.duration)) {
+        if (
+          !(
+            this.duration === 0.5 ||
+            (this.duration >= 1 && this.duration <= 20)
+          )
+        ) {
           Toast("电池寿命应该在0.5或者1-20");
           return false;
         }
@@ -345,15 +632,15 @@ export default {
 
       // ap必须是数字
       {
-        if (!checkNumber(this.apRatio)) {
-          Toast("ap必须是数字");
+        if (!checkNumberAllowZero(this.apRatio)) {
+          Toast("ap必须是数字,但是可以为0");
           return false;
         }
       }
       // vp必须是数字
       {
-        if (!checkNumber(this.vpRatio)) {
-          Toast("vp必须是数字");
+        if (!checkNumberAllowZero(this.vpRatio)) {
+          Toast("vp必须是数字,但是可以为0");
           return false;
         }
       }
@@ -361,63 +648,63 @@ export default {
       // 阈值
       {
         if (!checkNumberComb(this.threshold)) {
-          Toast("阈值参数不是数字");
+          Toast("阈值参数必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 电极脉宽
         if (!checkNumberComb(this.pulseWidth)) {
-          Toast("电极脉宽不是数字");
+          Toast("电极脉宽必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 电极感知
         if (!checkNumberComb(this.perception)) {
-          Toast("电极感知不是数字");
+          Toast("电极感知必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 电极阻抗
         if (!checkNumberComb(this.impedance)) {
-          Toast("电极阻抗不是数字");
+          Toast("电极阻抗必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 低限频率
-        if (!checkNumber(this.down)) {
-          Toast("低限频率必须是数字");
+        if (!checkNumberAllowEmpty(this.down)) {
+          Toast("低限频率必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 上限频率
-        if (!checkNumber(this.up)) {
-          Toast("上限频率必须是数字");
+        if (!checkNumberAllowEmpty(this.up)) {
+          Toast("上限频率必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 输出电压
         if (!checkNumberComb(this.outputVoltage)) {
-          Toast("输出电压不是数字");
+          Toast("输出电压必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 输出脉宽
         if (!checkNumberComb(this.outputPulseWidth)) {
-          Toast("输出脉宽不是数字");
+          Toast("输出脉宽必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
       {
         // 输出灵敏度
         if (!checkNumberComb(this.outputPerception)) {
-          Toast("输出灵敏度不是数字");
+          Toast("输出灵敏度必须是数字,或者是空值,但是不能是0");
           return false;
         }
       }
@@ -781,6 +1068,17 @@ export default {
             padding: 0 20px;
             box-sizing: content-box;
             width: 2.5rem;
+          }
+          .comb {
+            display: flex;
+            align-items: center;
+            .inputplace {
+              flex: 1;
+            }
+            .suffix {
+              padding-left: 5px;
+              width: 30%;
+            }
           }
         }
         .radio {
