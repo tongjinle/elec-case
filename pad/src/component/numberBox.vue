@@ -46,6 +46,13 @@ export default {
         console.log(this.rule, this.val);
         this.val = this.value;
       }
+      {
+        let val = this.val;
+        if (val !== "") {
+          val = Math.round(1e5 * val) / 1e5;
+          this.val = val;
+        }
+      }
       console.log("add button : change : ", this.val);
       // this.changeHandle && this.changeHandle(this.val);
       this.$emit("on-change", this.val);

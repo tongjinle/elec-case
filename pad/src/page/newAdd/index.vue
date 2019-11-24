@@ -55,7 +55,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.threshold.a=value"
                 ></NumberBox>
@@ -67,7 +67,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.threshold.rv=value"
                 ></NumberBox>
@@ -79,7 +79,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.threshold.lv=value"
                 ></NumberBox>
@@ -94,7 +94,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.pulseWidth.a=value"
                 ></NumberBox>
@@ -106,7 +106,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.pulseWidth.rv=value"
                 ></NumberBox>
@@ -118,7 +118,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.pulseWidth.lv=value"
                 ></NumberBox>
@@ -133,7 +133,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.perception.a=value"
                 ></NumberBox>
@@ -145,7 +145,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.perception.rv=value"
                 ></NumberBox>
@@ -157,7 +157,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.perception.lv=value"
                 ></NumberBox>
@@ -173,7 +173,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.impedance.a=value"
                 ></NumberBox>
@@ -185,7 +185,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.impedance.rv=value"
                 ></NumberBox>
@@ -197,7 +197,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.impedance.lv=value"
                 ></NumberBox>
@@ -221,7 +221,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.down=value"
                 ></NumberBox>
@@ -234,7 +234,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.up=value"
                 ></NumberBox>
@@ -256,7 +256,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputVoltage.a=value"
                 ></NumberBox>
@@ -268,7 +268,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputVoltage.rv=value"
                 ></NumberBox>
@@ -280,7 +280,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputVoltage.lv=value"
                 ></NumberBox>
@@ -295,9 +295,9 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPluseWidth.a=value"
+                  @on-change="value=>this.outputPulseWidth.a=value"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -307,9 +307,9 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPluseWidth.rv=value"
+                  @on-change="value=>this.outputPulseWidth.rv=value"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -319,9 +319,9 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPluseWidth.lv=value"
+                  @on-change="value=>this.outputPulseWidth.lv=value"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -334,7 +334,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputPerception.a=value"
                 ></NumberBox>
@@ -346,7 +346,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputPerception.rv=value"
                 ></NumberBox>
@@ -358,7 +358,7 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :rule="/^\s*$|^[1-9](\d+)?(\.\d+)?$/"
+                  :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
                   @on-change="value=>this.outputPerception.lv=value"
                 ></NumberBox>
@@ -609,8 +609,7 @@ export default {
     checkParams() {
       let checkNumber = str => /^[1-9](\d+)?(\.\d+)?$/.test(str);
       let checkNumberAllowZero = str => /^\d+(\.\d+)?$/.test(str);
-      let checkNumberAllowEmpty = str =>
-        /^\s*$|^[1-9](\d+)?(\.\d+)?$/.test(str);
+      let checkNumberAllowEmpty = str => /^\s*$|^\d+(\.\d+)?$/.test(str);
       let checkNumberComb = value =>
         ["a", "rv", "lv"].every(n => checkNumberAllowEmpty(value[n]));
       // 电池寿命,0.5或者1-20
@@ -820,6 +819,7 @@ export default {
       }
     },
     async _mock() {
+      console.log("mock");
       this.patientId = 115;
       this.modes = config.MODES;
       this.mode = this.modes[0].value;

@@ -110,8 +110,8 @@
               <div class="tr">
                 <div class="td">起搏百分比（%）</div>
                 <div>{{apRatio}}</div>
-                <div></div>
                 <div>{{vpRatio}}</div>
+                <div></div>
               </div>
             </div>
           </div>
@@ -120,8 +120,8 @@
             <div class="table">
               <div class="tr firstTr">
                 <div class="td">起搏模式</div>
-                <div>低限频率</div>
-                <div>上限跟踪频率</div>
+                <div>低限频率(次/min)</div>
+                <div>上限跟踪频率(次/min)</div>
               </div>
               <div class="tr">
                 <div class="td">{{fullMode}}</div>
@@ -130,31 +130,31 @@
               </div>
               <div class="tr">
                 <div class="td">右房电极</div>
-                <div>输出电压/脉宽</div>
-                <div>感知灵敏度</div>
+                <div>输出电压(V)/脉宽(ms)</div>
+                <div>感知灵敏度(mV)</div>
               </div>
               <div class="tr">
-                <div class="td"></div>
+                <div class="td">单/双</div>
                 <div>{{outputVoltage.a}}/{{outputPulseWidth.a}}</div>
                 <div>{{outputPerception.a}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">右室电极</div>
-                <div>输出电压/脉宽</div>
-                <div>感知灵敏度</div>
+                <div>输出电压(V)/脉宽(ms)</div>
+                <div>感知灵敏度(mV)</div>
               </div>
               <div class="tr">
-                <div class="td"></div>
+                <div class="td">单/双</div>
                 <div>{{outputVoltage.rv}}/{{outputPulseWidth.rv}}</div>
                 <div>{{outputPerception.rv}}mv</div>
               </div>
               <div class="tr">
                 <div class="td">左室电极</div>
-                <div>输出电压/脉宽</div>
-                <div>感知灵敏度</div>
+                <div>输出电压(V)/脉宽(ms)</div>
+                <div>感知灵敏度(mV)</div>
               </div>
               <div class="tr">
-                <div class="td"></div>
+                <div class="td">单/双</div>
                 <div>{{outputVoltage.lv}}/{{outputPulseWidth.lv}}</div>
                 <div>{{outputPerception.lv}}mv</div>
               </div>
