@@ -45,6 +45,7 @@ export default {
         console.log({ data });
         bll.setToken(data);
         localStorage.setItem("username", this.username);
+        localStorage.setItem("password", this.password);
         this.$router.push({ path: "/home" });
       } catch (e) {
         console.log(e);
@@ -55,6 +56,12 @@ export default {
   },
   beforeMount() {
     this.username = localStorage.getItem("username") || "";
+    this.password = localStorage.getItem("password") || "";
+  },
+  mounted() {
+    if (this.username !== "" && this.password !== "") {
+      this.login();
+    }
   }
 };
 </script>
