@@ -220,7 +220,7 @@ export default {
         display: flex;
         justify-content: space-between;
         > div {
-          width: 30%;
+          width: 33%;
           background-color: #fff;
           height: 100%;
         }
