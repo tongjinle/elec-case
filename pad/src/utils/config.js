@@ -52,6 +52,7 @@ export const MODES = [
 
 // 极性
 export const POLARS = [
+  { value: "无", name: "无" },
   { value: "单", name: "单" },
   { value: "双", name: "双" }
 ];
