@@ -7,7 +7,13 @@
       <div class="up">
         <div class="input">
           <img class="searchImg" src="../../assets/image/search@2x.png" alt />
-          <input type="text" v-model="keyword" placeholder="请输入患者姓名" @keyup.enter="search" />
+          <input
+            ref="searchBox"
+            type="text"
+            v-model="keyword"
+            placeholder="请输入患者姓名"
+            @keyup.enter="search"
+          />
           <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
         </div>
         <div class="add" @click="onAdd">新增患者</div>
@@ -108,6 +114,12 @@ export default {
       this.$router.push({ path: "patientMsg", query: { id: id } });
     },
     async search() {
+      let ref = this.$refs.searchBox;
+      // console.log({ ref });
+      // 让搜索框按下回车后,自动隐藏安卓的键盘
+      if (ref) {
+        ref.blur();
+      }
       localStorage.setItem("search", this.keyword);
       let encodeKeyword = encodeURIComponent(this.keyword);
       try {
@@ -154,16 +166,18 @@ export default {
 
 <style lang="less">
 @base: 1rem;
+@nav-left-width: 100px;
 .searchBox {
   font-size: @base / 3;
   display: flex;
   justify-content: flex-start;
   .navleft {
-    width: 100px;
+    width: @nav-left-width;
   }
   .box {
+    box-sizing: border-box;
     padding: 100px 50px 0;
-    width: 100%;
+    width: calc(100% - @nav-left-width);
     box-shadow: 1px 1px 5px #888888;
     .up {
       display: flex;
