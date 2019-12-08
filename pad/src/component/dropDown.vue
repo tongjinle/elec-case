@@ -1,7 +1,7 @@
 <template>
   <div class="dropDown">
     <div class="box" @click="showitem">
-      <input type="text" v-model="value" />
+      <input type="text" disabled v-model="value" />
       <img src="../assets/image/s@2x.png" alt />
     </div>
     <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
@@ -55,16 +55,20 @@ export default {
 .dropDown {
   font-size: @base / 4;
   .box {
+    display: flex;
+    align-items: center;
     input {
       padding: 10px 20px;
       border: 1px solid rgb(221, 221, 221);
       border-radius: 5px;
       width: @base*2.5;
+      background-color: #fff;
       // width: 100%;
     }
     img {
       position: relative;
       right: @base*0.9;
+      width: 20px;
     }
   }
 }
