@@ -131,9 +131,9 @@ export default {
   .xinlv,
   .qibo,
   .shezhi {
-    padding: 10px @base / 2;
-    font-size: @base / 2.5;
-    border-radius: 70px;
+    // padding: 10px @base / 2;
+    font-size: 16px;
+    border-radius: 15px;
     border: 1px solid #888888;
     margin-right: 20px;
     color: #000;
