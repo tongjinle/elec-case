@@ -13,28 +13,28 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <input v-model="name" type="text" placeholder="患者姓名" />
+            <input class="contentBody" v-model="name" type="text" placeholder="患者姓名" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
-            <van-radio-group class="radio" v-model="sex">
+            <van-radio-group class="radio contentBody" v-model="sex">
               <van-radio class="radioItem" name="0">男</van-radio>
               <van-radio class="radioItem" name="1">女</van-radio>
             </van-radio-group>
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <ChooseDateTime :value="birth" :chooseTimeHandle="chooseBirth" />
+            <ChooseDateTime class="contentBody" :value="birth" :chooseTimeHandle="chooseBirth" />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <input v-model="phone" type="text" placeholder="手机号" />
+            <input class="contentBody" v-model="phone" type="text" placeholder="手机号" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <input v-model="emergPhone" type="text" placeholder="紧急联系人号码" />
+            <input class="contentBody" v-model="emergPhone" type="text" placeholder="紧急联系人号码" />
           </div>
         </div>
       </div>
@@ -43,33 +43,37 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">植入日期</div>
-            <ChooseDateTime :value="plantTime" :chooseTimeHandle="choosePlantTime" />
+            <ChooseDateTime
+              class="contentBody"
+              :value="plantTime"
+              :chooseTimeHandle="choosePlantTime"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
-            <DropDown :actions="doctors" @on-change="chooseDoctor" />
+            <DropDown class="contentBody" :actions="doctors" @on-change="chooseDoctor" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">植入原因</div>
-            <DropDown :actions="plantReasons" @on-change="choosePlantReason" />
+            <DropDown class="contentBody" :actions="plantReasons" @on-change="choosePlantReason" />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">厂家</div>
-            <DropDown :actions="factories" @on-change="chooseFactory" />
+            <DropDown class="contentBody" :actions="factories" @on-change="chooseFactory" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">类别</div>
-            <DropDown :actions="categories" @on-change="chooseCategory" />
+            <DropDown class="contentBody" :actions="categories" @on-change="chooseCategory" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">型号</div>
-            <input type="text" placeholder="请输入型号" v-model="deviceModel" />
+            <input class="contentBody" type="text" placeholder="请输入型号" v-model="deviceModel" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">序列号</div>
-            <input type="text" placeholder="请输入序列号" v-model="deviceNo" />
+            <input class="contentBody" type="text" placeholder="请输入序列号" v-model="deviceNo" />
           </div>
         </div>
       </div>
@@ -84,13 +88,13 @@
               <div>EF(0~99)</div>
               <div class="footDown">
                 <input class="inputbox" type="text" v-model="plantBaseEf" />
-                <span>%</span>
+                <span class="suffix">%</span>
               </div>
             </div>
             <div class="footItemRight">
               <van-uploader
-                style="margin-left:1rem;"
-                preview-size="3rem"
+                class="uploader"
+                preview-size="2.5rem"
                 :max-count="1"
                 :after-read="afterReadOfEfImage"
                 v-model="efImg"
@@ -106,8 +110,8 @@
             </div>
             <div class="footItemRight">
               <van-uploader
-                style="margin-left:1rem;"
-                preview-size="3rem"
+                class="uploader"
+                preview-size="2.5rem"
                 :max-count="1"
                 :after-read="afterReadOfQrsImage"
                 v-model="qrsImg"
@@ -442,11 +446,15 @@ export default {
           .contentTitle {
             margin-bottom: 20px;
           }
+          .contentBody {
+            height: 40px;
+            box-sizing: border-box;
+          }
           input {
             border: 1px solid rgb(221, 221, 221);
             border-radius: 5px;
             padding: 10px 20px;
-            width: @base*2.5;
+            width: @base*3;
           }
           .radio {
             display: flex;
@@ -469,9 +477,12 @@ export default {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            span {
-              margin-left: @base*0.5;
+            .suffix {
+              margin-left: 10px;
             }
+          }
+          .footItemRight {
+            margin-left: 15px;
           }
         }
       }

@@ -91,13 +91,16 @@ export default {
   width: @base*4;
   background-color: rgb(247, 247, 247);
   font-size: @base / 3;
-  padding: 10px 20px;
+  padding: 0px 20px;
   border-radius: 5px;
   .dateTimeBox {
+    height: 100%;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     span {
-      margin-right: @base;
+      // margin-right: @base;
+      flex: 1;
     }
     img {
       width: @base / 2;
@@ -107,7 +110,7 @@ export default {
   .time {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
