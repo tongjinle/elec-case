@@ -1,7 +1,7 @@
 <template>
   <div class="visitor">
     <div class="card">
-      <div class="cardLeft"  @click="gotoDetails">
+      <div class="cardLeft" @click="gotoDetails">
         <div class="up">
           姓名
           <span>{{patientName}}</span>
@@ -99,13 +99,13 @@ export default {
         justify-content: flex-start;
         align-items: baseline;
         .item {
-          margin-right: @base / 2;
+          margin-right: 10px;
           span {
             color: black;
             font-size: @base / 3.5;
           }
           &.name {
-            width: 3 * @base;
+            width: 2.5 * @base;
           }
         }
       }
