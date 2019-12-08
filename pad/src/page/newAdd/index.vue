@@ -438,7 +438,6 @@
               <div>EF</div>
               <div class="footDown">
                 <input class="inputbox" type="number" v-model="efRatio" />
-
                 <span>%</span>
               </div>
             </div>
@@ -457,6 +456,7 @@
               <div>
                 QRS
                 <span class="smallFont">ms</span>
+                <span>%</span>
               </div>
               <div class="footDown">
                 <input class="inputbox" type="number" v-model="qrsRatio" />

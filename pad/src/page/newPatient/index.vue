@@ -106,6 +106,7 @@
               <div>QRS(0~99)</div>
               <div class="footDown">
                 <input class="inputbox" type="text" v-model="plantBaseQrs" />
+                <span class="suffix">%</span>
               </div>
             </div>
             <div class="footItemRight">

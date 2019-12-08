@@ -1,6 +1,6 @@
 <template>
   <div class="numberBox">
-    <input type="text" v-model="val" @change="change" @click="selectAll" />
+    <input type="number" v-model="val" @change="change" @click="selectAll" />
     <div class="btns">
       <div @click="add">
         <img class="upBtn" src="../assets/image/up.png" alt />
@@ -89,10 +89,11 @@ export default {
     width: 100%;
   }
   .btns {
+    @radius: 5px;
     display: inline-block;
     background-color: rgb(221, 221, 221);
     width: @base*0.8;
-    // height: @base*0.85;
+    height: 100%;
     position: absolute;
     top: 0;
     right: 1px;
@@ -101,6 +102,8 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+    border-top-right-radius: @radius;
+    border-bottom-right-radius: @radius;
     div {
       width: 100%;
       height: 50%;
