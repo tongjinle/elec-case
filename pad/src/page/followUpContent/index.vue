@@ -309,7 +309,7 @@ export default {
     },
     fullBatteryStatus() {
       let item = config.BATTERY_STATUS.find(
-        n => n.value === this.list.paperVO.batteryStatus
+        n => n.value - 0 === this.list.paperVO.batteryStatus
       );
       return item ? item.name : "";
     },
@@ -695,7 +695,7 @@ export default {
             justify-content: flex-start;
             .tr {
               div {
-                width: @base*1.8;
+                width: @base*1.7;
                 height: @base / 2;
                 padding: 10px 10px;
                 border-right: 1px solid black;
