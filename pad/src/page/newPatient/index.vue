@@ -30,11 +30,11 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <input class="contentBody" v-model="phone" type="text" placeholder="手机号" />
+            <input class="contentBody" v-model="phone" type="number" placeholder="手机号" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <input class="contentBody" v-model="emergPhone" type="text" placeholder="紧急联系人号码" />
+            <input class="contentBody" v-model="emergPhone" type="number" placeholder="紧急联系人号码" />
           </div>
         </div>
       </div>
