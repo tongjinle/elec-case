@@ -30,7 +30,10 @@
             <!-- :changeHandle="changeDuration" -->
             <!-- :changeHandle="changeValue.bind(this,['duration'])" -->
             <!-- <NumberBox :value="1" @on-change="changeDuration"></NumberBox> -->
-            <NumberBox :value="1" @on-change="value=>this.duration=value"></NumberBox>
+            <NumberBox
+              :value="1"
+              @on-change="value => (this.duration = value)"
+            ></NumberBox>
           </div>
         </div>
       </div>
@@ -57,7 +60,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.threshold.a=value"
+                  @on-change="value => (this.threshold.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -69,7 +72,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.threshold.rv=value"
+                  @on-change="value => (this.threshold.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -81,7 +84,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.threshold.lv=value"
+                  @on-change="value => (this.threshold.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -96,7 +99,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.pulseWidth.a=value"
+                  @on-change="value => (this.pulseWidth.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -108,7 +111,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.pulseWidth.rv=value"
+                  @on-change="value => (this.pulseWidth.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -120,7 +123,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.pulseWidth.lv=value"
+                  @on-change="value => (this.pulseWidth.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -135,7 +138,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.perception.a=value"
+                  @on-change="value => (this.perception.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -147,7 +150,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.perception.rv=value"
+                  @on-change="value => (this.perception.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -159,7 +162,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.perception.lv=value"
+                  @on-change="value => (this.perception.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -175,7 +178,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.impedance.a=value"
+                  @on-change="value => (this.impedance.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -187,7 +190,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.impedance.rv=value"
+                  @on-change="value => (this.impedance.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -199,7 +202,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.impedance.lv=value"
+                  @on-change="value => (this.impedance.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -223,7 +226,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.down=value"
+                  @on-change="value => (this.down = value)"
                 ></NumberBox>
               </div>
               <div class="suffix">次/分钟</div>
@@ -236,7 +239,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.up=value"
+                  @on-change="value => (this.up = value)"
                 ></NumberBox>
               </div>
               <div class="suffix">次/分钟</div>
@@ -246,7 +249,9 @@
         <div class="mainer">
           <div class="mainerItemTitle"></div>
           <div class="mainerItem" style="text-align:center;width:3.3rem">A</div>
-          <div class="mainerItem" style="text-align:center;width:4.8rem">RV</div>
+          <div class="mainerItem" style="text-align:center;width:4.8rem">
+            RV
+          </div>
           <div class="mainerItem" style="text-align:center;width:3rem">LV</div>
         </div>
 
@@ -258,7 +263,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputVoltage.a=value"
+                  @on-change="value => (this.outputVoltage.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -270,7 +275,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputVoltage.rv=value"
+                  @on-change="value => (this.outputVoltage.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -282,7 +287,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputVoltage.lv=value"
+                  @on-change="value => (this.outputVoltage.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -297,7 +302,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPulseWidth.a=value"
+                  @on-change="value => (this.outputPulseWidth.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -309,7 +314,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPulseWidth.rv=value"
+                  @on-change="value => (this.outputPulseWidth.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -321,7 +326,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPulseWidth.lv=value"
+                  @on-change="value => (this.outputPulseWidth.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -336,7 +341,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPerception.a=value"
+                  @on-change="value => (this.outputPerception.a = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -348,7 +353,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPerception.rv=value"
+                  @on-change="value => (this.outputPerception.rv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -360,7 +365,7 @@
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
                   :value="''"
-                  @on-change="value=>this.outputPerception.lv=value"
+                  @on-change="value => (this.outputPerception.lv = value)"
                 ></NumberBox>
               </div>
               <div class="suffix"></div>
@@ -369,19 +374,27 @@
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知极性</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
+          <div
+            class="mainerItem"
+            v-for="(item, index) in ['a', 'rv', 'lv']"
+            :key="index"
+          >
             <DropDown
               :actions="perceivedPolaritys[item]"
-              @on-change="value=>changePerceivedPolaritys(item,value)"
+              @on-change="value => changePerceivedPolaritys(item, value)"
             />
           </div>
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">起搏极性</div>
-          <div class="mainerItem" v-for="(item, index) in ['a','rv','lv']" :key="index">
+          <div
+            class="mainerItem"
+            v-for="(item, index) in ['a', 'rv', 'lv']"
+            :key="index"
+          >
             <DropDown
               :actions="perceivedPolaritys[item]"
-              @on-change="value=>changePacingPolaritys(item,value)"
+              @on-change="value => changePacingPolaritys(item, value)"
             />
           </div>
         </div>
@@ -395,7 +408,10 @@
             %-->
             <div class="comb">
               <div class="inputplace">
-                <NumberBox :value="0" @on-change="val=>this.apRatio = val"></NumberBox>
+                <NumberBox
+                  :value="0"
+                  @on-change="val => (this.apRatio = val)"
+                ></NumberBox>
               </div>
               <div class="suffix">%</div>
             </div>
@@ -406,7 +422,10 @@
             %-->
             <div class="comb">
               <div class="inputplace">
-                <NumberBox :value="0" @on-change="val=>this.vpRatio = val"></NumberBox>
+                <NumberBox
+                  :value="0"
+                  @on-change="val => (this.vpRatio = val)"
+                ></NumberBox>
               </div>
               <div class="suffix">%</div>
             </div>
@@ -426,6 +445,7 @@
             preview-size="3rem"
             :max-count="1"
             :after-read="afterReadAtaf"
+            @delete="afterDeleteAtaf"
             v-model="atafImg"
           />
         </div>
@@ -447,6 +467,7 @@
                 preview-size="3rem"
                 :max-count="1"
                 :after-read="afterReadEf"
+                @delete="afterDeleteEf"
                 v-model="efImg"
               />
             </div>
@@ -468,6 +489,7 @@
                 preview-size="3rem"
                 :max-count="1"
                 :after-read="afterReadQrs"
+                @delete="afterDeleteQrs"
                 v-model="qrsImg"
               />
             </div>
@@ -583,13 +605,20 @@ export default {
     changePacingPolaritys(type, value) {
       this.pacingPolarity[type] = value;
     },
+    async afterDeleteAtaf(res) {
+      this.atafImgFile = "";
+    },
+    async afterDeleteEf(res) {
+      this.efImgFile = "";
+    },
+    async afterDeleteQrs(res) {
+      this.qrsImgFile = "";
+    },
     async afterReadAtaf(res) {
       this.atafImgFile = await this.afterRead(res);
     },
     async afterReadEf(res) {
       this.efImgFile = await this.afterRead(res);
-      console.log(this.efImg);
-      // this.efImgFile = { url: await this.afterRead(res), isImage: true };
     },
     async afterReadQrs(res) {
       this.qrsImgFile = await this.afterRead(res);
@@ -782,35 +811,24 @@ export default {
 
         this.apRatio = paperVO.apRatio;
         this.vpRatio = paperVO.vpRatio;
-        this.atafImg = [
-          {
-            url:
-              paperVO.atafImg.substring(paperVO.atafImg.length - 4) == ".jpg"
-                ? paperVO.atafImg
-                : paperVO.atafImg + ".jpg",
-            isImage: true
-          }
-        ];
+        let getImg = img => {
+          return img
+            ? [
+                {
+                  url:
+                    img.substring(img.length - 4) == ".jpg"
+                      ? img
+                      : img + ".jpg",
+                  isImage: true
+                }
+              ]
+            : [];
+        };
+        this.atafImg = getImg(paperVO.atafImg);
         this.efRatio = paperVO.efRatio;
-        this.efImg = [
-          {
-            url:
-              paperVO.efImg.substring(paperVO.efImg.length - 4) == ".jpg"
-                ? paperVO.efImg
-                : paperVO.efImg + ".jpg",
-            isImage: true
-          }
-        ];
+        this.efImg = getImg(paperVO.efImg);
         this.qrsRatio = paperVO.qrsRatio;
-        this.qrsImg = [
-          {
-            url:
-              paperVO.qrsImg.substring(paperVO.qrsImg.length - 4) == ".jpg"
-                ? paperVO.qrsImg
-                : paperVO.qrsImg + ".jpg",
-            isImage: true
-          }
-        ];
+        this.qrsImg = getImg(paperVO.qrsImg);
       } catch (err) {
         console.log(err.response.data.message, "1");
         if (err.response.data.message == "token非法！") {
