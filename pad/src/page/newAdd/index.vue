@@ -31,7 +31,8 @@
             <!-- :changeHandle="changeValue.bind(this,['duration'])" -->
             <!-- <NumberBox :value="1" @on-change="changeDuration"></NumberBox> -->
             <NumberBox
-              :value="1"
+              :validValue="1"
+              :value="duration"
               @on-change="value => (this.duration = value)"
             ></NumberBox>
           </div>
@@ -59,7 +60,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="threshold.a"
                   @on-change="value => (this.threshold.a = value)"
                 ></NumberBox>
               </div>
@@ -71,7 +73,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="threshold.rv"
                   @on-change="value => (this.threshold.rv = value)"
                 ></NumberBox>
               </div>
@@ -83,7 +86,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="threshold.lv"
                   @on-change="value => (this.threshold.lv = value)"
                 ></NumberBox>
               </div>
@@ -98,7 +102,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="pulseWidth.a"
                   @on-change="value => (this.pulseWidth.a = value)"
                 ></NumberBox>
               </div>
@@ -110,7 +115,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="pulseWidth.rv"
                   @on-change="value => (this.pulseWidth.rv = value)"
                 ></NumberBox>
               </div>
@@ -122,7 +128,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="pulseWidth.lv"
                   @on-change="value => (this.pulseWidth.lv = value)"
                 ></NumberBox>
               </div>
@@ -137,7 +144,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="perception.a"
                   @on-change="value => (this.perception.a = value)"
                 ></NumberBox>
               </div>
@@ -149,7 +157,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="perception.rv"
                   @on-change="value => (this.perception.rv = value)"
                 ></NumberBox>
               </div>
@@ -161,7 +170,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="perception.lv"
                   @on-change="value => (this.perception.lv = value)"
                 ></NumberBox>
               </div>
@@ -177,7 +187,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="impedance.a"
                   @on-change="value => (this.impedance.a = value)"
                 ></NumberBox>
               </div>
@@ -189,7 +200,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="impedance.rv"
                   @on-change="value => (this.impedance.rv = value)"
                 ></NumberBox>
               </div>
@@ -201,7 +213,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="impedance.lv"
                   @on-change="value => (this.impedance.lv = value)"
                 ></NumberBox>
               </div>
@@ -225,7 +238,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="down"
                   @on-change="value => (this.down = value)"
                 ></NumberBox>
               </div>
@@ -238,7 +252,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="up"
                   @on-change="value => (this.up = value)"
                 ></NumberBox>
               </div>
@@ -262,7 +277,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputVoltage.a"
                   @on-change="value => (this.outputVoltage.a = value)"
                 ></NumberBox>
               </div>
@@ -274,7 +290,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputVoltage.rv"
                   @on-change="value => (this.outputVoltage.rv = value)"
                 ></NumberBox>
               </div>
@@ -286,7 +303,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputVoltage.lv"
                   @on-change="value => (this.outputVoltage.lv = value)"
                 ></NumberBox>
               </div>
@@ -301,7 +319,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.a"
                   @on-change="value => (this.outputPulseWidth.a = value)"
                 ></NumberBox>
               </div>
@@ -313,7 +332,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.rv"
                   @on-change="value => (this.outputPulseWidth.rv = value)"
                 ></NumberBox>
               </div>
@@ -325,7 +345,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.lv"
                   @on-change="value => (this.outputPulseWidth.lv = value)"
                 ></NumberBox>
               </div>
@@ -340,7 +361,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.a"
                   @on-change="value => (this.outputPerception.a = value)"
                 ></NumberBox>
               </div>
@@ -352,7 +374,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.rv"
                   @on-change="value => (this.outputPerception.rv = value)"
                 ></NumberBox>
               </div>
@@ -364,7 +387,8 @@
               <div class="inputplace">
                 <NumberBox
                   :rule="/^\s*$|^\d+(\.\d+)?$/"
-                  :value="''"
+                  :validValue="''"
+                  :value="outputPulseWidth.lv"
                   @on-change="value => (this.outputPerception.lv = value)"
                 ></NumberBox>
               </div>
@@ -409,7 +433,8 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :value="0"
+                  :validValue="0"
+                  :value="apRatio"
                   @on-change="val => (this.apRatio = val)"
                 ></NumberBox>
               </div>
@@ -423,7 +448,8 @@
             <div class="comb">
               <div class="inputplace">
                 <NumberBox
-                  :value="0"
+                  :validValue="0"
+                  :value="vpRatio"
                   @on-change="val => (this.vpRatio = val)"
                 ></NumberBox>
               </div>
@@ -789,16 +815,18 @@ export default {
       }
     },
     async queryLast(id) {
+      console.log("使用服务器中上次提交的随访记录");
       try {
         let { data } = await bll.lastVisitDetail(id);
         let paperVO = data.paperVO;
-        console.log(paperVO);
+        console.log({ paperVO });
         // this.visitType = paperVO.;
         this.batteryStatus = paperVO.batteryStatus + "";
-        this.duration = paperVO.duration;
+        this.duration = paperVO.duration - 0;
+        console.log(paperVO.duration, this.duration);
         this.mode = paperVO.mode;
-        this.up = paperVO.up;
-        this.down = paperVO.down;
+        this.up = paperVO.up - 0;
+        this.down = paperVO.down - 0;
         this.threshold = paperVO.threshold;
         this.pulseWidth = paperVO.pulseWidth;
         this.perception = paperVO.perception;
@@ -811,30 +839,35 @@ export default {
 
         this.apRatio = paperVO.apRatio;
         this.vpRatio = paperVO.vpRatio;
-        let getImg = img => {
-          return img
-            ? [
-                {
-                  url:
-                    img.substring(img.length - 4) == ".jpg"
-                      ? img
-                      : img + ".jpg",
-                  isImage: true
-                }
-              ]
-            : [];
-        };
-        this.atafImg = getImg(paperVO.atafImg);
+
+        this.atafImg = this._getImgObjFromUrl(paperVO.atafImg);
+        this.atafImgFile = paperVO.atafImg;
         this.efRatio = paperVO.efRatio;
-        this.efImg = getImg(paperVO.efImg);
+        this.efImg = this._getImgObjFromUrl(paperVO.efImg);
+        this.efImgFile = paperVO.efImg;
         this.qrsRatio = paperVO.qrsRatio;
-        this.qrsImg = getImg(paperVO.qrsImg);
+        this.qrsImg = this._getImgObjFromUrl(paperVO.qrsImg);
+        this.qrsImgFile = paperVO.qrsImg;
       } catch (err) {
         console.log(err.response.data.message, "1");
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });
         }
       }
+    },
+    // 从一个url中生成一个供vant的uploader控件使用的对象
+    _getImgObjFromUrl(imageUrl) {
+      return imageUrl
+        ? [
+            {
+              url:
+                imageUrl.substring(imageUrl.length - 4) == ".jpg"
+                  ? imageUrl
+                  : imageUrl + ".jpg",
+              isImage: true
+            }
+          ]
+        : [];
     },
     async _mock() {
       console.log("mock");
@@ -938,33 +971,12 @@ export default {
       this.vpRatio = data.vpRatio;
       this.efRatio = data.efRatio;
       this.qrsRatio = data.qrsRatio;
-      this.atafImg = [
-        {
-          url:
-            data.atafImg.substring(data.atafImg.length - 4) == ".jpg"
-              ? data.atafImg
-              : data.atafImg + ".jpg",
-          isImage: true
-        }
-      ];
-      this.efImg = [
-        {
-          url:
-            data.efImg.substring(data.efImg.length - 4) == ".jpg"
-              ? data.efImg
-              : data.efImg + ".jpg",
-          isImage: true
-        }
-      ];
-      this.qrsImg = [
-        {
-          url:
-            data.qrsImg.substring(data.qrsImg.length - 4) == ".jpg"
-              ? data.qrsImg
-              : data.qrsImg + ".jpg",
-          isImage: true
-        }
-      ];
+      this.atafImg = this._getImgObjFromUrl(data.atafImg);
+      this.atafImgFile = data.atafImg;
+      this.efImg = this._getImgObjFromUrl(data.efImg);
+      this.efImgFile = data.efImg;
+      this.qrsImg = this._getImgObjFromUrl(data.qrsImg);
+      this.qrsImgFile = data.qrsImg;
     } else {
       console.log(1, this.patientId);
       await this.queryLast(this.patientId);

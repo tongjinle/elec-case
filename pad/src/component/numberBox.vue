@@ -16,6 +16,9 @@
 export default {
   name: "numberBox",
   props: {
+    // 合法值,当用户输入非法的时候,val会退回成validValue,作为一种保护机制
+    validValue: 0,
+    // 来自父级的传值
     value: 0,
     rule: {
       type: RegExp,
@@ -30,10 +33,14 @@ export default {
       val: 0
     };
   },
-  mounted() {
-    this.val = this.value;
-    console.log("numberBox mounted:", this.val);
-    this.change();
+
+  mounted() {},
+  watch: {
+    value() {
+      this.val = this.value;
+      console.log("numberBox mounted:", this.val);
+      this.change();
+    }
   },
   methods: {
     // 点击就选择文本
@@ -44,7 +51,7 @@ export default {
       if (!this.rule.test(this.val)) {
         // this.val = 0;
         console.log(this.rule, this.val);
-        this.val = this.value;
+        this.val = this.validValue;
       }
       {
         let val = this.val;
