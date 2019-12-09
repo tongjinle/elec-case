@@ -1,7 +1,7 @@
 <template>
   <div class="dropDown">
     <div class="box" @click="showitem">
-      <input type="text" disabled v-model="value" />
+      <input type="text" disabled v-model="val" />
       <img src="../assets/image/s@2x.png" alt />
     </div>
     <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
@@ -12,6 +12,7 @@
 export default {
   name: "dropDown",
   props: {
+    value: "",
     actions: {
       type: Array,
       default: function() {
@@ -21,26 +22,44 @@ export default {
   },
   data() {
     return {
-      value: "",
+      val: "",
       show: false
     };
   },
-  mounted() {
-    if (!this.value && this.actions.length) {
-      this.onSelect(this.actions[0]);
+  watch: {
+    value() {
+      this.setValue();
+      if (this.actions) {
+        let item = this.actions.find(n => n.value === this.value);
+        this.val = item.name;
+        this.$emit("on-change", item.value);
+      }
     }
+  },
+  mounted() {
+    this.setValue();
   },
   updated() {
     // console.log("updated", this.actions);
-    if (!this.value && this.actions.length) {
-      this.onSelect(this.actions[0]);
-    }
+    // if (!this.val && this.actions.length) {
+    //   this.onSelect(this.actions[0]);
+    // }
   },
   methods: {
+    setValue() {
+      console.log("dropdown setvalue");
+      if (this.value) {
+        this.val = this.value;
+      } else {
+        if (!this.val && this.actions.length) {
+          this.onSelect(this.actions[0]);
+        }
+      }
+    },
     onSelect(item) {
       // 点击选项时默认不会关闭菜单，可以手动关闭
       this.show = false;
-      this.value = item.name;
+      this.val = item.name;
       this.$emit("on-change", item.value);
     },
     showitem() {

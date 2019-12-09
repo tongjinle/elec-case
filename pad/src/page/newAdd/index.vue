@@ -404,6 +404,7 @@
             :key="index"
           >
             <DropDown
+              :value="perceivedPolarity[item]"
               :actions="perceivedPolaritys[item]"
               @on-change="value => changePerceivedPolaritys(item, value)"
             />
@@ -417,7 +418,8 @@
             :key="index"
           >
             <DropDown
-              :actions="perceivedPolaritys[item]"
+              :value="pacingPolarity[item]"
+              :actions="pacingPolaritys[item]"
               @on-change="value => changePacingPolaritys(item, value)"
             />
           </div>
@@ -788,6 +790,8 @@ export default {
           outputVoltage: this.outputVoltage,
           outputPulseWidth: this.outputPulseWidth,
           outputPerception: this.outputPerception,
+          perceivedPolarity: this.perceivedPolarity,
+          pacingPolarity: this.pacingPolarity,
           apRatio: this.apRatio,
           vpRatio: this.vpRatio,
           ataf: this.ataf,
@@ -834,8 +838,10 @@ export default {
         this.outputVoltage = paperVO.outputVoltage;
         this.outputPulseWidth = paperVO.outputPulseWidth;
         this.outputPerception = paperVO.outputPerception;
-        this.pacingPolarity = paperVO.pacingPolarity;
-        this.perceivedPolarity = paperVO.perceivedPolarity;
+        paperVO.pacingPolarity &&
+          (this.pacingPolarity = paperVO.pacingPolarity);
+        paperVO.perceivedPolarity &&
+          (this.perceivedPolarity = paperVO.perceivedPolarity);
 
         this.apRatio = paperVO.apRatio;
         this.vpRatio = paperVO.vpRatio;
@@ -880,9 +886,9 @@ export default {
         rv: config.POLARS
       };
       this.perceivedPolarity = {
-        a: config.POLARS[0],
-        lv: config.POLARS[0],
-        rv: config.POLARS[0]
+        a: config.POLARS[0].value,
+        lv: config.POLARS[0].value,
+        rv: config.POLARS[0].value
       };
       this.pacingPolaritys = {
         a: config.POLARS,
@@ -890,9 +896,9 @@ export default {
         rv: config.POLARS
       };
       this.pacingPolarity = {
-        a: config.POLARS[0],
-        lv: config.POLARS[0],
-        rv: config.POLARS[0]
+        a: config.POLARS[0].value,
+        lv: config.POLARS[0].value,
+        rv: config.POLARS[0].value
       };
       // 电池状态
       this.batteryStatus = "1";
@@ -938,9 +944,9 @@ export default {
       rv: config.POLARS
     };
     this.perceivedPolarity = {
-      a: config.POLARS[0],
-      lv: config.POLARS[0],
-      rv: config.POLARS[0]
+      a: config.POLARS[0].value,
+      lv: config.POLARS[0].value,
+      rv: config.POLARS[0].value
     };
     this.pacingPolaritys = {
       a: config.POLARS,
@@ -948,9 +954,9 @@ export default {
       rv: config.POLARS
     };
     this.pacingPolarity = {
-      a: config.POLARS[0],
-      lv: config.POLARS[0],
-      rv: config.POLARS[0]
+      a: config.POLARS[0].value,
+      lv: config.POLARS[0].value,
+      rv: config.POLARS[0].value
     };
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);

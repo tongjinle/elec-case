@@ -39,7 +39,7 @@
           <DropDown :actions="timeSteps" @on-change="changeTime" />
         </div>
         <div class="choseItem">
-          <div>{{nextDate}}</div>
+          <div>{{ nextDate }}</div>
         </div>
         <div class="foot">
           <button @click="submit">提交</button>
@@ -50,15 +50,15 @@
       <div class="item">
         <div class="mainer">
           <div class="title">随访日期：</div>
-          <div class="msg">{{today}}</div>
+          <div class="msg">{{ today }}</div>
         </div>
         <div class="mainer">
           <div class="title">随访医师：</div>
-          <div class="msg">{{doctorName}}</div>
+          <div class="msg">{{ doctorName }}</div>
         </div>
         <div class="mainer">
           <div class="title">随访种类：</div>
-          <div class="msg">{{fullCategory}}</div>
+          <div class="msg">{{ fullCategory }}</div>
         </div>
       </div>
       <div class="itemContent">
@@ -67,11 +67,11 @@
           <div class="msgBox">
             <div class="mainer">
               <div class="contentBoxTitle">1.电池状态：</div>
-              <div class="msg">{{fullBatteryStatus}}</div>
+              <div class="msg">{{ fullBatteryStatus }}</div>
             </div>
             <div class="mainer">
               <div class="contentBoxTitle">预估平均使用寿命：</div>
-              <div class="msg">{{fullDuration}}</div>
+              <div class="msg">{{ fullDuration }}</div>
             </div>
           </div>
           <div class="tableBox">
@@ -85,32 +85,32 @@
               </div>
               <div class="tr">
                 <div class="td">阈值（V）</div>
-                <div>{{threshold.a}}</div>
-                <div>{{threshold.rv}}</div>
-                <div>{{threshold.lv}}</div>
+                <div>{{ threshold.a }}</div>
+                <div>{{ threshold.rv }}</div>
+                <div>{{ threshold.lv }}</div>
               </div>
               <div class="tr">
                 <div class="td">脉宽（ms）</div>
-                <div>{{pulseWidth.a}}</div>
-                <div>{{pulseWidth.rv}}</div>
-                <div>{{pulseWidth.lv}}</div>
+                <div>{{ pulseWidth.a }}</div>
+                <div>{{ pulseWidth.rv }}</div>
+                <div>{{ pulseWidth.lv }}</div>
               </div>
               <div class="tr">
                 <div class="td">P/P波（mv）</div>
-                <div>{{perception.a}}</div>
-                <div>{{perception.rv}}</div>
-                <div>{{perception.lv}}</div>
+                <div>{{ perception.a }}</div>
+                <div>{{ perception.rv }}</div>
+                <div>{{ perception.lv }}</div>
               </div>
               <div class="tr">
                 <div class="td">起搏阻抗（Ω）</div>
-                <div>{{impedance.a}}</div>
-                <div>{{impedance.rv}}</div>
-                <div>{{impedance.lv}}</div>
+                <div>{{ impedance.a }}</div>
+                <div>{{ impedance.rv }}</div>
+                <div>{{ impedance.lv }}</div>
               </div>
               <div class="tr">
                 <div class="td">起搏百分比（%）</div>
-                <div>{{apRatio}}</div>
-                <div>{{vpRatio}}</div>
+                <div>{{ apRatio }}</div>
+                <div>{{ vpRatio }}</div>
                 <div></div>
               </div>
             </div>
@@ -124,9 +124,9 @@
                 <div>上限跟踪频率(次/min)</div>
               </div>
               <div class="tr">
-                <div class="td">{{fullMode}}</div>
-                <div>{{down}}次/分钟</div>
-                <div>{{up}}次/分钟</div>
+                <div class="td">{{ fullMode }}</div>
+                <div>{{ down }}次/分钟</div>
+                <div>{{ up }}次/分钟</div>
               </div>
               <div class="tr">
                 <div class="td">右房电极</div>
@@ -135,8 +135,8 @@
               </div>
               <div class="tr">
                 <div class="td">单/双</div>
-                <div>{{outputVoltage.a}}/{{outputPulseWidth.a}}</div>
-                <div>{{outputPerception.a}}mv</div>
+                <div>{{ outputVoltage.a }}/{{ outputPulseWidth.a }}</div>
+                <div>{{ outputPerception.a }}mv</div>
               </div>
               <div class="tr">
                 <div class="td">右室电极</div>
@@ -145,8 +145,8 @@
               </div>
               <div class="tr">
                 <div class="td">单/双</div>
-                <div>{{outputVoltage.rv}}/{{outputPulseWidth.rv}}</div>
-                <div>{{outputPerception.rv}}mv</div>
+                <div>{{ outputVoltage.rv }}/{{ outputPulseWidth.rv }}</div>
+                <div>{{ outputPerception.rv }}mv</div>
               </div>
               <div class="tr">
                 <div class="td">左室电极</div>
@@ -155,18 +155,20 @@
               </div>
               <div class="tr">
                 <div class="td">单/双</div>
-                <div>{{outputVoltage.lv}}/{{outputPulseWidth.lv}}</div>
-                <div>{{outputPerception.lv}}mv</div>
+                <div>{{ outputVoltage.lv }}/{{ outputPulseWidth.lv }}</div>
+                <div>{{ outputPerception.lv }}mv</div>
               </div>
             </div>
           </div>
           <div class="massageBox">
             <div class="title">4.诊断信息</div>
-            <div class="msgContent">AT/AF：{{ataf==true?'有AT/AF异常':'无异常'}}</div>
+            <div class="msgContent">
+              AT/AF：{{ ataf == true ? "有AT/AF异常" : "无异常" }}
+            </div>
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
-            <div class="msgContent">{{advise==''?'无':advise}}</div>
+            <div class="msgContent">{{ advise == "" ? "无" : advise }}</div>
           </div>
         </div>
       </div>
@@ -322,6 +324,8 @@ export default {
       }
     },
     async changeTime(value) {
+      console.log(".....................................");
+      console.log(value);
       this.timeStep = value;
       try {
         let { data } = await bll.date(4, value);
@@ -509,7 +513,7 @@ export default {
         align-items: center;
         margin-right: @base / 2;
         .title {
-          width: @base*1.8;
+          width: @base*1.7;
           margin-right: @base / 3;
         }
         .msg {
@@ -554,7 +558,7 @@ export default {
             justify-content: flex-start;
             .tr {
               div {
-                width: @base*1.8;
+                width: @base*1.7;
                 height: @base / 2;
                 padding: 10px 10px;
                 border-right: 1px solid black;

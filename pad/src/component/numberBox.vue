@@ -34,11 +34,13 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.val = this.value;
+    this.change();
+  },
   watch: {
     value() {
       this.val = this.value;
-      console.log("numberBox mounted:", this.val);
       this.change();
     }
   },
