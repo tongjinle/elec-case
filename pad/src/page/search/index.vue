@@ -14,28 +14,34 @@
             placeholder="请输入患者姓名"
             @keyup.enter="search"
           />
-          <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
+          <img
+            class="photoImg"
+            src="../../assets/image/phot@2x.png"
+            alt
+            @click="scan"
+          />
         </div>
         <div class="add" @click="onAdd">新增患者</div>
       </div>
-      <div class="list" v-if="list.length!=0">
+      <div class="list" v-if="list.length != 0">
         <div class="title">患者</div>
         <div class="item">
           <VisitorCard
-            v-for="(item,index) in fullList"
+            v-for="(item, index) in fullList"
             :key="index"
             :doctorName="item.doctorName"
             :patientName="item.patientName"
             :visitTime="item.visitTime"
             :deviceId="item.deviceId"
             :deviceCate="item.deviceCate"
+            :editPatientHandle="item.editPatient"
             :addVisitHandle="item.addVisit"
             :viewVisitHandle="item.viewVisit"
             @on-gotoDetails="gotoDetails(item.id)"
           />
         </div>
       </div>
-      <div class="card" v-if="list.length===0 && !isFirst">
+      <div class="card" v-if="list.length === 0 && !isFirst">
         <div class="mainer">
           <img src="../../assets/image/kong@2x.png" alt />
           <div>没有数据哦~</div>
@@ -81,6 +87,9 @@ export default {
           },
           viewVisit: () => {
             this.viewVisit(n);
+          },
+          editPatient: () => {
+            this.editPatient(n);
           }
         };
       });
@@ -134,7 +143,12 @@ export default {
       }
     },
     scan() {},
-
+    editPatient(item) {
+      this.$router.push({
+        name: "newPatient",
+        query: { id: item.id }
+      });
+    },
     addVisit(item) {
       console.log("新增随访", item);
       this.$router.push({

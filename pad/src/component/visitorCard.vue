@@ -4,24 +4,25 @@
       <div class="cardLeft" @click="gotoDetails">
         <div class="up">
           姓名
-          <span>{{patientName}}</span>
+          <span>{{ patientName }}</span>
         </div>
         <div class="down">
           <div class="item name">
             医生
-            <span style="margin-left:0.42rem">{{doctorName}}</span>
+            <span style="margin-left:0.42rem">{{ doctorName }}</span>
           </div>
           <div class="item">
             上次随访
-            <span>{{visitTime}}</span>
+            <span>{{ visitTime }}</span>
           </div>
           <div class="item">
             机器型号
-            <span>{{deviceCate}}</span>
+            <span>{{ deviceCate }}</span>
           </div>
         </div>
       </div>
       <div class="cardRight">
+        <button class="btnBlue" @click="onEditPatient">编辑</button>
         <button class="btnBlue" @click="onAddVisit">添加随访</button>
         <button class="btnWhite" @click="onViewVisit">随访记录</button>
       </div>
@@ -40,6 +41,7 @@ export default {
     patientName: String,
     visitTime: String,
     deviceCate: String,
+    editPatientHandle: Function,
     addVisitHandle: Function,
     viewVisitHandle: Function
   },
@@ -54,6 +56,10 @@ export default {
     }
   },
   methods: {
+    onEditPatient() {
+      console.log("onEditPatient..");
+      this.editPatientHandle && this.editPatientHandle();
+    },
     onAddVisit() {
       console.log("onAddVisit:", this.addVisitHandle);
       this.addVisitHandle && this.addVisitHandle();

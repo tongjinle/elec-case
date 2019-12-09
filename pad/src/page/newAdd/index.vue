@@ -228,7 +228,7 @@
         <div class="mainer">
           <div class="mainerItemTitle">起搏模式：</div>
           <div class="mainerItem" style="width:5rem">
-            <DropDown :actions="modes" @on-change="changeMode" />
+            <DropDown :value="mode" :actions="modes" @on-change="changeMode" />
           </div>
         </div>
         <div class="mainer">

@@ -32,11 +32,19 @@
         </div>
         <div class="choseItem">
           <div>随访医师：</div>
-          <DropDown :actions="doctors" @on-change="changeDoctor" />
+          <DropDown
+            :value="doctor"
+            :actions="doctors"
+            @on-change="changeDoctor"
+          />
         </div>
         <div class="choseItem">
           <div>下次时间：</div>
-          <DropDown :actions="timeSteps" @on-change="changeTime" />
+          <DropDown
+            :value="timeStep"
+            :actions="timeSteps"
+            @on-change="changeTime"
+          />
         </div>
         <div class="choseItem">
           <div>{{ nextDate }}</div>
@@ -228,7 +236,7 @@ export default {
       // 设置事件
       isShezhi: false,
       // 时间步长
-      timeStep: 0,
+      timeStep: 1,
       timeSteps: [],
 
       showRight: false,
@@ -396,6 +404,7 @@ export default {
           };
         });
         this.doctors = doctors;
+        this.doctor = this.doctors[0].value;
       } catch (err) {
         if (err.response.data.message == "token非法！") {
           this.$router.push({ path: "login" });

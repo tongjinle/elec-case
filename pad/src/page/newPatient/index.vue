@@ -13,7 +13,12 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <input class="contentBody" v-model="name" type="text" placeholder="患者姓名" />
+            <input
+              class="contentBody"
+              v-model="name"
+              type="text"
+              placeholder="患者姓名"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
@@ -24,17 +29,31 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <ChooseDateTime class="contentBody" :value="birth" :chooseTimeHandle="chooseBirth" />
+            <ChooseDateTime
+              class="contentBody"
+              :value="birth"
+              :chooseTimeHandle="chooseBirth"
+            />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <input class="contentBody" v-model="phone" type="number" placeholder="手机号" />
+            <input
+              class="contentBody"
+              v-model="phone"
+              type="number"
+              placeholder="手机号"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <input class="contentBody" v-model="emergPhone" type="number" placeholder="紧急联系人号码" />
+            <input
+              class="contentBody"
+              v-model="emergPhone"
+              type="number"
+              placeholder="紧急联系人号码"
+            />
           </div>
         </div>
       </div>
@@ -51,29 +70,59 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">医师</div>
-            <DropDown class="contentBody" :actions="doctors" @on-change="chooseDoctor" />
+            <DropDown
+              class="contentBody"
+              :value="doctorId"
+              :actions="doctors"
+              @on-change="chooseDoctor"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">植入原因</div>
-            <DropDown class="contentBody" :actions="plantReasons" @on-change="choosePlantReason" />
+            <DropDown
+              class="contentBody"
+              :value="plantReason"
+              :actions="plantReasons"
+              @on-change="choosePlantReason"
+            />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">厂家</div>
-            <DropDown class="contentBody" :actions="factories" @on-change="chooseFactory" />
+            <DropDown
+              class="contentBody"
+              :value="factoryId"
+              :actions="factories"
+              @on-change="chooseFactory"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">类别</div>
-            <DropDown class="contentBody" :actions="categories" @on-change="chooseCategory" />
+            <DropDown
+              class="contentBody"
+              :value="deviceCate"
+              :actions="categories"
+              @on-change="chooseCategory"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">型号</div>
-            <input class="contentBody" type="text" placeholder="请输入型号" v-model="deviceModel" />
+            <input
+              class="contentBody"
+              type="text"
+              placeholder="请输入型号"
+              v-model="deviceModel"
+            />
           </div>
           <div class="itemContent">
             <div class="contentTitle">序列号</div>
-            <input class="contentBody" type="text" placeholder="请输入序列号" v-model="deviceNo" />
+            <input
+              class="contentBody"
+              type="text"
+              placeholder="请输入序列号"
+              v-model="deviceNo"
+            />
           </div>
         </div>
       </div>
@@ -138,6 +187,13 @@ export default {
   components: { ChooseDateTime, DropDown, AddButton },
   data() {
     return {
+      // 模式
+      // mode===0,表示是新增模式
+      // mode===1,表示是编辑模式
+      mode: 0,
+      // 患者id
+      // 只有在mode===1的时候,才有意义
+      patientId: "",
       // 患者名字
       name: "",
       // 患者性别
@@ -223,6 +279,16 @@ export default {
   mounted() {
     // mock
     // this._mock();
+
+    let query = this.$route.query;
+    let id = query.id;
+    if (id) {
+      this.patientId = id;
+      this.mode = 1;
+      // 如果id存在,表示要对一个现在存在的患者进行编辑
+      console.log("编辑现有的患者");
+      this.queryPatientById(id);
+    }
   },
   methods: {
     _mock() {
@@ -237,6 +303,29 @@ export default {
       this.deviceNo = "taro";
       this.plantBaseEf = "99";
       this.plantBaseQrs = "88";
+    },
+    async queryPatientById(patientId) {
+      let res = await bll.patient(patientId);
+      if (res.status === 200) {
+        let data = res.data;
+        this.name = data.name;
+        this.sex = data.sex + "";
+        this.birth = new Date(data.birth);
+        this.phone = data.phone;
+        this.emergPhone = data.emergPhone;
+        let psmk = data.psmk;
+        this.plantTime = new Date(psmk.plantTime);
+        this.doctorId = psmk.doctorId;
+        this.plantReason = psmk.plantReason;
+        this.factoryId = psmk.factoryId;
+        this.deviceCate = psmk.deviceCate;
+        this.deviceModel = psmk.deviceModel;
+        this.deviceNo = psmk.deviceNo;
+        this.plantBaseEf = psmk.plantBaseEf + "";
+        this.plantBaseQrs = psmk.plantBaseQrs + "";
+      } else {
+        this.$router.push({ name: "login" });
+      }
     },
     checkParams() {
       var mobilePtn = /^1[34578][0-9]{9}$/;
@@ -283,13 +372,16 @@ export default {
         cancelButtonText: "继续编辑"
       }).then(() => {
         // on confirm
-        this.addPatient();
+        if (this.mode === 0) {
+          this.addPatient();
+        } else {
+          this.editPatient();
+        }
       });
     },
-    async addPatient() {
-      console.log("add patient");
 
-      let data = {
+    _packData() {
+      return {
         name: this.name,
         sex: this.sex,
         birth: bll.timeToString(this.birth),
@@ -314,6 +406,29 @@ export default {
           doctorId: this.doctorId
         }
       };
+    },
+    async editPatient() {
+      console.log("edit patient");
+      let data = this._packData();
+
+      data.id = this.patientId;
+      try {
+        let res = await bll.editPatient(data);
+        console.log(res);
+        this.$router.push({
+          path: "search",
+          query: { id: res.data.id, name: res.data.name }
+        });
+      } catch (err) {
+        if (err.response.data.message == "token非法！") {
+          this.$router.push({ path: "login" });
+        }
+      }
+    },
+    async addPatient() {
+      console.log("add patient");
+      let data = this._packData();
+
       try {
         let res = await bll.addPatient(data);
         console.log(res);
@@ -326,7 +441,6 @@ export default {
           this.$router.push({ path: "login" });
         }
       }
-      // this.gotoDetails();
     },
     async afterRead(res) {
       let file = res.file;

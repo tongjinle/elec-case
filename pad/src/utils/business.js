@@ -71,6 +71,11 @@ export function addPatient(data) {
   return createRequest().post("elecase/patients", data);
 }
 
+// 编辑患者
+export function editPatient(data) {
+  return createRequest().put("elecase/patients/", data);
+}
+
 // 查找患者
 export function patient(id) {
   return createRequest().get("elecase/patients/" + id);
