@@ -4,6 +4,7 @@
       <div class="left">
         <img @click="getBack()" src="../../assets/image/back.png" alt />
         <img style="margin-left:10px;" src="../../assets/image/printing.png" alt />
+        <img @click="gotoEdit()" style="margin-left:10px;" src="../../assets/image/editor.png" alt />
       </div>
       <p>随访详情</p>
       <div class="right">
@@ -225,26 +226,6 @@ export default {
       //
       batteryStatus: "",
       duration: "",
-      // // 电极阈值
-      // threshold: { a: "", rv: "", lv: "" },
-      // // 电极脉宽
-      // pulseWidth: { a: "", rv: "", lv: "" },
-      // // 电极感知
-      // perception: { a: "", rv: "", lv: "" },
-      // // 电极阻抗
-      // impedance: { a: "", rv: "", lv: "" },
-      // up: "",
-      // down: "",
-      // // 输出电压
-      // outputVoltage: { a: "", rv: "", lv: "" },
-      // // 输出脉宽
-      // outputPulseWidth: { a: "", rv: "", lv: "" },
-      // // 输出感知
-      // outputPerception: { a: "", rv: "", lv: "" },
-      // ataf
-      // ataf: "",
-      // apRatio: "",
-      // vpRatio: "",
       // 等待选择的医生们
       doctors: [],
       // 事件选择
@@ -358,41 +339,16 @@ export default {
     }
   },
   methods: {
-    async submit() {
-      try {
-        let prevData = bll.getVisitData();
-        console.log(prevData);
-        let data = {
-          ...prevData,
-          nextDate: this.nextDate,
-          doctorId: this.doctor,
-          advise: this.advise,
-          events: this.events,
-          ataf: prevData.ataf ? prevData.ataf : "",
-          efImg: prevData.efImg ? prevData.efImg : "",
-          qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
-          apRatio: prevData.apRatio,
-          vpRatio: prevData.vpRatio
-        };
-        console.log("submit data:", data);
-        try {
-          let res = await bll.addVisit(this.patientId, data);
-          console.log("after submit add visit:", res);
-          this.$router.push({
-            path: "visitorDetails",
-            query: { id: prevData.patientId, name: this.$route.query.name }
-          });
-        } catch (err) {
-          if (err.response.data.message == "token非法！") {
-            this.$router.push({ path: "login" });
-          }
-        }
-      } catch (err) {
-        if (err.response.data.message == "token非法！") {
-          this.$router.push({ path: "login" });
-        }
-      }
+    // 转去编辑随访页面
+    gotoEdit() {
+      let visitId = this.visitId;
+      console.log("转去编辑随访页面", visitId);
+      this.$router.push({
+        name: "newAdd",
+        query: { visitId }
+      });
     },
+
     async changeTime(value) {
       this.timeStep = value;
       try {
@@ -446,7 +402,8 @@ export default {
   },
   async beforeMount() {
     try {
-      let list = await bll.visitDetail(this.$route.query.id);
+      this.visitId = this.$route.query.id;
+      let list = await bll.visitDetail(this.visitId);
       console.log(list);
       this.list = list.data;
     } catch (err) {
@@ -522,34 +479,6 @@ export default {
         };
       }
     }
-    // this.getVisitData();
-    // {
-    //   try {
-    //     let { data } = await bll.doctors();
-    //     console.log(data);
-    //     let doctors = data.map(n => {
-    //       return {
-    //         value: n.id,
-    //         name: n.name
-    //       };
-    //     });
-    //     this.doctors = doctors;
-    //   } catch (err) {
-    //     if (err.response.data.message == "token非法！") {
-    //       this.$router.push({ path: "login" });
-    //     }
-    //   }
-    // }
-    // {
-    //   let timeSteps = [
-    //     { value: 1, name: "一个月后" },
-    //     { value: 2, name: "两个月后" },
-    //     { value: 3, name: "三个月后" },
-    //     { value: 6, name: "半年后" },
-    //     { value: 12, name: "一年后" }
-    //   ];
-    //   this.timeSteps = timeSteps;
-    // }
   }
 };
 </script>
@@ -566,7 +495,7 @@ export default {
     width: 100%;
     .left,
     .right {
-      width: 10%;
+      padding: 0 10px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -585,7 +514,7 @@ export default {
     //   }
     // }
     p {
-      width: 80%;
+      flex: 1;
       font-size: @base / 3;
       text-align: center;
       margin: 0;

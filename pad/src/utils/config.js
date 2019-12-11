@@ -56,3 +56,11 @@ export const POLARS = [
   { value: "单", name: "单" },
   { value: "双", name: "双" }
 ];
+
+export const TIME_STEPS = [
+  { value: 1, name: "一个月后" },
+  { value: 2, name: "两个月后" },
+  { value: 3, name: "三个月后" },
+  { value: 6, name: "半年后" },
+  { value: 12, name: "一年后" }
+];

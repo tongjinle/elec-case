@@ -104,6 +104,12 @@ export function addVisit(patientId, data) {
   return createRequest().post("elecase/visits/patient/" + patientId, data);
 }
 
+// 修改随访
+export function editVisit(visitId, patientId, data) {
+  data = { ...data, id: visitId, patientId };
+  return createRequest().put("elecase/visits/", data);
+}
+
 export function setVisitData(data) {
   console.log(data);
   localStorage.setItem("visitData", JSON.stringify(data));

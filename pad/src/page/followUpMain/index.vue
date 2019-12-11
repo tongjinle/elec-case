@@ -32,19 +32,11 @@
         </div>
         <div class="choseItem">
           <div>随访医师：</div>
-          <DropDown
-            :value="doctor"
-            :actions="doctors"
-            @on-change="changeDoctor"
-          />
+          <DropDown :value="doctor" :actions="doctors" @on-change="changeDoctor" />
         </div>
         <div class="choseItem">
           <div>下次时间：</div>
-          <DropDown
-            :value="timeStep"
-            :actions="timeSteps"
-            @on-change="changeTime"
-          />
+          <DropDown :value="timeStep" :actions="timeSteps" @on-change="changeTime" />
         </div>
         <div class="choseItem">
           <div>{{ nextDate }}</div>
@@ -170,9 +162,7 @@
           </div>
           <div class="massageBox">
             <div class="title">4.诊断信息</div>
-            <div class="msgContent">
-              AT/AF：{{ ataf == true ? "有AT/AF异常" : "无异常" }}
-            </div>
+            <div class="msgContent">AT/AF：{{ ataf == true ? "有AT/AF异常" : "无异常" }}</div>
           </div>
           <div class="massageBox">
             <div class="title">5.医生建议</div>
@@ -195,6 +185,12 @@ export default {
   components: { ChooseDateTime, DropDown },
   data() {
     return {
+      // 模式
+      // 0 新增模式
+      // 1 编辑模式
+      editMode: 0,
+      // 编辑模式下的随访id
+      visitId: "",
       patientId: "",
       today: undefined,
       nextDate: "",
@@ -298,23 +294,31 @@ export default {
     async submit() {
       try {
         let prevData = bll.getVisitData();
-        console.log(prevData);
+        // console.log(
+        //   { prevData },
+        //   JSON.stringify(prevData, undefined, 4),
+        //   Object.keys(prevData)
+        // );
         let data = {
           ...prevData,
           nextDate: this.nextDate,
           doctorId: this.doctor,
           advise: this.advise,
-          events: this.events,
-          ataf: prevData.ataf ? prevData.ataf : "",
-          efImg: prevData.efImg ? prevData.efImg : "",
-          qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
-          apRatio: prevData.apRatio.toString(),
-          vpRatio: prevData.vpRatio.toString()
+          events: this.events
+          // ataf: prevData.ataf ? prevData.ataf : "",
+          // efImg: prevData.efImg ? prevData.efImg : "",
+          // qrsImg: prevData.qrsImg ? prevData.qrsImg : "",
+          // apRatio: prevData.apRatio.toString(),
+          // vpRatio: prevData.vpRatio.toString()
         };
         console.log("submit data:", data);
         try {
-          let res = await bll.addVisit(this.patientId, data);
-          console.log("after submit add visit:", res);
+          if (this.editMode === 0) {
+            let res = await bll.addVisit(this.patientId, data);
+            console.log("after submit add visit:", res);
+          } else {
+            let res = await bll.editVisit(this.visitId, this.patientId, data);
+          }
           localStorage.removeItem("visitData");
           this.$router.push({
             path: "visitorDetails",
@@ -391,6 +395,14 @@ export default {
     }
   },
   async mounted() {
+    // 确定编辑模式
+    let query = this.$route.query;
+    let visitId = query.visitId;
+    if (visitId) {
+      this.editMode = 1;
+      this.visitId = visitId;
+    }
+
     this.today = bll.timeToString(new Date());
     this.getVisitData();
     {
@@ -412,14 +424,42 @@ export default {
       }
     }
     {
-      let timeSteps = [
-        { value: 1, name: "一个月后" },
-        { value: 2, name: "两个月后" },
-        { value: 3, name: "三个月后" },
-        { value: 6, name: "半年后" },
-        { value: 12, name: "一年后" }
-      ];
-      this.timeSteps = timeSteps;
+      this.timeSteps = config.TIME_STEPS;
+    }
+
+    // 如果是编辑模式,需要找更多的信息
+    // 随访结论
+    // 医生信息
+    // 下次随访
+    if (this.editMode === 1) {
+      let res = await bll.visitDetail(this.visitId);
+      if (res.status === 200) {
+        let data = res.data;
+        console.log(data);
+        let paperVO = data.paperVO;
+        {
+          this.doctor = paperVO.doctor.id;
+        }
+
+        {
+          let advise = paperVO.advise;
+          let item = config.TIME_STEPS.find(n => advise.indexOf(n.name) >= 0);
+          if (item) {
+            this.changeTime(item.value);
+          }
+        }
+
+        {
+          let events = paperVO.events;
+          events = 7;
+          // this.isBattery, this.isXinlv, this.isQibo, this.isShezhi
+          // 4, 1, 2, 8
+          this.isBattery = !!(events & 4);
+          this.isXinlv = !!(events & 1);
+          this.isQibo = !!(events & 2);
+          this.isShezhi = !!(events & 8);
+        }
+      }
     }
   }
 };
@@ -476,7 +516,7 @@ export default {
     .cardMain {
       width: 30%;
       background: white;
-      padding: @base*2 20px;
+      padding: 20px;
       .title {
         font-size: @base / 3;
         color: rgb(102, 102, 102);
@@ -496,7 +536,7 @@ export default {
         }
       }
       .foot {
-        margin-top: @base*3;
+        margin-top: 40px;
         display: flex;
         justify-content: center;
         button {

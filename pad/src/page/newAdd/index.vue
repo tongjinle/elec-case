@@ -4,7 +4,7 @@
       <div @click="getBack()">
         <img src="../../assets/image/back.png" alt />
       </div>
-      <p>新增随访</p>
+      <p>{{this.editMode===0?'新增随访':'编辑随访'}}</p>
       <div @click="submit">提交</div>
     </div>
     <div class="content">
@@ -264,9 +264,7 @@
         <div class="mainer">
           <div class="mainerItemTitle"></div>
           <div class="mainerItem" style="text-align:center;width:3.3rem">A</div>
-          <div class="mainerItem" style="text-align:center;width:4.8rem">
-            RV
-          </div>
+          <div class="mainerItem" style="text-align:center;width:4.8rem">RV</div>
           <div class="mainerItem" style="text-align:center;width:3rem">LV</div>
         </div>
 
@@ -398,11 +396,7 @@
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">感知极性</div>
-          <div
-            class="mainerItem"
-            v-for="(item, index) in ['a', 'rv', 'lv']"
-            :key="index"
-          >
+          <div class="mainerItem" v-for="(item, index) in ['a', 'rv', 'lv']" :key="index">
             <DropDown
               :value="perceivedPolarity[item]"
               :actions="perceivedPolaritys[item]"
@@ -412,11 +406,7 @@
         </div>
         <div class="mainer">
           <div class="mainerItemTitle">起搏极性</div>
-          <div
-            class="mainerItem"
-            v-for="(item, index) in ['a', 'rv', 'lv']"
-            :key="index"
-          >
+          <div class="mainerItem" v-for="(item, index) in ['a', 'rv', 'lv']" :key="index">
             <DropDown
               :value="pacingPolarity[item]"
               :actions="pacingPolaritys[item]"
@@ -541,6 +531,12 @@ export default {
   components: { DropDown, AddButton, NumberBox },
   data() {
     return {
+      // 模式
+      // 0 新增模式
+      // 1 编辑模式
+      editMode: 0,
+      // 编辑模式下的随访id
+      visitId: "",
       // 病人编号
       patientId: "",
       // 随访类型
@@ -802,14 +798,14 @@ export default {
           qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
         };
         console.log("data", data);
-        let res = await bll.setVisitData(data);
-        res = await bll.getVisitData();
-        console.log("res", res);
+        await bll.setVisitData(data);
+
         this.$router.push({
           path: "followUpMain",
           query: {
-            id: res.patientId,
-            name: this.$route.query.name
+            id: this.patientId,
+            name: this.$route.query.name,
+            visitId: this.visitId
           }
         });
       } catch (err) {
@@ -818,42 +814,47 @@ export default {
         }
       }
     },
+    // 填充页面数据
+    _fillData(data) {
+      if (!data) {
+        console.warn("填充页面数据失败,因为data为空");
+        return;
+      }
+      this.batteryStatus = data.batteryStatus + "";
+      this.duration = data.duration - 0;
+      this.mode = data.mode;
+      this.up = data.up - 0;
+      this.down = data.down - 0;
+      this.threshold = data.threshold;
+      this.pulseWidth = data.pulseWidth;
+      this.perception = data.perception;
+      this.impedance = data.impedance;
+      this.outputVoltage = data.outputVoltage;
+      this.outputPulseWidth = data.outputPulseWidth;
+      this.outputPerception = data.outputPerception;
+      data.pacingPolarity && (this.pacingPolarity = data.pacingPolarity);
+      data.perceivedPolarity &&
+        (this.perceivedPolarity = data.perceivedPolarity);
+
+      this.apRatio = data.apRatio;
+      this.vpRatio = data.vpRatio;
+
+      this.atafImg = this._getImgObjFromUrl(data.atafImg);
+      this.atafImgFile = data.atafImg;
+      this.efRatio = data.efRatio;
+      this.efImg = this._getImgObjFromUrl(data.efImg);
+      this.efImgFile = data.efImg;
+      this.qrsRatio = data.qrsRatio;
+      this.qrsImg = this._getImgObjFromUrl(data.qrsImg);
+      this.qrsImgFile = data.qrsImg;
+    },
     async queryLast(id) {
       console.log("使用服务器中上次提交的随访记录");
       try {
         let { data } = await bll.lastVisitDetail(id);
         let paperVO = data.paperVO;
         console.log({ paperVO });
-        // this.visitType = paperVO.;
-        this.batteryStatus = paperVO.batteryStatus + "";
-        this.duration = paperVO.duration - 0;
-        console.log(paperVO.duration, this.duration);
-        this.mode = paperVO.mode;
-        this.up = paperVO.up - 0;
-        this.down = paperVO.down - 0;
-        this.threshold = paperVO.threshold;
-        this.pulseWidth = paperVO.pulseWidth;
-        this.perception = paperVO.perception;
-        this.impedance = paperVO.impedance;
-        this.outputVoltage = paperVO.outputVoltage;
-        this.outputPulseWidth = paperVO.outputPulseWidth;
-        this.outputPerception = paperVO.outputPerception;
-        paperVO.pacingPolarity &&
-          (this.pacingPolarity = paperVO.pacingPolarity);
-        paperVO.perceivedPolarity &&
-          (this.perceivedPolarity = paperVO.perceivedPolarity);
-
-        this.apRatio = paperVO.apRatio;
-        this.vpRatio = paperVO.vpRatio;
-
-        this.atafImg = this._getImgObjFromUrl(paperVO.atafImg);
-        this.atafImgFile = paperVO.atafImg;
-        this.efRatio = paperVO.efRatio;
-        this.efImg = this._getImgObjFromUrl(paperVO.efImg);
-        this.efImgFile = paperVO.efImg;
-        this.qrsRatio = paperVO.qrsRatio;
-        this.qrsImg = this._getImgObjFromUrl(paperVO.qrsImg);
-        this.qrsImgFile = paperVO.qrsImg;
+        this._fillData(paperVO);
       } catch (err) {
         console.log(err.response.data.message, "1");
         if (err.response.data.message == "token非法！") {
@@ -958,33 +959,31 @@ export default {
       lv: config.POLARS[0].value,
       rv: config.POLARS[0].value
     };
+    // 确定编辑模式
+    let query = this.$route.query;
+    let visitId = query.visitId;
+    if (visitId) {
+      this.editMode = 1;
+      this.visitId = visitId;
+      // 查询已经存在随访,并且把数据填充到页面
+      let res = await bll.visitDetail(visitId);
+      if (res.status === 200) {
+        let data = res.data;
+        console.log("待编辑的随访记录的数据:", data);
+        this._fillData(data.paperVO);
+      }
+
+      return;
+    }
+
+    // 查看有没有未完成的随访新增
     let data = localStorage.getItem("visitData");
     data = JSON.parse(data);
     if (data && data.patientId == this.patientId) {
-      this.batteryStatus = data.batteryStatus;
-      this.duration = data.duration;
-      this.mode = data.mode;
-      this.up = data.up;
-      this.down = data.down;
-      this.threshold = data.threshold;
-      this.pulseWidth = data.pulseWidth;
-      this.perception = data.perception;
-      this.impedance = data.impedance;
-      this.outputVoltage = data.outputVoltage;
-      this.outputPulseWidth = data.outputPulseWidth;
-      this.outputPerception = data.outputPerception;
-      this.apRatio = data.apRatio;
-      this.vpRatio = data.vpRatio;
-      this.efRatio = data.efRatio;
-      this.qrsRatio = data.qrsRatio;
-      this.atafImg = this._getImgObjFromUrl(data.atafImg);
-      this.atafImgFile = data.atafImg;
-      this.efImg = this._getImgObjFromUrl(data.efImg);
-      this.efImgFile = data.efImg;
-      this.qrsImg = this._getImgObjFromUrl(data.qrsImg);
-      this.qrsImgFile = data.qrsImg;
-    } else {
-      console.log(1, this.patientId);
+      this._fillData(data);
+    }
+    // 从上一次成功的随访新增中读取数据,方便新增
+    else {
       await this.queryLast(this.patientId);
     }
   }
