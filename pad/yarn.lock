@@ -6294,7 +6294,7 @@ v8-compile-cache@2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.0.3.tgz#00f7494d2ae2b688cfe2899df6ed2c54bef91dbe"
   integrity sha512-CNmdbwQMBjwr9Gsmohvm0pbL954tJrNzf6gWL3K+QMQf00PF7ERGrEiLgjuU3mKreLC2MeGhUsNV9ybTbLgd3w==
 
-vant@^2.0.8:
+vant@^2.2.16:
   version "2.2.16"
   resolved "https://registry.npm.taobao.org/vant/download/vant-2.2.16.tgz#0d03b4715d291ec3250850aed4bf5e5c1546cdea"
   integrity sha1-DQO0cV0pHsMlCFCu1L9eXBVGzeo=
