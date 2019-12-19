@@ -797,7 +797,7 @@ export default {
           qrsRatio: this.qrsRatio,
           qrsImg: getImgUrl(this.qrsImg[0], this.qrsImgFile)
         };
-        console.log("data", data);
+        console.log("set visitData", data);
         await bll.setVisitData(data);
 
         this.$router.push({
@@ -970,6 +970,7 @@ export default {
       if (res.status === 200) {
         let data = res.data;
         console.log("待编辑的随访记录的数据:", data);
+        this.patientId = data.patientId;
         this._fillData(data.paperVO);
       }
 
