@@ -13,13 +13,9 @@
             v-model="keyword"
             placeholder="请输入患者姓名"
             @keyup.enter="search"
+            @change="onSearchChange"
           />
-          <img
-            class="photoImg"
-            src="../../assets/image/phot@2x.png"
-            alt
-            @click="scan"
-          />
+          <img class="photoImg" src="../../assets/image/phot@2x.png" alt @click="scan" />
         </div>
         <div class="add" @click="onAdd">新增患者</div>
       </div>
@@ -121,6 +117,12 @@ export default {
     gotoDetails(id) {
       console.log(id);
       this.$router.push({ path: "patientMsg", query: { id: id } });
+    },
+    async onSearchChange() {
+      console.log("onSearchChange");
+      if (this.keyword === "") {
+        this.list = [];
+      }
     },
     async search() {
       let ref = this.$refs.searchBox;
