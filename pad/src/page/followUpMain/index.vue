@@ -425,6 +425,8 @@ export default {
     }
     {
       this.timeSteps = config.TIME_STEPS;
+      this.timeStep = this.timeStep || 1;
+      this.changeTime(this.timeStep);
     }
 
     // 如果是编辑模式,需要找更多的信息
