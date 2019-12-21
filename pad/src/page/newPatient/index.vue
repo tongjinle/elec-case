@@ -13,12 +13,7 @@
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">姓名</div>
-            <input
-              class="contentBody"
-              v-model="name"
-              type="text"
-              placeholder="患者姓名"
-            />
+            <input class="contentBody" v-model="name" type="text" placeholder="患者姓名" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">性别</div>
@@ -29,31 +24,17 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">出生日期</div>
-            <ChooseDateTime
-              class="contentBody"
-              :value="birth"
-              :chooseTimeHandle="chooseBirth"
-            />
+            <ChooseDateTime class="contentBody" :value="birth" :chooseTimeHandle="chooseBirth" />
           </div>
         </div>
         <div class="itemContentBox">
           <div class="itemContent">
             <div class="contentTitle">手机号</div>
-            <input
-              class="contentBody"
-              v-model="phone"
-              type="number"
-              placeholder="手机号"
-            />
+            <input class="contentBody" v-model="phone" type="number" placeholder="手机号" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">紧急联系人号码</div>
-            <input
-              class="contentBody"
-              v-model="emergPhone"
-              type="number"
-              placeholder="紧急联系人号码"
-            />
+            <input class="contentBody" v-model="emergPhone" type="number" placeholder="紧急联系人号码" />
           </div>
         </div>
       </div>
@@ -108,21 +89,11 @@
           </div>
           <div class="itemContent">
             <div class="contentTitle">型号</div>
-            <input
-              class="contentBody"
-              type="text"
-              placeholder="请输入型号"
-              v-model="deviceModel"
-            />
+            <input class="contentBody" type="text" placeholder="请输入型号" v-model="deviceModel" />
           </div>
           <div class="itemContent">
             <div class="contentTitle">序列号</div>
-            <input
-              class="contentBody"
-              type="text"
-              placeholder="请输入序列号"
-              v-model="deviceNo"
-            />
+            <input class="contentBody" type="text" placeholder="请输入序列号" v-model="deviceNo" />
           </div>
         </div>
       </div>
@@ -136,7 +107,12 @@
             <div class="footItemLeft">
               <div>EF(0~99)</div>
               <div class="footDown">
-                <input class="inputbox" type="text" v-model="plantBaseEf" />
+                <input
+                  class="inputbox"
+                  type="text"
+                  v-model="plantBaseEf"
+                  @change="onChangePlantBaseEf"
+                />
                 <span class="suffix">%</span>
               </div>
             </div>
@@ -154,7 +130,12 @@
             <div class="footItemLeft">
               <div>QRS(0~99)</div>
               <div class="footDown">
-                <input class="inputbox" type="text" v-model="plantBaseQrs" />
+                <input
+                  class="inputbox"
+                  type="text"
+                  v-model="plantBaseQrs"
+                  @change="onChangePlantBaseQrs"
+                />
                 <span class="suffix">%</span>
               </div>
             </div>
@@ -291,6 +272,24 @@ export default {
     }
   },
   methods: {
+    onChangePlantBaseEf() {
+      let num = parseFloat(this.plantBaseEf);
+      if (isNaN(num)) {
+        this.plantBaseEf = 0;
+      } else {
+        this.plantBaseEf = Math.round(num * 10) / 10;
+      }
+    },
+    onChangePlantBaseQrs() {
+      let num = parseFloat(this.plantBaseQrs);
+      if (isNaN(num)) {
+        this.plantBaseQrs = 0;
+      } else {
+        this.plantBaseQrs = Math.floor(
+          Math.max(0, Math.min(999, this.plantBaseQrs))
+        );
+      }
+    },
     _mock() {
       this.name = "童扑满";
       this.sex = "1";

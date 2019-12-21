@@ -1,5 +1,6 @@
 import axios from "axios";
-const host = "39.105.78.216";
+// const host = "39.105.78.216";
+const host = "139.196.213.100";
 const port = "8081";
 const prefix = `//${host}:${port}`;
 
