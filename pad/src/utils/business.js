@@ -57,6 +57,12 @@ export function search(keyword) {
   return createRequest().get("elecase/patients/name/" + keyword);
 }
 
+// da72a6bf-074d-44e6-b8c3-47e5cef4717e
+// 通过uuid搜索患者
+export function searchByUUID(uuid) {
+  return createRequest().get("elecase/patients/uuid/" + uuid);
+}
+
 // 获取厂家
 export function factories() {
   return createRequest().get("elecase/factories");

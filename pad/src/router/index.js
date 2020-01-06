@@ -23,6 +23,11 @@ const router = new VueRouter({
       component: loadComponent("test")
     },
     {
+      path: "/native",
+      name: "native",
+      component: loadComponent("native")
+    },
+    {
       path: "/login",
       name: "login",
       component: loadComponent("login")

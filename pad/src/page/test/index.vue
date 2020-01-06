@@ -7,14 +7,15 @@
 </template>
 
 <script>
+import * as bll from "../../utils/business";
 export default {
   name: "test",
   data() {
-    return { width: 0, height: 0 };
+    return {};
   },
-  mounted() {
-    this.width = window.document.documentElement.clientWidth;
-    this.height = widow.document.documentElement.clientHeigth;
+  async mounted() {
+    let res = await bll.searchByUUID("da72a6bf-074d-44e6-b8c3-47e5cef4717e");
+    console.log(res);
   }
 };
 </script>

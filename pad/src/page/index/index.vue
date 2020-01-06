@@ -31,6 +31,9 @@
       <li>
         <a target="_blank" href="./#/test">测试</a>
       </li>
+      <li>
+        <a target="_blank" href="./#/native">native</a>
+      </li>
     </ul>
     <hr />
     <div>屏幕大小:{{width}}*{{height}}</div>
